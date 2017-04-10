@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon Apr 10 17:11:53 2017 flavian gontier
+** Last update Mon Apr 10 17:17:36 2017 flavian gontier
 */
 
 #ifndef RAY_H_
@@ -47,12 +47,18 @@ typedef struct		s_screen
   sfVector2i		dimensions;
 }			t_screen;
 
-typedef struct		s_configuration;
+typedef struct		s_configuration
 {
   sfVector2i		framebuffer_dimensions;
   sfVector2i		window_dimensions;
   sfVector3f		light_position[4];
   sfVector3f		eyes_position;
 }			t_configuration;
+
+typedef struct		s_button;
+{
+  sfVector2i		dimensions;
+  char			text[32];
+}			t_button;
 
 #endif
