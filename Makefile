@@ -1,7 +1,5 @@
 SRCS		= src/main.c				\
-		  src/window/my_create_framebuffer.c	\
 		  src/window/my_create_window.c		\
-		  src/window/my_put_pixel.c		\
 		  src/window/my_show_window.c
 
 OBJS		= $(SRCS:.c=.o)

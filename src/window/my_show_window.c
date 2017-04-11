@@ -5,13 +5,13 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Mon Apr 10 19:19:00 2017 NANAA
+** Last update Tue Apr 11 14:10:41 2017 NANAA
 */
 
 #include <stdlib.h>
 #include "raytracer.h"
 
-void		my_show_window(sfRenderWindow *win, t_my_framebuffer *fuffer)
+void		show_window(sfRenderWindow *win, t_my_framebuffer *fuffer)
 {
   sfSprite	*sprite;
   sfTexture	*texture;
