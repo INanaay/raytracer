@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 11 14:06:06 2017 NANAA
+** Last update Tue Apr 11 15:43:18 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -25,6 +25,11 @@
 # define BITS_PER_PIXEL 32
 # define EXIT_ERROR 1
 # define EXIT_SUCCESS 0
+# define SCREEN_DEFAULT_WIDTH 640
+# define SCREEN_DEFAULT_HEIGHT 480
+# define EYES_DEFAULT_X - 200
+# define EYES_DEFAULT_Y 0
+# define EYES_DEFAULT_Z 0
 
 typedef struct		s_my_framebuffer
 {
@@ -52,7 +57,7 @@ typedef struct		s_light
 
 typedef struct		s_screen
 {
-  sfVector2i		screen;
+  sfVector2i		dimensions;
   sfVector3f		eyes;
   t_framebuffer		framebuffer;
   t_object		*objects;
@@ -71,5 +76,7 @@ typedef struct		s_button
 int			init_screen(t_screen *screen);
 int			load_screen(t_screen *screen, char *filepath);
 int			init_framebuffer(t_framebuffer *framebuffer);
+sfVector3f	        sfVector3f_create(float x, float y, float z);
+sfVector2i	        sfVector2i_create(int x, int y);
 
 #endif
