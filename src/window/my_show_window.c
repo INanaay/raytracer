@@ -5,29 +5,30 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Tue Apr 11 14:19:16 2017 anatole zeyen
+** Last update Tue Apr 11 14:10:41 2017 NANAA
 */
 
 #include <stdlib.h>
 #include "raytracer.h"
 
-void		show_window(t_screen *screen)
+void		show_window(sfRenderWindow *win, t_my_framebuffer *fuffer)
 {
   sfSprite	*sprite;
   sfTexture	*texture;
 
   sprite = sfSprite_create();
-  texture = sfTexture_create(screen->framebuffer->dimensions.x, screen->framebuffer->dimensions.y);
+  texture = sfTexture_create(fuffer->dimensions.x, fuffer->dimensions.y);
   sfSprite_setTexture(sprite, texture, sfTrue);
-  sfTexture_updateFromPixels(texture, screen->framebuffer->pixels, screen->framebuffer->dimensions.x, screen->framebuffer->dimensions.y, 0, 0);
-  while (sfRenderWindow_isOpen(screen->win))
+  sfTexture_updateFromPixels(texture, fuffer->pixels, fuffer->dimensions.x,
+			     fuffer->dimensions.y, 0, 0);
+  while (sfRenderWindow_isOpen(win))
   {
-    sfRenderWindow_clear(screen->win, sfBlack);
-    sfRenderWindow_drawSprite(screen->win, sprite, NULL);
-    sfRenderWindow_display(screen->win);
+    sfRenderWindow_clear(win, sfBlack);
+    sfRenderWindow_drawSprite(win, sprite, NULL);
+    sfRenderWindow_display(win);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
-      sfRenderWindow_close(screen->win);
+      sfRenderWindow_close(win);
   }
-  sfRenderWindow_destroy(screen->win);
+  sfRenderWindow_destroy(win);
   //  free(win);
 }
