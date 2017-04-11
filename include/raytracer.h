@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 11 14:06:06 2017 NANAA
+** Last update Tue Apr 11 14:55:09 2017 anatole zeyen
 */
 
 #ifndef RAY_H_
@@ -25,6 +25,9 @@
 # define BITS_PER_PIXEL 32
 # define EXIT_ERROR 1
 # define EXIT_SUCCESS 0
+# define EYES_DEFAULT_X -200
+# define EYES_DEFAULT_Y 0
+# define EYES_DEFAULT_Z 0
 
 typedef struct		s_my_framebuffer
 {
@@ -52,9 +55,10 @@ typedef struct		s_light
 
 typedef struct		s_screen
 {
-  sfVector2i		screen;
+  sfVector2i		dimensions;
   sfVector3f		eyes;
-  t_framebuffer		framebuffer;
+  sfRenderWindow	*win;
+  t_framebuffer		*framebuffer;
   t_object		*objects;
   int32_t		objects_count;
   t_light		*lights;
@@ -67,6 +71,11 @@ typedef struct		s_button
   sfColor		color;
   char			text[32];
 }			t_button;
+
+//create_vectors.c
+sfVector3f		my_vector3f(float x, float y , float z);
+sfVector2f		my_vector2f(float x, float y);
+sfVector2i		my_vector2i(int x, int y);
 
 int			init_screen(t_screen *screen);
 int			load_screen(t_screen *screen, char *filepath);
