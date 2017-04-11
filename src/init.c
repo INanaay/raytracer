@@ -5,16 +5,17 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue Apr 11 11:54:50 2017 flavian gontier
+** Last update Tue Apr 11 15:44:20 2017 NANAA
 */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 #include "raytracer.h"
 
-static int	init_framebuffer(framebuffer *buffer)
+int		init_framebuffer(t_framebuffer *buffer)
 {
   size_t	buffer_size;
 
@@ -34,12 +35,12 @@ int		init_screen(t_screen *screen)
   sfVector2i	dimensions;
 
   eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y, EYES_DEFAULT_Z);
-  dimensions = sfVector3f(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAUTL_HEIGHT);
+  dimensions = sfVector2i_create(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
   screen->eyes = eyes;
   screen->dimensions = dimensions;
   screen->objects_count = 0;
   screen->lights_count = 0;
-  error = init_framebuffer(&screen->buffer);
+  error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
   return (EXIT_SUCCESS);
