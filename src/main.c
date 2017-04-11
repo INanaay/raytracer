@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 15:03:39 2017 NANAA
-** Last update Tue Apr 11 11:54:55 2017 flavian gontier
+** Last update Tue Apr 11 14:09:24 2017 anatole zeyen
 */
 
 #include "raytracer.h"
