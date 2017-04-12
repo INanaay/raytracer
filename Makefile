@@ -5,7 +5,8 @@ SRCS		= src/main.c				\
 		  src/utils/my_calloc.c			\
 		  src/utils/my_memset.c			\
 		  src/gui/print_gui.c			\
-		  src/init.c
+		  src/init.c				\
+		  src/tracing/utils.c
 
 OBJS		= $(SRCS:.c=.o)
 

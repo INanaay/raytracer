@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Wed Apr 12 12:21:15 2017 anatole zeyen
+** Last update Wed Apr 12 16:28:04 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -33,15 +33,26 @@ int		init_button(t_button **buttons)
 {
   sfTexture	*texture;
   sfSprite	*sprite;
+  sfVector2f	position;
+  sfVector2f	origin;
   int		i;
 
+  origin.x = 0.0f ;
+  origin.y = 0.0f ;
+  position.x = 10.0f;
+  position.y = 10.0f;
+  sprite = sfSprite_create();
   texture = sfTexture_createFromFile(IMAGE_NAME, NULL);
+  sfSprite_setTexture(sprite, texture, sfTrue);
+  sfSprite_setScale(sprite, sfVector2f_create(0.2, 0.2));
   if (texture == NULL)
     return (EXIT_ERROR);
   i = 0;
   while (i < NB_BUTTONS)
     {
       buttons[i]->sprite = sprite;
+      buttons[i]->position = position;
+      sfSprite_setPosition(buttons[i]->sprite, position);
       i++;
     }
   return (EXIT_SUCCESS);
@@ -62,7 +73,7 @@ int		init_screen(t_screen *screen)
   error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
-  screen->buttons = malloc(sizeof (t_button) * NB_BUTTONS);
+  screen->buttons = malloc(sizeof (t_button *) * NB_BUTTONS);
   if (screen->buttons == NULL)
     return (EXIT_ERROR);
   error = init_button(&screen->buttons);
