@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 11 15:43:18 2017 NANAA
+** Last update Tue Apr 11 17:24:05 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -30,6 +30,8 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 0
+# define NB_BUTTONS 1
+# define IMAGE_NAME "src/button.png"
 
 typedef struct		s_my_framebuffer
 {
@@ -55,6 +57,13 @@ typedef struct		s_light
   sfColor		color;
 }			t_light;
 
+typedef struct		s_button
+{
+  sfVector2i		corrdinates;
+  sfColor		color;
+  sfSprite		*sprite;
+}			t_button;
+
 typedef struct		s_screen
 {
   sfVector2i		dimensions;
@@ -64,19 +73,17 @@ typedef struct		s_screen
   int32_t		objects_count;
   t_light		*lights;
   int32_t		lights_count;
+  t_button		*buttons;
+  sfRenderWindow	*window;
 }			t_screen;
 
-typedef struct		s_button
-{
-  sfVector2i		coordonates;
-  sfColor		color;
-  char			text[32];
-}			t_button;
-
+void			*my_memset(char *ptr, int len, int value);
+void			*my_calloc(size_t len);
 int			init_screen(t_screen *screen);
 int			load_screen(t_screen *screen, char *filepath);
 int			init_framebuffer(t_framebuffer *framebuffer);
 sfVector3f	        sfVector3f_create(float x, float y, float z);
 sfVector2i	        sfVector2i_create(int x, int y);
+sfRenderWindow          *my_create_window(char *name, int width, int height);
 
 #endif

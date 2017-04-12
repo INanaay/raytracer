@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue Apr 11 15:44:20 2017 NANAA
+** Last update Wed Apr 12 12:03:18 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -28,6 +28,24 @@ int		init_framebuffer(t_framebuffer *buffer)
   return (EXIT_SUCCESS);
 }
 
+int		init_button(t_button **buttons)
+{
+  sfTexture	*texture;
+  sfSprite	*sprite;
+  int		i;
+
+  texture = sfTexture_createFromFile(IMAGE_NAME, NULL);
+  if (texture == NULL)
+    return (EXIT_ERROR);
+  i = 0;
+  while (i < NB_BUTTONS)
+    {
+      buttons[i]->sprite = sprite;
+      i++;
+    }
+  return (EXIT_SUCCESS);
+}
+
 int		init_screen(t_screen *screen)
 {
   int		error;
@@ -43,6 +61,13 @@ int		init_screen(t_screen *screen)
   error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
+  screen->buttons = malloc(sizeof (t_button) * NB_BUTTONS);
+  if (screen->buttons == NULL)
+    return (EXIT_ERROR);
+  error = init_button(&screen->buttons);
+  if (error)
+    return (EXIT_SUCCESS);
+  screen->window = my_create_window(NAME, SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
   return (EXIT_SUCCESS);
 }
 
