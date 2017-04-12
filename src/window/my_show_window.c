@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Wed Apr 12 12:10:19 2017 NANAA
+** Last update Wed Apr 12 12:30:04 2017 anatole zeyen
 */
 
 #include <stdlib.h>
@@ -16,6 +16,7 @@ void		show_window(sfRenderWindow *win, t_my_framebuffer *fuffer)
   sfSprite	*sprite;
   sfTexture	*texture;
 
+  win = my_create_window("rtv2", SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
   sprite = sfSprite_create();
   texture = sfTexture_create(fuffer->dimensions.x, fuffer->dimensions.y);
   sfSprite_setTexture(sprite, texture, sfTrue);
