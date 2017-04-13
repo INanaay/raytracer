@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 16:56:27 2017 Nathan Lebon
-** Last update Fri Mar 17 13:25:43 2017 NANAA
+** Last update Thu Apr 13 13:26:43 2017 anatole zeyen
 */
 
 #include "include/ray.h"
@@ -30,5 +30,5 @@ float		intersect_cyl(t_eye *eye, float radius, t_object *obj)
 sfVector3f	get_normal_cylinder(sfVector3f inter)
 {
   inter.z = 0;
-  return (get_normal_vector(inter));
+  return (inter);
 }
