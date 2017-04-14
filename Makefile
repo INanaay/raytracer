@@ -7,7 +7,9 @@ SRCS		= src/main.c				\
 		  src/gui/print_gui.c			\
 		  src/init.c				\
 		  src/tracing/utils.c			\
-		  src/gui/button_hit.c
+		  src/gui/button_hit.c			\
+		  src/tracing/draw_objects.c		\
+		  src/gui/handle_poll_events.c
 
 OBJS		= $(SRCS:.c=.o)
 

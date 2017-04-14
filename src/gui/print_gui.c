@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 ** 
 ** Started on  Tue Apr 11 14:03:40 2017 anatole zeyen
-** Last update Tue Apr 11 17:35:33 2017 NANAA
+** Last update Fri Apr 14 19:33:49 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -17,7 +17,7 @@ int	print_gui(t_screen *screen)
   i = 0;
   while (i < NB_BUTTONS)
     {
-      //      sfSprite_setPosition(screen->buttons[i].sprite, origin);
+      sfSprite_setPosition(screen->buttons[i].sprite, screen->buttons[i].position),
       sfRenderWindow_drawSprite(screen->window, screen->buttons[i].sprite, NULL);
       i++;
     }

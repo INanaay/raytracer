@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Wed Apr 12 17:27:41 2017 NANAA
+** Last update Fri Apr 14 18:23:46 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -15,6 +15,7 @@ void		show_window(t_screen *screen)
 {
   sfSprite	*sprite;
   sfTexture	*texture;
+  sfEvent	event;
 
   sprite = sfSprite_create();
   texture = sfTexture_create(screen->framebuffer.dimensions.x, screen->framebuffer.dimensions.y);
@@ -26,10 +27,7 @@ void		show_window(t_screen *screen)
     sfRenderWindow_display(screen->window);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
       sfRenderWindow_close(screen->window);
-    if (sfMouse_isButtonPressed(sfMouseLeft) == sfTrue)
-      {
-	is_button_hit(screen->window, &screen->buttons);
-      }
+    handle_poll_events(screen);
   }
   sfRenderWindow_destroy(screen->window);
   //  free(win);
