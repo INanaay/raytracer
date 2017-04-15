@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Fri Apr 14 18:23:46 2017 NANAA
+** Last update Sat Apr 15 11:34:45 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -15,7 +15,6 @@ void		show_window(t_screen *screen)
 {
   sfSprite	*sprite;
   sfTexture	*texture;
-  sfEvent	event;
 
   sprite = sfSprite_create();
   texture = sfTexture_create(screen->framebuffer.dimensions.x, screen->framebuffer.dimensions.y);

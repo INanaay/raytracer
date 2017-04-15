@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri Apr 14 19:51:02 2017 NANAA
+** Last update Sat Apr 15 12:09:13 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -91,7 +91,7 @@ int		        print_gui(t_screen *screen);
 int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
-int			check_buttons(sfRenderWindow *window, t_button *buttons);
+int			check_buttons(t_screen *);
 int	                find_nearest_intersect(t_object **objects,
 					       sfVector3f dir_vector, sfVector3f eyes);
 void			handle_poll_events(t_screen *screen);

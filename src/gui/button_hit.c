@@ -5,27 +5,26 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Fri Apr 14 19:48:02 2017 NANAA
+** Last update Sat Apr 15 14:45:35 2017 NANAA
 */
 
 #include "raytracer.h"
 
-int		check_buttons(sfRenderWindow *window, t_button *buttons)
+int		check_buttons(t_screen *screen)
 {
   int	i;
   sfVector2i	mouse_position;
 
   i = 0;
-  mouse_position = sfMouse_getPositionRenderWindow(window);
+  mouse_position = sfMouse_getPositionRenderWindow(screen->window);
   while (i < NB_BUTTONS)
     {
-      printf("%f\n", buttons[i].position.x);
-      if ((mouse_position.x >= buttons[i].position.x &&
-	  mouse_position.x <=  buttons[i].position.x + 160) &&
-	  (mouse_position.y >= buttons[i].position.y &&
-	   mouse_position.y <= buttons[i].position.y + 74))
+      if ((mouse_position.x >= screen->buttons[i].position.x &&
+	  mouse_position.x <=  screen->buttons[i].position.x + 160) &&
+	  (mouse_position.y >= screen->buttons[i].position.y &&
+	   mouse_position.y <= screen->buttons[i].position.y + 74))
 	{
-	  printf("hit\n");
+	  printf("button nb %i = hit\n", i + 1);
 	}
       else
 	printf("no hit\n");

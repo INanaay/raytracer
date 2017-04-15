@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 17:53:04 2017 NANAA
-** Last update Fri Apr 14 19:48:41 2017 NANAA
+** Last update Sat Apr 15 12:09:50 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -18,6 +18,6 @@ void		handle_poll_events(t_screen *screen)
     {
       if ((event.type == sfEvtMouseButtonPressed) &&
 	  (event.mouseButton.button == sfMouseLeft))
-	check_buttons(screen->window, screen->buttons);
+	check_buttons(screen);
     }
 }

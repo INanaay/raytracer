@@ -17,7 +17,7 @@ NAME		= raytracer2
 
 RM		= rm -rf
 
-CFLAGS		= -g3
+CFLAGS		= -g3 -Wall -Wextra
 
 CPPFLAGS	= -Iinclude
 
