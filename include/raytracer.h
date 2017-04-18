@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat Apr 15 12:09:13 2017 NANAA
+** Last update Tue Apr 18 11:41:34 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -30,7 +30,7 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 0
-# define NB_BUTTONS 4
+# define NB_BUTTONS 0
 # define IMAGE_NAME "src/button.png"
 # define FRAMEBUFFER_X_POSITION 200
 
@@ -92,8 +92,8 @@ int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_buttons(t_screen *);
-int	                find_nearest_intersect(t_object **objects,
-					       sfVector3f dir_vector, sfVector3f eyes);
+int	                find_nearest_intersect(t_object *objects,
+					       sfVector3f dir_vector, sfVector3f eyes, int nb_objects);
 void			handle_poll_events(t_screen *screen);
 
 #endif

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 15:03:39 2017 NANAA
-** Last update Wed Apr 12 16:41:14 2017 NANAA
+** Last update Tue Apr 18 11:34:38 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -25,6 +25,7 @@ int			 main(int argc, char **argv)
   // error = print_objects(&screen);
   //if (error)
   // return (EXIT_ERROR);
+  //  my_put_pixel(&(screen.framebuffer), sfVector2i_create(200, 200), sfRed);
   show_window(&screen);
   if (error)
     return (EXIT_ERROR);
