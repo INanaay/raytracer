@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue Apr 18 10:56:34 2017 NANAA
+** Last update Tue Apr 18 14:23:05 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -67,13 +67,13 @@ int		init_screen(t_screen *screen)
   dimensions = sfVector2i_create(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
   screen->eyes = eyes;
   screen->dimensions = dimensions;
-  screen->objects_count = 0;
+  screen->objects_count = 1;
   screen->lights_count = 0;
   error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
   screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS);
-  if (error)
+  if (screen->buttons == NULL)
     return (EXIT_ERROR);
   error = set_button(screen->buttons);
   if (error)

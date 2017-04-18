@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 18 11:41:34 2017 NANAA
+** Last update Tue Apr 18 14:37:35 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -19,20 +19,20 @@
 # define NAME "raytracer2"
 # define FRAMEBUFFER_DEFAULT_WIDTH 640
 # define FRAMEBUFFER_DEFAULT_HEIGHT 480
-# define WINDOW_DEFAULT_WIDTH 800
+# define WINDOW_DEFAULT_WIDTH 1000
 # define WINDOW_DEFAULT_HEIGHT 480
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
 # define EXIT_ERROR 1
 # define EXIT_SUCCESS 0
-# define SCREEN_DEFAULT_WIDTH 640
+# define SCREEN_DEFAULT_WIDTH 1000
 # define SCREEN_DEFAULT_HEIGHT 480
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 0
-# define NB_BUTTONS 0
+# define NB_BUTTONS 4
 # define IMAGE_NAME "src/button.png"
-# define FRAMEBUFFER_X_POSITION 200
+# define FRAMEBUFFER_X_POSITION 350
 
 typedef struct		s_my_framebuffer
 {
@@ -95,5 +95,6 @@ int			check_buttons(t_screen *);
 int	                find_nearest_intersect(t_object *objects,
 					       sfVector3f dir_vector, sfVector3f eyes, int nb_objects);
 void			handle_poll_events(t_screen *screen);
+void            draw_objects(t_my_framebuffer *buffer, t_object *objects, sfVector3f eyes, int nb_objects);
 
 #endif
