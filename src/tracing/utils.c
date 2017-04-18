@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Fri Apr 14 17:03:56 2017 NANAA
+** Last update Tue Apr 18 11:46:20 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -18,7 +18,7 @@ void	my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color)
     return ;
   if (coords.y >= buffer->dimensions.y || coords.y < 0)
     return ;
-  index = (buffer->dimensions.x * coords.y) + coords.x;
+  index = (buffer->dimensions.x * coords.y + coords.x) * 4;
   buffer->pixels[index] = color.r;
   buffer->pixels[index + 1] = color.g;
   buffer->pixels[index + 2] = color.b;
