@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 18 14:37:35 2017 NANAA
+** Last update Sat Apr 22 19:26:03 2017 flavian gontier
 */
 
 #ifndef RAY_H_
@@ -44,12 +44,13 @@ typedef t_my_framebuffer t_framebuffer;
 
 typedef struct		s_object
 {
+  int			id;
   sfVector3f		position;
   sfColor		color;
   float			value;
-  float			(*intersect)(sfVector3f, sfVector3f, float);
   bool			is_transparent;
   bool			is_mirror;
+  float			(*intersect)(sfVector3f, sfVector3f, float);
 }			t_object;
 
 typedef struct		s_light
@@ -71,10 +72,11 @@ typedef struct		s_screen
   sfVector3f		eyes;
   t_framebuffer		framebuffer;
   t_object		*objects;
-  int32_t		objects_count;
+  size_t		objects_count;
   t_light		*lights;
-  int32_t		lights_count;
+  size_t		lights_count;
   t_button		*buttons;
+  size_t		buttons_count;
   sfRenderWindow	*window;
 }			t_screen;
 
