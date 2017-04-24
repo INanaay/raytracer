@@ -5,22 +5,20 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Sat Apr 22 19:26:00 2017 flavian gontier
+** Last update Mon Apr 24 15:33:38 2017 flavian gontier
 */
 
 static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
 {
-  size_t	index;
   size_t	count;
   int		bytes;
 
-  index = 0;
-  count = buffer->dimensions.x * buffer->dimensions.y;
-  bytes = write(fd, buffer->pixels, count);
-  if (bytes != count)
-    return (EXIT_ERROR);
+  count = (buffer->dimensions.x * buffer->dimensions.y) * 4;
   bytes = write(fd, &buffer->dimensons, sizeof(buffer->dimensions));
   if (bytes != sizeof(buffer->dimensions))
+    return (EXIT_ERROR);
+  bytes = write(fd, &buffer->pixels, count);
+  if (bytes != count)
     return (EXIT_ERROR);
   return (EXIT_SUCCESS);
 }
