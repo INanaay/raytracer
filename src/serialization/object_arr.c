@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 24 11:37:19 2017 NANAA
-** Last update Mon Apr 24 12:14:07 2017 NANAA
+** Last update Mon Apr 24 12:28:24 2017 NANAA
 */
 
 int	init_objects(t_object *objects, int objects_count)
@@ -22,7 +22,7 @@ t_object	*realloc_arr(t_object *objects, int objects_count)
   int		index;
 
   index = 0;
-  new = malloc(sizeof (t_object) * objects_count + 2);
+  new = malloc(sizeof (t_object) * objects_count + 1);
   if (new == NULL)
     return (EXIT_ERROR);
   while (index < objects_count)
