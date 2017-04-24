@@ -19,16 +19,24 @@ CFLAGS		= 	-g3 -Wall -Wextra
 
 CPPFLAGS	= 	-Iinclude
 
+MY_LIB		=	src/lib
+
 all:			$(NAME)
 
+$(MY_LIB):
+		make -C lib
+
 $(NAME):		$(OBJS)
-				gcc -o $(NAME) $(OBJS) -lc_graph_prog_full
+			make -C src/lib
+			gcc -o $(NAME) $(OBJS) -lc_graph_prog_full libmy.a
 
 clean:
-				$(RM) $(OBJS)
+			$(RM) $(OBJS)
+			make -C src/lib clean
 
-fclean:			clean
-				$(RM) $(NAME)
+fclean:			clean	
+			$(RM) $(NAME)
+			make -C src/lib fclean
 
 re:				fclean all
 

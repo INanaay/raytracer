@@ -1,16 +1,6 @@
-##
-## Makefile for shell in /home/flavian.gontier/Tek1/C_Prog_Elem/minishell
-##
-## Made by flavian gontier
-## Login   <flavian.gontier@epitech.net>
-##
-## Started on  Sat Jan 21 00:04:28 2017 flavian gontier
-## Last update Sun Apr 09 22:11:00 2017 flavian gontier
-##
-
 CC		=	gcc
 
-LINKDIR	=	../../inc
+LINKDIR	=	../../include
 
 CFLAGS	+=	-Wall -Wextra -Werror -g3 -I$(LINKDIR)
 
@@ -59,9 +49,12 @@ SRC		=	io/my_put.c									\
 
 OBJS	=		$(SRC:.c=.o)
 
+
 RM      =       rm -rf
 
 NAME    =     	../../libmy.a
+
+CPPFLAGS = -I../../Iinclude
 
 all:			$(NAME)
 
