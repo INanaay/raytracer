@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat Apr 22 19:26:03 2017 flavian gontier
+** Last update Mon Apr 24 16:30:58 2017 flavian gontier
 */
 
 #ifndef RAY_H_
@@ -32,7 +32,12 @@
 # define EYES_DEFAULT_Z 0
 # define NB_BUTTONS 4
 # define IMAGE_NAME "src/button.png"
-# define FRAMEBUFFER_X_POSITION 350
+# define SCENE_DEFAULT_X 350
+# define SCENE_DEFAULT_Y 0
+
+/*
+** Graphic types
+*/
 
 typedef struct		s_my_framebuffer
 {
@@ -71,14 +76,35 @@ typedef struct		s_screen
   sfVector2i		dimensions;
   sfVector3f		eyes;
   t_framebuffer		framebuffer;
-  t_object		*objects;
-  size_t		objects_count;
+  t_listObject		objects;
   t_light		*lights;
   size_t		lights_count;
   t_button		*buttons;
   size_t		buttons_count;
   sfRenderWindow	*window;
 }			t_screen;
+
+/*
+** utils
+*/
+
+typedef struct		s_nodeObject
+{
+  struct s_object	object;
+  struct s_nodeObject	*next;
+  struct s_nodeObject	*prev;
+}			t_nodeObject;
+
+typedef struct		s_listObject
+{
+  size_t		count;
+  t_nodeObject		*begin;
+  t_nodeObject		*end;
+}			t_listObject;
+
+/*
+** Prototypes
+*/
 
 void			*my_memset(char *ptr, int len, int value);
 void			*my_calloc(size_t len);
