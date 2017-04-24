@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon Apr 24 16:30:58 2017 flavian gontier
+** Last update Mon Apr 24 19:21:56 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -35,17 +35,6 @@
 # define SCENE_DEFAULT_X 350
 # define SCENE_DEFAULT_Y 0
 
-/*
-** Graphic types
-*/
-
-typedef struct		s_my_framebuffer
-{
-  sfUint8		*pixels;
-  sfVector2i		dimensions;
-}			t_my_framebuffer;
-
-typedef t_my_framebuffer t_framebuffer;
 
 typedef struct		s_object
 {
@@ -58,6 +47,36 @@ typedef struct		s_object
   float			(*intersect)(sfVector3f, sfVector3f, float);
 }			t_object;
 
+/*
+** Utils
+*/
+
+typedef struct		s_nodeObject
+{
+  struct s_object	object;
+  struct s_nodeObject	*next;
+  struct s_nodeObject	*prev;
+}			t_nodeObject;
+
+typedef struct		s_listObject
+{
+  size_t		count;
+  t_nodeObject		*begin;
+  t_nodeObject		*end;
+}			t_listObject;
+
+/*
+** Graphic types
+*/
+
+typedef struct		s_my_framebuffer
+{
+  sfUint8		*pixels;
+  sfVector2i		dimensions;
+}			t_my_framebuffer;
+
+typedef t_my_framebuffer t_framebuffer;
+
 typedef struct		s_light
 {
   sfVector3f		coordinates;
@@ -66,6 +85,7 @@ typedef struct		s_light
 
 typedef struct		s_button
 {
+  int			id;
   sfVector2f		position;
   sfColor		color;
   sfSprite		*sprite;
@@ -83,24 +103,6 @@ typedef struct		s_screen
   size_t		buttons_count;
   sfRenderWindow	*window;
 }			t_screen;
-
-/*
-** utils
-*/
-
-typedef struct		s_nodeObject
-{
-  struct s_object	object;
-  struct s_nodeObject	*next;
-  struct s_nodeObject	*prev;
-}			t_nodeObject;
-
-typedef struct		s_listObject
-{
-  size_t		count;
-  t_nodeObject		*begin;
-  t_nodeObject		*end;
-}			t_listObject;
 
 /*
 ** Prototypes
@@ -123,6 +125,6 @@ int			check_buttons(t_screen *);
 int	                find_nearest_intersect(t_object *objects,
 					       sfVector3f dir_vector, sfVector3f eyes, int nb_objects);
 void			handle_poll_events(t_screen *screen);
-void            draw_objects(t_my_framebuffer *buffer, t_object *objects, sfVector3f eyes, int nb_objects);
+void		        draw_objects(t_my_framebuffer *buffer, t_listObject objects, sfVector3f eyes, int nb_objects);
 
 #endif

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Sat Apr 15 14:45:35 2017 NANAA
+** Last update Mon Apr 24 19:23:35 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -24,7 +24,9 @@ int		check_buttons(t_screen *screen)
 	  (mouse_position.y >= screen->buttons[i].position.y &&
 	   mouse_position.y <= screen->buttons[i].position.y + 74))
 	{
-	  printf("button nb %i = hit\n", i + 1);
+	  if (screen->buttons[i].id % 2 == 0)
+	    printf("add object\n");
+	    //	  printf("button nb %i = hit\n", i + 1);
 	}
       else
 	printf("no hit\n");
