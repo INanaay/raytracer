@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon Apr 24 19:21:56 2017 NANAA
+** Last update Tue Apr 25 14:10:18 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -30,15 +30,20 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 0
-# define NB_BUTTONS 4
+# define NB_BUTTONS 6
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 350
 # define SCENE_DEFAULT_Y 0
 
 
+typedef enum e_objects
+  {
+    SPHERE, PLANE, CONE, CYL
+  }	     t_e_objects;
+
 typedef struct		s_object
 {
-  int			id;
+  int			type;
   sfVector3f		position;
   sfColor		color;
   float			value;
@@ -53,6 +58,7 @@ typedef struct		s_object
 
 typedef struct		s_nodeObject
 {
+  int			id;
   struct s_object	object;
   struct s_nodeObject	*next;
   struct s_nodeObject	*prev;
@@ -121,10 +127,15 @@ int		        print_gui(t_screen *screen);
 int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
-int			check_buttons(t_screen *);
-int	                find_nearest_intersect(t_object *objects,
+int			check_button_hit(t_screen *);
+int	                find_nearest_intersect(t_listObject *objects,
 					       sfVector3f dir_vector, sfVector3f eyes, int nb_objects);
 void			handle_poll_events(t_screen *screen);
 void		        draw_objects(t_my_framebuffer *buffer, t_listObject objects, sfVector3f eyes, int nb_objects);
+t_object		init_object(int type);
+int			add_object(t_listObject *objects, int type);
+int			listObject_add(t_listObject *list, t_object object);
+t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
+int		        listObject_remove(t_listObject *list, int64_t);
 
 #endif

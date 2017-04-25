@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Mon Apr 24 16:29:28 2017 flavian gontier
-** Last update Mon Apr 24 16:46:23 2017 flavian gontier
+** Last update Tue Apr 25 12:05:35 2017 NANAA
 */
 
 #include "libmy.h"
@@ -13,7 +13,7 @@
 
 int	listObject_init(t_listObject *list)
 {
-  list->length = 0;
+  list->count = 0;
   list->begin = NULL;
   list->end = NULL;
   return (EXIT_SUCCESS);

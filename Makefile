@@ -7,7 +7,12 @@ SRCS		=	src/main.c							\
 		  		src/tracing/utils.c					\
 		  		src/gui/button_hit.c				\
 		  		src/tracing/draw_objects.c			\
-		  		src/gui/handle_poll_events.c
+		  		src/gui/handle_poll_events.c			\
+				src/tracing/create_object.c			\
+				src/utils/list/listObject_add.c				\
+				src/utils/list/listObject_getNode.c		\
+				src/utils/list/listObject_init.c		\
+				src/utils/list/listObject_remove.c
 
 OBJS		= 	$(SRCS:.c=.o)
 
@@ -15,9 +20,9 @@ NAME		= 	raytracer2
 
 RM			= 	rm -rf
 
-CFLAGS		= 	-g3 -Wall -Wextra
+CFLAGS		= 	-g3
 
-CPPFLAGS	= 	-Iinclude
+CPPFLAGS	= 	-Iinclude -Wall -Wextra
 
 MY_LIB		=	src/lib
 

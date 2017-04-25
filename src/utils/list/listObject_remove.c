@@ -5,29 +5,29 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Mon Apr 24 16:50:06 2017 flavian gontier
-** Last update Mon Apr 24 18:44:28 2017 flavian gontier
+** Last update Tue Apr 25 13:50:52 2017 NANAA
 */
 
 #include "raytracer.h"
 
-int		listObject_remove(t_listObject *list, t_object *object)
+int		listObject_remove(t_listObject *list, int64_t id)
 {
-  t_node	*node;
+  t_nodeObject	*node;
 
-  node = listObject_getNode(list, object);
+  node = listObject_getNode(list, id);
   if (node == NULL)
     return (EXIT_ERROR);
-  if (list->length-- != 1)
+  if (list->count-- != 1)
   {
     if (node->next == NULL)
     {
       list->end = node->prev;
-      node->prev->next == NULL;
+      node->prev->next = NULL;
     }
     else if (node->prev == NULL)
     {
       list->begin = node->next;
-      node->next->prev == NULL;
+      node->next->prev = NULL;
     }
     else
     {
