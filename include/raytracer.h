@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue Apr 25 14:10:18 2017 NANAA
+** Last update Wed Apr 26 11:48:02 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -32,13 +32,17 @@
 # define EYES_DEFAULT_Z 0
 # define NB_BUTTONS 6
 # define IMAGE_NAME "src/button.png"
-# define SCENE_DEFAULT_X 350
+# define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
+# define SCENE_DEFAULT_
 
 
 typedef enum e_objects
   {
-    SPHERE, PLANE, CONE, CYL
+    sphere,
+    plane,
+    cone,
+    cyl
   }	     t_e_objects;
 
 typedef struct		s_object
@@ -49,7 +53,7 @@ typedef struct		s_object
   float			value;
   bool			is_transparent;
   bool			is_mirror;
-  float			(*intersect)(sfVector3f, sfVector3f, float);
+  float			(*intersect)(sfVector3f, sfVector3f, sfVector3f, float);
 }			t_object;
 
 /*
@@ -128,8 +132,7 @@ int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *);
-int	                find_nearest_intersect(t_listObject *objects,
-					       sfVector3f dir_vector, sfVector3f eyes, int nb_objects);
+int	                find_nearest_intersect(t_listObject *objects, sfVector3f dir_vector, sfVector3f eyes);
 void			handle_poll_events(t_screen *screen);
 void		        draw_objects(t_my_framebuffer *buffer, t_listObject objects, sfVector3f eyes, int nb_objects);
 t_object		init_object(int type);
@@ -137,5 +140,8 @@ int			add_object(t_listObject *objects, int type);
 int			listObject_add(t_listObject *list, t_object object);
 t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
 int		        listObject_remove(t_listObject *list, int64_t);
+float			intersect_sphere(sfVector3f, sfVector3f, sfVector3f, float);
+sfVector3f	        calc_dir_vector(sfVector3f eye_pos, sfVector2i screen_pos);
+sfVector3f	        get_normal_vector(sfVector3f vector);
 
 #endif

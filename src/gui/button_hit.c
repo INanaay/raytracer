@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Tue Apr 25 12:29:06 2017 NANAA
+** Last update Wed Apr 26 10:34:00 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -15,8 +15,7 @@ int		add_object(t_listObject *objects, int type)
   t_object		new_object;
 
   new_object = init_object(type);
-  listObject_add(objects, new_object);
-  
+  listObject_add(objects, new_object);  
 }
 
 int		check_button_hit(t_screen *screen)

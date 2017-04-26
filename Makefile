@@ -12,7 +12,10 @@ SRCS		=	src/main.c							\
 				src/utils/list/listObject_add.c				\
 				src/utils/list/listObject_getNode.c		\
 				src/utils/list/listObject_init.c		\
-				src/utils/list/listObject_remove.c
+				src/utils/list/listObject_remove.c		\
+				src/tracing/sphere.c				\
+				src/tracing/dir_vector.c			\
+				src/tracing/normalize_vector.c
 
 OBJS		= 	$(SRCS:.c=.o)
 
@@ -33,7 +36,7 @@ $(MY_LIB):
 
 $(NAME):		$(OBJS)
 			make -C src/lib
-			gcc -o $(NAME) $(OBJS) -lc_graph_prog_full libmy.a
+			gcc -o $(NAME) $(OBJS) -lc_graph_prog_full -lm libmy.a
 
 clean:
 			$(RM) $(OBJS)

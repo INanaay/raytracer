@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Mon Apr 24 19:23:06 2017 NANAA
+** Last update Tue Apr 25 14:58:28 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -39,7 +39,7 @@ int		set_button(t_button *buttons)
   int		id;
 
   id = 0;
-  position = sfVector2f_create(10, 10);
+  position = sfVector2f_create(600, 10);
   sprite = sfSprite_create();
   texture = sfTexture_createFromFile(IMAGE_NAME, NULL);
   sfSprite_setTexture(sprite, texture, sfTrue);
@@ -53,8 +53,8 @@ int		set_button(t_button *buttons)
       buttons[i].sprite = sprite;
       buttons[i].position = position;
       position.x += 180;
-      if (position.x > 160 * 2 + 10)
-	position = sfVector2f_create(10, position.y + 75);
+      if (position.x > 160 * 2 + 600)
+	position = sfVector2f_create(600, position.y + 75);
       i++;
     }
   return (EXIT_SUCCESS);
