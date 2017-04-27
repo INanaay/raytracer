@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Thu Apr 27 15:27:37 2017 NANAA
+** Last update Thu Apr 27 16:31:30 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -16,7 +16,7 @@ t_object	init_object(int type)
   t_object	new_object;
 
   new_object.type = type;
-  new_object.position = sfVector3f_create(0, 0, 0);
+  new_object.position = sfVector3f_create(10, 0, 0);
   new_object.color = sfRed;
   if (type == plane)
     new_object.value = 0;

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu Apr 27 15:04:27 2017 NANAA
+** Last update Thu Apr 27 16:29:57 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -154,5 +154,6 @@ float			intersect_cone(sfVector3f *dir_vector, sfVector3f *eye_pos,
 float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos,
 				      sfVector3f *object, float radius);
 int			listObject_init(t_listObject *list);
+t_object	        get_object_to_draw(t_listObject *objects, int id);
 
 #endif
