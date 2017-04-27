@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Wed Apr 26 10:34:00 2017 NANAA
+** Last update Thu Apr 27 16:02:41 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -25,7 +25,6 @@ int		check_button_hit(t_screen *screen)
   int		count;
 
   count = screen->objects.count;
-  printf("nb_obj%i\n", count);
   i = 0;
   mouse_position = sfMouse_getPositionRenderWindow(screen->window);
   while (i < NB_BUTTONS)
@@ -40,5 +39,6 @@ int		check_button_hit(t_screen *screen)
 	}
       i++;
     }
+  draw_objects(&(screen->framebuffer), &(screen->objects), screen->eyes);
   return (EXIT_SUCCESS);
 }

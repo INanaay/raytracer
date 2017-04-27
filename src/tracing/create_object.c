@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Thu Apr 27 12:22:13 2017 NANAA
+** Last update Thu Apr 27 15:27:37 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -21,7 +21,7 @@ t_object	init_object(int type)
   if (type == plane)
     new_object.value = 0;
   else
-    new_object.value = 10;
+    new_object.value = 40;
   new_object.is_transparent = false;
   new_object.is_mirror = false;
   if (type == sphere)

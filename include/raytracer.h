@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu Apr 27 12:22:59 2017 NANAA
+** Last update Thu Apr 27 15:04:27 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -149,7 +149,10 @@ sfVector3f	        calc_dir_vector(sfVector3f eye_pos, sfVector2i screen_pos);
 sfVector3f	        get_normal_vector(sfVector3f vector);
 float		        get_root(float a, float b, float delt);
 float		        intersect_plane(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *, float);
-float			intersect_cone(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *object, float radius);
-float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *object, float radius);
+float			intersect_cone(sfVector3f *dir_vector, sfVector3f *eye_pos,
+				       sfVector3f *object, float radius);
+float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos,
+				      sfVector3f *object, float radius);
+int			listObject_init(t_listObject *list);
 
 #endif

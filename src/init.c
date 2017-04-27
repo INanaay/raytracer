@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Wed Apr 26 12:02:19 2017 NANAA
+** Last update Thu Apr 27 16:01:08 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -68,7 +68,7 @@ int		init_screen(t_screen *screen)
   sfVector2i	dimensions;
 
   eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y, EYES_DEFAULT_Z);
-  dimensions = sfVector2i_create(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
+  dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
   screen->eyes = eyes;
   screen->dimensions = dimensions;
   screen->lights_count = 0;
@@ -81,6 +81,7 @@ int		init_screen(t_screen *screen)
   error = set_button(screen->buttons);
   if (error)
     return (EXIT_SUCCESS);
+  error = listObject_init(&screen->objects);
   screen->window = my_create_window(NAME, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
   return (EXIT_SUCCESS);
 }

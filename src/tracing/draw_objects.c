@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Thu Apr 27 12:26:18 2017 NANAA
+** Last update Thu Apr 27 16:01:57 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -23,12 +23,12 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
   if (objects->count == 0)
     return (EMPTY);
   node = objects->begin;
-  min = node->object.intersect(dir_vector, eyes, &node->object.position,
+  min = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
 			       node->object.value);
-  while (node != NULL)
+  while (node->next != NULL)
     {
       node = node->next;
-      temp = node->object.intersect(dir_vector, eyes, &node->object.position,
+      temp = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
 				    node->object.value);
       if (temp < min && temp > 0)
 	{
@@ -37,28 +37,26 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
 	}
     }
   return (id);
-  /*
-  min = objects[0].intersect(eyes, dir_vector, objects[0].value);
-  i = 1;
-  place = 0;
-  while (i < nb_objects)
+}
+
+t_object	get_object_to_draw(t_listObject *objects, int id)
+{
+  t_nodeObject	*temp;
+
+  temp = objects->begin;
+  while (temp->next != NULL && temp->id != id)
     {
-      temp = objects[i].intersect(eyes, dir_vector, objects[i].value);
-      if (temp < min && temp > 0)
-	{
-	  place = i;
-	  min = temp;
-	}
-      i++;
+      temp = temp->next;
     }
-    return (place);*/
+  return (temp->object);
 }
 
 void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes)
 {
   sfVector2i	screen_pos;
-    sfVector3f	dir_vector;
+  sfVector3f	dir_vector;
   int		id;
+  t_object	obj;
   
   screen_pos = sfVector2i_create(0, 0);
   id = -1;
@@ -67,9 +65,15 @@ void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f e
       screen_pos.x = SCENE_DEFAULT_X;
       while (screen_pos.x < FRAMEBUFFER_DEFAULT_WIDTH)
 	{
-	  my_put_pixel(buffer, screen_pos, sfRed);
-	  dir_vector = calc_dir_vector(eyes, screen_pos);
-	  id = find_nearest_intersect(objects, &dir_vector, &eyes);
+	  dir_vector = calc_dir_vector(eyes, screen_pos );
+	  id = find_nearest_intersect(&(*objects), &dir_vector, &eyes);
+	 
+	  if (id != -1)
+	    {
+	      obj = get_object_to_draw(&(*objects), id);
+	      if (obj.intersect(&dir_vector, &eyes, &obj.position, obj.value) > 0)
+		my_put_pixel(buffer, screen_pos, sfRed);
+	    }
 	  screen_pos.x++;
 	}
       screen_pos.y++;

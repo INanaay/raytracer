@@ -2,7 +2,7 @@ CC		=	gcc
 
 LINKDIR	=	../../include
 
-CFLAGS	+=	-Wall -Wextra -Werror -I$(LINKDIR)
+CFLAGS	+=	-I$(LINKDIR)
 
 CPPFLAGS +=
 
