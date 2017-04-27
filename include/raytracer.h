@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Wed Apr 26 11:48:02 2017 NANAA
+** Last update Thu Apr 27 12:22:59 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -24,7 +24,7 @@
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
 # define EXIT_ERROR 1
-# define EXIT_SUCCESS 0
+# define EXIT_SUCCESS0 
 # define SCREEN_DEFAULT_WIDTH 1000
 # define SCREEN_DEFAULT_HEIGHT 480
 # define EYES_DEFAULT_X - 200
@@ -34,8 +34,8 @@
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
-# define SCENE_DEFAULT_
-
+# define EMPTY - 1
+# define NB_TOTAL_OBJECTS 4
 
 typedef enum e_objects
   {
@@ -45,6 +45,12 @@ typedef enum e_objects
     cyl
   }	     t_e_objects;
 
+typedef struct		s_functions
+{
+  int			type;
+  float			(*function)(sfVector3f *, sfVector3f *, sfVector3f, float);
+}			t_functions;
+
 typedef struct		s_object
 {
   int			type;
@@ -53,7 +59,7 @@ typedef struct		s_object
   float			value;
   bool			is_transparent;
   bool			is_mirror;
-  float			(*intersect)(sfVector3f, sfVector3f, sfVector3f, float);
+  float			(*intersect)(sfVector3f *, sfVector3f *, sfVector3f *, float);
 }			t_object;
 
 /*
@@ -118,8 +124,6 @@ typedef struct		s_screen
 ** Prototypes
 */
 
-void			*my_memset(char *ptr, int len, int value);
-void			*my_calloc(size_t len);
 int			init_screen(t_screen *screen);
 int			load_screen(t_screen *screen, char *filepath);
 int			init_framebuffer(t_framebuffer *framebuffer);
@@ -132,16 +136,20 @@ int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *);
-int	                find_nearest_intersect(t_listObject *objects, sfVector3f dir_vector, sfVector3f eyes);
+int	                find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes);
 void			handle_poll_events(t_screen *screen);
-void		        draw_objects(t_my_framebuffer *buffer, t_listObject objects, sfVector3f eyes, int nb_objects);
+void		        draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes);
 t_object		init_object(int type);
 int			add_object(t_listObject *objects, int type);
 int			listObject_add(t_listObject *list, t_object object);
 t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
 int		        listObject_remove(t_listObject *list, int64_t);
-float			intersect_sphere(sfVector3f, sfVector3f, sfVector3f, float);
+float			intersect_sphere(sfVector3f *, sfVector3f *, sfVector3f *, float);
 sfVector3f	        calc_dir_vector(sfVector3f eye_pos, sfVector2i screen_pos);
 sfVector3f	        get_normal_vector(sfVector3f vector);
+float		        get_root(float a, float b, float delt);
+float		        intersect_plane(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *, float);
+float			intersect_cone(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *object, float radius);
+float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *object, float radius);
 
 #endif

@@ -5,12 +5,12 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Wed Apr 26 11:49:01 2017 NANAA
+** Last update Thu Apr 27 12:26:18 2017 NANAA
 */
 
 #include "raytracer.h"
 
-int		find_nearest_intersect(t_listObject *objects, sfVector3f dir_vector, sfVector3f eyes)
+int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)
 {
   int		i;
   int		place;
@@ -20,13 +20,15 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f dir_vector, sfVect
   int		id;
 
   id = 0;
+  if (objects->count == 0)
+    return (EMPTY);
   node = objects->begin;
-  min = node->object.intersect(dir_vector, eyes, node->object.position,
+  min = node->object.intersect(dir_vector, eyes, &node->object.position,
 			       node->object.value);
   while (node != NULL)
     {
       node = node->next;
-      temp = node->object.intersect(dir_vector, eyes, node->object.position,
+      temp = node->object.intersect(dir_vector, eyes, &node->object.position,
 				    node->object.value);
       if (temp < min && temp > 0)
 	{
@@ -52,20 +54,22 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f dir_vector, sfVect
     return (place);*/
 }
 
-void		draw_objects(t_my_framebuffer *buffer, t_listObject objects, sfVector3f eyes, int nb_objects)
+void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes)
 {
   sfVector2i	screen_pos;
     sfVector3f	dir_vector;
   int		id;
   
-  screen_pos = sfVector2i_create(SCENE_DEFAULT_X, 0);
+  screen_pos = sfVector2i_create(0, 0);
+  id = -1;
   while (screen_pos.y < FRAMEBUFFER_DEFAULT_HEIGHT)
     {
       screen_pos.x = SCENE_DEFAULT_X;
-      while (screen_pos.x < FRAMEBUFFER_DEFAULT_WIDTH + SCENE_DEFAULT_X)
+      while (screen_pos.x < FRAMEBUFFER_DEFAULT_WIDTH)
 	{
+	  my_put_pixel(buffer, screen_pos, sfRed);
 	  dir_vector = calc_dir_vector(eyes, screen_pos);
-	  id = find_nearest_intersect(&objects, dir_vector, eyes);
+	  id = find_nearest_intersect(objects, &dir_vector, &eyes);
 	  screen_pos.x++;
 	}
       screen_pos.y++;

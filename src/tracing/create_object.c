@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Wed Apr 26 10:53:28 2017 NANAA
+** Last update Thu Apr 27 12:22:13 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -24,6 +24,14 @@ t_object	init_object(int type)
     new_object.value = 10;
   new_object.is_transparent = false;
   new_object.is_mirror = false;
+  if (type == sphere)
+    new_object.intersect = &intersect_sphere;
+  else if (type == plane)
+    new_object.intersect = &intersect_plane;
+  else if (type == cyl)
+    new_object.intersect = &intersect_cyl;
+  else
+    new_object.intersect = &intersect_cone;
   return (new_object);
 }
   

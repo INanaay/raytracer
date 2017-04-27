@@ -15,7 +15,10 @@ SRCS		=	src/main.c							\
 				src/utils/list/listObject_remove.c		\
 				src/tracing/sphere.c				\
 				src/tracing/dir_vector.c			\
-				src/tracing/normalize_vector.c
+				src/tracing/normalize_vector.c			\
+				src/tracing/plane.c				\
+				src/tracing/cone.c				\
+				src/tracing/cylinder.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

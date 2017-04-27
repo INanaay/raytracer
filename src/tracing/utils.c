@@ -5,9 +5,10 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Tue Apr 18 11:46:20 2017 anatole zeyen
+** Last update Thu Apr 27 11:28:30 2017 NANAA
 */
 
+#include <math.h>
 #include "raytracer.h"
 
 void	my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color)
@@ -23,4 +24,21 @@ void	my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color)
   buffer->pixels[index + 1] = color.g;
   buffer->pixels[index + 2] = color.b;
   buffer->pixels[index + 3] = color.a;
+}
+
+float	get_root(float a, float b, float delt)
+{
+  float	r1;
+  float	r2;
+
+  if (delt == 0)
+    {
+      r1 = (-b) / (2 * a);
+      return (r1);
+    }
+  r1 = (-b + (float)sqrt(delt)) / (2 * a);
+  r2 = (-b - (float)sqrt(delt)) / (2 * a);
+  if (r1 > r2)
+    return (r2);
+  return (r1);
 }

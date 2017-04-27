@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue Apr 25 14:58:28 2017 NANAA
+** Last update Wed Apr 26 12:02:19 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "libmy.h"
 #include "raytracer.h"
 
 int		init_framebuffer(t_framebuffer *buffer)
