@@ -5,20 +5,51 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Thu Apr 27 17:06:09 2017 NANAA
+** Last update Fri Apr 28 15:18:37 2017 NANAA
 */
 
 #include "raytracer.h"
 
 int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)
 {
+  int		id;
+  float		min;
+  t_nodeObject	*node;
+  size_t       	index;
+  float		temp;
+  
+
+  min = 1000000;
+  id = -1;
+  if (objects->count == 0)
+    return (id);
+  node = objects->begin;
+  id = 0;
+  index = 0;
+  while (index < objects->count)
+    {
+      temp = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
+				    node->object.value);
+      if (temp < min && temp > 0)
+	{
+	  id = node->id;
+	  min = temp;
+	}
+      node = node->next;
+      index++;
+    }
+  return (id);
+  
+  
+  /*
   int		i;
   int		place;
   float		min;
   float		temp;
   t_nodeObject	*node;
   int		id;
-
+  size_t       	index;
+  
   id = -1;
   if (objects->count == 0)
     return (id);
@@ -26,7 +57,8 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
   node = objects->begin;
   min = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
 			       node->object.value);
-  while (node->next != NULL)
+  index = 1;
+  while (index < objects->count)
     {
       node = node->next;
       temp = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
@@ -36,8 +68,9 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
 	  id = node->id;
 	  min = temp;
 	}
+      index ++;
     }
-  return (id);
+    return (id);*/
 }
 
 t_object	get_object_to_draw(t_listObject *objects, int id)
@@ -45,7 +78,7 @@ t_object	get_object_to_draw(t_listObject *objects, int id)
   t_nodeObject	*temp;
 
   temp = objects->begin;
-  while (temp->next != NULL && temp->id != id)
+  while (temp->id != id)
     {
       temp = temp->next;
     }
@@ -74,7 +107,6 @@ void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f e
 	      inter = obj.intersect(&dir_vector, &eyes, &obj.position, obj.value);
 	      if (inter > 0)
 		{
-		  printf("lol\n");
 		  my_put_pixel(buffer, screen_pos, sfRed);
 		}
 	    }

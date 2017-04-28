@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Thu Apr 27 16:01:08 2017 NANAA
+** Last update Fri Apr 28 16:37:37 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -39,14 +39,13 @@ int		set_button(t_button *buttons)
   int		i;
   int		id;
 
-  id = 0;
   position = sfVector2f_create(600, 10);
   sprite = sfSprite_create();
-  texture = sfTexture_createFromFile(IMAGE_NAME, NULL);
+  if ((texture = sfTexture_createFromFile(IMAGE_NAME, NULL)) == NULL)
+    return (EXIT_ERROR);
   sfSprite_setTexture(sprite, texture, sfTrue);
   sfSprite_setScale(sprite, sfVector2f_create(0.2, 0.2));
-  if (texture == NULL)
-    return (EXIT_ERROR);
+  id = 0;
   i = 0;
   while (i < NB_BUTTONS)
     {

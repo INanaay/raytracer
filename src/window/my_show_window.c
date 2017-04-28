@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Thu Apr 27 16:40:22 2017 NANAA
+** Last update Fri Apr 28 15:18:51 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -27,7 +27,11 @@ void		show_window(t_screen *screen)
     sfRenderWindow_display(screen->window);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
       sfRenderWindow_close(screen->window);
-    handle_poll_events(screen);
+    if (handle_poll_events(screen) == BUTTON_HIT)
+      {
+	draw_objects(&(screen->framebuffer), &(screen->objects), screen->eyes);
+	sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
+      };
   }
   sfRenderWindow_destroy(screen->window);
   //  free(win);

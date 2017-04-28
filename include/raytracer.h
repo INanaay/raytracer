@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu Apr 27 16:29:57 2017 NANAA
+** Last update Fri Apr 28 17:17:36 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -29,13 +29,15 @@
 # define SCREEN_DEFAULT_HEIGHT 480
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
-# define EYES_DEFAULT_Z 0
+# define EYES_DEFAULT_Z 10
 # define NB_BUTTONS 6
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
 # define EMPTY - 1
 # define NB_TOTAL_OBJECTS 4
+# define OBJECT_ADDED 0
+# define BUTTON_HIT 2
 
 typedef enum e_objects
   {
@@ -44,12 +46,6 @@ typedef enum e_objects
     cone,
     cyl
   }	     t_e_objects;
-
-typedef struct		s_functions
-{
-  int			type;
-  float			(*function)(sfVector3f *, sfVector3f *, sfVector3f, float);
-}			t_functions;
 
 typedef struct		s_object
 {
@@ -137,7 +133,7 @@ void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *);
 int	                find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes);
-void			handle_poll_events(t_screen *screen);
+int			handle_poll_events(t_screen *screen);
 void		        draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes);
 t_object		init_object(int type);
 int			add_object(t_listObject *objects, int type);
@@ -155,5 +151,8 @@ float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_po
 				      sfVector3f *object, float radius);
 int			listObject_init(t_listObject *list);
 t_object	        get_object_to_draw(t_listObject *objects, int id);
+float		        get_light_coef(sfVector3f *light_vector, sfVector3f *normal_vector);
+sfVector3f		light_vector(sfVector3f *eye_pos, sfVector3f *dir_vector, sfVector3f *light_pos, float dist);
+float		        get_light_coef(sfVector3f *light_vector, sfVector3f *normal_vector);
 
 #endif
