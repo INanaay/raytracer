@@ -18,7 +18,8 @@ SRCS		=	src/main.c							\
 				src/tracing/normalize_vector.c			\
 				src/tracing/plane.c				\
 				src/tracing/cone.c				\
-				src/tracing/cylinder.c
+				src/tracing/cylinder.c				\
+				src/tracing/color.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 15:55:52 2017 Nathan Lebon
-** Last update Thu Apr 27 12:08:27 2017 NANAA
+** Last update Sat Apr 29 16:30:10 2017 NANAA
 */
 
 #include <math.h>
@@ -36,16 +36,15 @@ float           intersect_cone(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVe
     return (get_root(a, b, delt));
 }
 
-
-/*
-sfVector3f	get_normal_cone(sfVector3f intersection_point, t_object *obj)
+sfVector3f	get_normal_cone(sfVector3f intersection_point, sfVector3f *obj, int value)
 {
   sfVector3f	temp;
   float		rad;
 
-  rad = (obj->radius * M_PI) / 180;
-  intersection_point.x -=  obj->x;
-  intersection_point.y -= obj->y;
-  intersection_point.z = -(intersection_point.z - obj->z) * cos(rad);
+  value = value;
+  rad = (intersection_point.x * M_PI) / 180;
+  temp.x -= obj->x;
+  temp.y -= obj->y;
+  temp.z = -(intersection_point.z - obj->z) * cos(rad);
   return (get_normal_vector(intersection_point));
-  }*/
+}

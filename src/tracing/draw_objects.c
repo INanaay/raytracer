@@ -5,10 +5,15 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Fri Apr 28 15:18:37 2017 NANAA
+** Last update Sat Apr 29 14:35:11 2017 NANAA
 */
 
 #include "raytracer.h"
+
+int		draw_pixel(t_object *object, t_my_framebuffer *buffer, t_light **lights)
+{
+  
+}
 
 int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)
 {
@@ -17,7 +22,6 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
   t_nodeObject	*node;
   size_t       	index;
   float		temp;
-  
 
   min = 1000000;
   id = -1;
@@ -39,38 +43,6 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
       index++;
     }
   return (id);
-  
-  
-  /*
-  int		i;
-  int		place;
-  float		min;
-  float		temp;
-  t_nodeObject	*node;
-  int		id;
-  size_t       	index;
-  
-  id = -1;
-  if (objects->count == 0)
-    return (id);
-  id = 0;
-  node = objects->begin;
-  min = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
-			       node->object.value);
-  index = 1;
-  while (index < objects->count)
-    {
-      node = node->next;
-      temp = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
-				    node->object.value);
-      if (temp < min && temp > 0)
-	{
-	  id = node->id;
-	  min = temp;
-	}
-      index ++;
-    }
-    return (id);*/
 }
 
 t_object	get_object_to_draw(t_listObject *objects, int id)
@@ -85,7 +57,8 @@ t_object	get_object_to_draw(t_listObject *objects, int id)
   return (temp->object);
 }
 
-void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes)
+void		draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes,
+			     t_light **lights)
 {
   sfVector2i	screen_pos;
   sfVector3f	dir_vector;

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 15:55:52 2017 Nathan Lebon
-** Last update Fri Apr 28 15:20:04 2017 NANAA
+** Last update Sat Apr 29 16:25:14 2017 NANAA
 */
 
 #include <math.h>
@@ -34,11 +34,12 @@ float           intersect_sphere(sfVector3f *dir_vector, sfVector3f *eye_pos,
   else
     return (get_root(a, b, delt));
 }
-/*
-sfVector3f	get_normal_sphere(sfVector3f inter, float x, float y, float z)
+
+sfVector3f	get_normal_sphere(sfVector3f inter, sfVector3f *obj_pos, int value)
 {
-  inter.x = inter.x - x;
-  inter.y -= y;
-  inter.z -= z;
+  value = value;
+  inter.x -= obj_pos->x;
+  inter.y -= obj_pos->y;
+  inter.z -= obj_pos->z;
   return (get_normal_vector(inter));
-  }*/
+}
