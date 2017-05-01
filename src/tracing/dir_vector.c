@@ -5,13 +5,13 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 15:53:31 2017 Nathan Lebon
-** Last update Fri Apr 28 17:11:34 2017 NANAA
+** Last update Mon May  1 11:38:49 2017 NANAA
 */
 
 #include "raytracer.h"
 
 
-sfVector3f      calc_dir_vector(sfVector3f eye_pos, sfVector2i screen)
+sfVector3f      calc_dir_vector(sfVector2i screen)
 {
   sfVector3f    dir_vector;
 

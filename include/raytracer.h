@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat Apr 29 16:33:07 2017 NANAA
+** Last update Mon May  1 12:34:24 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -135,14 +135,14 @@ sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *);
 int	                find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes);
 int			handle_poll_events(t_screen *screen);
-void		        draw_objects(t_my_framebuffer *buffer, t_listObject *objects, sfVector3f eyes, t_light **lights);
+void		        draw_objects(t_screen *);
 t_object		init_object(int type);
 int			add_object(t_listObject *objects, int type);
 int			listObject_add(t_listObject *list, t_object object);
 t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
 int		        listObject_remove(t_listObject *list, int64_t);
 float			intersect_sphere(sfVector3f *, sfVector3f *, sfVector3f *, float);
-sfVector3f	        calc_dir_vector(sfVector3f eye_pos, sfVector2i screen_pos);
+sfVector3f	        calc_dir_vector(sfVector2i screen_pos);
 sfVector3f	        get_normal_vector(sfVector3f vector);
 float		        get_root(float a, float b, float delt);
 float		        intersect_plane(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *, float);
@@ -153,7 +153,7 @@ float                   intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_po
 int			listObject_init(t_listObject *list);
 t_object	        get_object_to_draw(t_listObject *objects, int id);
 float		        get_light_coef(sfVector3f *light_vector, sfVector3f *normal_vector);
-sfVector3f		light_vector(sfVector3f *eye_pos, sfVector3f *dir_vector, sfVector3f *light_pos, float dist);
+sfVector3f		get_light_vector(sfVector3f *eye_pos, sfVector3f *dir_vector, sfVector3f *light_pos, float dist);
 sfVector3f	        get_inter_point(sfVector3f *eye_pos, sfVector3f *dir_vector, float dist);
 void			set_object(t_object *object, int type);
 sfVector3f	        get_normal_sphere(sfVector3f inter, sfVector3f *obj_pos, int);
@@ -161,5 +161,8 @@ sfVector3f	        get_normal_plane(sfVector3f inter, sfVector3f *pos, int);
 sfVector3f		get_normal_cylinder(sfVector3f inter, sfVector3f *pos, int);
 sfVector3f	        get_normal_cone(sfVector3f intersection_point, sfVector3f *obj, int);
 sfColor		        create_color(int r, int g, int b, int alpha);
+void		        change_color(sfColor *color, float cos);
+void			draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object);
+int		        init_lights(t_light *lights, size_t light_count);
 
 #endif

@@ -19,7 +19,8 @@ SRCS		=	src/main.c							\
 				src/tracing/plane.c				\
 				src/tracing/cone.c				\
 				src/tracing/cylinder.c				\
-				src/tracing/color.c
+				src/tracing/color.c				\
+				src/tracing/light.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Sat Apr 29 16:21:44 2017 NANAA
+** Last update Mon May  1 12:44:17 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -60,14 +60,10 @@ int		set_button(t_button *buttons)
   return (EXIT_SUCCESS);
 }
 
-int		init_lights(t_light *lights, size_t light_count)
+void		init_lights(t_light *lights, size_t light_count)
 {
-  lights = malloc(sizeof (t_light) * light_count);
-  if (lights == NULL)
-    return (EXIT_ERROR);
   lights[0].coordinates = sfVector3f_create(-200, 0 , 10);
   lights[0].color = create_color(255, 255, 255, 255);
-  return (EXIT_SUCCESS);
 }
 
 int		init_screen(t_screen *screen)
@@ -85,7 +81,8 @@ int		init_screen(t_screen *screen)
   if (error)
     return (EXIT_ERROR);
   screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS);
-  if (screen->buttons == NULL)
+  screen->lights = malloc(sizeof (t_light) * screen->lights_count);
+  if (screen->buttons == NULL || screen->lights == NULL)
     return (EXIT_ERROR);
   error = init_lights(screen->lights, screen->lights_count);
   if (error)

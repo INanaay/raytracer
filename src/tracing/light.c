@@ -5,10 +5,10 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 13:26:15 2017 Nathan Lebon
-** Last update Fri Apr 28 16:34:52 2017 NANAA
+** Last update Mon May  1 11:30:54 2017 NANAA
 */
 
-#include "include/ray.h"
+#include "raytracer.h"
 /*
 sfVector3f	get_normalized_object(sfVector3f inter, t_object *obj)
 {
@@ -33,7 +33,7 @@ sfVector3f	get_inter_point(sfVector3f *eye_pos, sfVector3f *dir_vector, float di
   return (new);
 }
 
-sfVector3f	light_vector(sfVector3f *eye_pos, sfVector3f *dir_vector,
+sfVector3f	get_light_vector(sfVector3f *eye_pos, sfVector3f *dir_vector,
 			     sfVector3f *light_pos, float dist)
 {
   sfVector3f	light;

@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Sat Apr 29 14:34:19 2017 NANAA
+** Last update Mon May  1 11:06:03 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -19,7 +19,6 @@ void		show_window(t_screen *screen)
   sprite = sfSprite_create();
   texture = sfTexture_create(screen->framebuffer.dimensions.x, screen->framebuffer.dimensions.y);
   sfSprite_setTexture(sprite, texture, sfTrue);
-  //  draw_objects(&(screen->framebuffer), &(screen->objects), screen->eyes);
   sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
   while (sfRenderWindow_isOpen(screen->window))
   {
@@ -29,7 +28,7 @@ void		show_window(t_screen *screen)
       sfRenderWindow_close(screen->window);
     if (handle_poll_events(screen) == BUTTON_HIT)
       {
-	draw_objects(&(screen->framebuffer), &(screen->objects), screen->eyes, &(screen->lights));
+	draw_objects(&(*screen));
 	sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
       };
   }
