@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 16:56:27 2017 Nathan Lebon
-** Last update Sat Apr 29 16:32:23 2017 NANAA
+** Last update Tue May  2 10:48:29 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -31,5 +31,5 @@ sfVector3f	get_normal_cylinder(sfVector3f inter, sfVector3f *pos, int value)
 {
   pos = pos;
   inter.z = 0;
-  return (inter);
+  return (get_normal_vector(inter));
 }

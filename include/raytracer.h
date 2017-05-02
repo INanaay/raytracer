@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May  1 12:34:24 2017 NANAA
+** Last update Tue May  2 10:43:58 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -163,6 +163,6 @@ sfVector3f	        get_normal_cone(sfVector3f intersection_point, sfVector3f *ob
 sfColor		        create_color(int r, int g, int b, int alpha);
 void		        change_color(sfColor *color, float cos);
 void			draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object);
-int		        init_lights(t_light *lights, size_t light_count);
+void		        init_lights(t_light *lights);
 
 #endif
