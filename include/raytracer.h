@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May  2 10:43:58 2017 NANAA
+** Last update Tue May  2 17:24:59 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -24,7 +24,7 @@
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
 # define EXIT_ERROR 1
-# define EXIT_SUCCESS0 
+# define EXIT_SUCCESS 0
 # define SCREEN_DEFAULT_WIDTH 1000
 # define SCREEN_DEFAULT_HEIGHT 480
 # define EYES_DEFAULT_X - 200
@@ -132,7 +132,7 @@ int		        print_gui(t_screen *screen);
 int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
-int			check_button_hit(t_screen *);
+int			check_button_hit(t_screen *, sfVector2i mouse);
 int	                find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes);
 int			handle_poll_events(t_screen *screen);
 void		        draw_objects(t_screen *);
@@ -164,5 +164,7 @@ sfColor		        create_color(int r, int g, int b, int alpha);
 void		        change_color(sfColor *color, float cos);
 void			draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object);
 void		        init_lights(t_light *lights);
+int		        move_objects(sfVector2i mouse_position, t_screen *screen);
+void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
 
 #endif

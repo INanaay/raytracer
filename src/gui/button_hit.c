@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Sat Apr 29 14:42:30 2017 NANAA
+** Last update Tue May  2 14:34:40 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -18,15 +18,13 @@ int		add_object(t_listObject *objects, int type)
   return (listObject_add(objects, new_object));
 }
 
-int		check_button_hit(t_screen *screen)
+int		check_button_hit(t_screen *screen, sfVector2i mouse_position)
 {
-  int	i;
-  sfVector2i	mouse_position;
+  int		i;
   int		hit;
 
   hit = 0;
   i = 0;
-  mouse_position = sfMouse_getPositionRenderWindow(screen->window);
   while (i < NB_BUTTONS)
     {
       if ((mouse_position.x >= screen->buttons[i].position.x &&
@@ -43,7 +41,7 @@ int		check_button_hit(t_screen *screen)
 	}
       i++;
     }
-  return (hit);
-  //  draw_objects(&(screen->framebuffer), &(screen->objects), screen->eyes);
-  //return (EXIT_SUCCESS);
+  if (hit == BUTTON_HIT)
+    return (EXIT_SUCCESS);
+  return (EXIT_ERROR);
 }

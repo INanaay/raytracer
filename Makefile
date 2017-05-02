@@ -20,7 +20,9 @@ SRCS		=	src/main.c							\
 				src/tracing/cone.c				\
 				src/tracing/cylinder.c				\
 				src/tracing/color.c				\
-				src/tracing/light.c
+				src/tracing/light.c				\
+				src/gui/move_objects.c				\
+				src/window/my_clear_buffer.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

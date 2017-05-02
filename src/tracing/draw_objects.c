@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May  1 12:43:15 2017 NANAA
+** Last update Tue May  2 16:10:48 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -55,6 +55,8 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
       node = node->next;
       index++;
     }
+  if (min == 1000000)
+    return (- 1);
   return (id);
 }
 
@@ -76,7 +78,6 @@ void		draw_objects(t_screen *screen)
   sfVector3f	dir_vector;
   int		id;
   t_object	obj;
-  float		inter;
   
   screen_pos = sfVector2i_create(0, 0);
   while (screen_pos.y < FRAMEBUFFER_DEFAULT_HEIGHT)
@@ -89,13 +90,7 @@ void		draw_objects(t_screen *screen)
 	  if (id != -1)
 	    {
 	      obj = get_object_to_draw(&(screen->objects), id);
-	      //	      inter = obj.intersect(&dir_vector, &(screen->eyes), &obj.position, obj.value);
 	      draw_pixel(&(*screen), &screen_pos, &dir_vector, &obj);
-	      /*
-	      if (inter > 0)
-		{
-		  my_put_pixel(&(screen->framebuffer), screen_pos, sfRed);
-		  }*/
 	    }
 	  screen_pos.x++;
 	}
