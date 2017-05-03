@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Tue May  2 17:28:25 2017 NANAA
+** Last update Wed May  3 14:12:42 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -22,16 +22,20 @@ void		show_window(t_screen *screen)
   sfRenderWindow_drawSprite(screen->window, sprite, NULL);
   sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
   while (sfRenderWindow_isOpen(screen->window))
-  {
+    {
     sfRenderWindow_drawSprite(screen->window, sprite, NULL);
     sfRenderWindow_display(screen->window);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
       sfRenderWindow_close(screen->window);
     if (handle_poll_events(screen) == EXIT_SUCCESS)
       {
-	clear_buffer(&(screen->framebuffer), FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
+	sfRenderWindow_clear(screen->window, sfBlack);
+	clear_buffer(&screen->framebuffer, FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
+	print_gui(&(*screen));
 	draw_objects(&(*screen));
-	sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
+	sfTexture_updateFromPixels(texture, screen->framebuffer.pixels
+				   , FRAMEBUFFER_DEFAULT_WIDTH,
+				   FRAMEBUFFER_DEFAULT_HEIGHT, 0, 0);
       };
   }
   sfRenderWindow_destroy(screen->window);

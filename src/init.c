@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May  2 10:43:41 2017 NANAA
+** Last update Wed May  3 13:57:52 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -20,9 +20,9 @@ int		init_framebuffer(t_framebuffer *buffer)
 {
   size_t	buffer_size;
 
-  buffer->dimensions.x = SCREEN_DEFAULT_WIDTH;
-  buffer->dimensions.y = SCREEN_DEFAULT_HEIGHT;
-  buffer_size = SCREEN_DEFAULT_WIDTH * SCREEN_DEFAULT_HEIGHT;
+  buffer->dimensions.x = FRAMEBUFFER_DEFAULT_WIDTH;
+  buffer->dimensions.y = FRAMEBUFFER_DEFAULT_HEIGHT;
+  buffer_size = FRAMEBUFFER_DEFAULT_WIDTH * FRAMEBUFFER_DEFAULT_HEIGHT;
   buffer->pixels = my_calloc(sizeof(sfUint8) *
 			     buffer_size * 4);
   if (buffer->pixels == NULL)

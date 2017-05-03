@@ -5,12 +5,12 @@
 ** Login   <anatole.zeyen@epitech.net>
 ** 
 ** Started on  Tue Apr 11 14:03:40 2017 anatole zeyen
-** Last update Fri Apr 14 19:33:49 2017 NANAA
+** Last update Wed May  3 14:05:37 2017 NANAA
 */
 
 #include "raytracer.h"
 
-int	print_gui(t_screen *screen)
+void	print_gui(t_screen *screen)
 {
   int	i;
 
@@ -21,5 +21,4 @@ int	print_gui(t_screen *screen)
       sfRenderWindow_drawSprite(screen->window, screen->buttons[i].sprite, NULL);
       i++;
     }
-  return (EXIT_SUCCESS);
 }

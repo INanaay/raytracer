@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May  2 17:24:59 2017 NANAA
+** Last update Wed May  3 14:05:49 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -19,7 +19,7 @@
 # define NAME "raytracer2"
 # define FRAMEBUFFER_DEFAULT_WIDTH 640
 # define FRAMEBUFFER_DEFAULT_HEIGHT 480
-# define WINDOW_DEFAULT_WIDTH 1000
+# define WINDOW_DEFAULT_WIDTH 1200
 # define WINDOW_DEFAULT_HEIGHT 480
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
@@ -128,7 +128,7 @@ sfVector3f	        sfVector3f_create(float x, float y, float z);
 sfVector2i	        sfVector2i_create(int x, int y);
 sfRenderWindow          *my_create_window(char *name, int width, int height);
 void			show_window(t_screen *);
-int		        print_gui(t_screen *screen);
+void		        print_gui(t_screen *screen);
 int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
@@ -166,5 +166,6 @@ void			draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vect
 void		        init_lights(t_light *lights);
 int		        move_objects(sfVector2i mouse_position, t_screen *screen);
 void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
+sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_position);
 
 #endif
