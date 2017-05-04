@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Thu May  4 11:45:23 2017 NANAA
+** Last update Thu May  4 12:14:39 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -22,6 +22,15 @@ sfVector2i	calc_new_pos(sfVector2i mouse_position, sfVector2i new_position)
   return (move);
 }
 
+float		move_x(float x)
+{
+  if (sfKeyboard_isKeyPressed(sfKeyPageDown))
+    x += 0.02;
+  if (sfKeyboard_isKeyPressed(sfKeyPageUp))
+    x -= 0.02;
+  return (x);
+}
+
 int		move_objects(sfVector2i mouse_position, t_screen *screen)
 {
   int		id;
@@ -34,10 +43,7 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
   while (sfMouse_isButtonPressed(sfMouseLeft))
     {
       new_position = sfMouse_getPositionRenderWindow(screen->window);
-      if (sfKeyboard_isKeyPressed(sfKeyPageDown))
-	x += 0.02;
-      if (sfKeyboard_isKeyPressed(sfKeyPageUp))
-	x -= 0.02;
+      x = move_x(x);
     }
   new_position = calc_new_pos(mouse_position, new_position);
   dir_vector = calc_dir_vector(mouse_position);
@@ -50,5 +56,6 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
   temp->object.position.y += (float)new_position.x;
    temp->object.position.z += (float)new_position.y;
   temp->object.position.x += x;
+  temp->last_object = id;
   return (EXIT_SUCCESS);
 }
