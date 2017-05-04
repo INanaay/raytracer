@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Wed May  3 14:05:49 2017 NANAA
+** Last update Thu May  4 10:50:32 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -30,7 +30,7 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 10
-# define NB_BUTTONS 6
+# define NB_BUTTONS 10
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
