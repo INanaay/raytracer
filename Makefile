@@ -21,6 +21,7 @@ SRCS		=	src/main.c							\
 				src/tracing/cylinder.c				\
 				src/tracing/color.c				\
 				src/tracing/light.c				\
+				src/gui/modify_objects.c			\
 				src/gui/move_objects.c				\
 				src/window/my_clear_buffer.c
 

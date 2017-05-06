@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu May  4 12:13:18 2017 NANAA
+** Last update Sat May  6 12:10:42 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -169,5 +169,6 @@ int		        move_objects(sfVector2i mouse_position, t_screen *screen);
 void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
 sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_position);
 float		        move_x(float x);
+int		        modify_color(t_screen *screen, int);
 
 #endif

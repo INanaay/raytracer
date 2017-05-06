@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Thu May  4 12:14:39 2017 NANAA
+** Last update Sat May  6 11:46:18 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -54,8 +54,8 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
   while (temp->id != id)
     temp = temp->next;
   temp->object.position.y += (float)new_position.x;
-   temp->object.position.z += (float)new_position.y;
+  temp->object.position.z += (float)new_position.y;
   temp->object.position.x += x;
-  temp->last_object = id;
+  screen->last_object = id;
   return (EXIT_SUCCESS);
 }

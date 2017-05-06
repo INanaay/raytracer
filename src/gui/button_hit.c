@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Tue May  2 14:34:40 2017 NANAA
+** Last update Sat May  6 12:12:22 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -36,6 +36,12 @@ int		check_button_hit(t_screen *screen, sfVector2i mouse_position)
 	    {
 	      hit = BUTTON_HIT;
 	      if (add_object(&(screen->objects), screen->buttons[i].id) == EXIT_ERROR)
+		return (EXIT_ERROR);
+	    }
+	  if (screen->buttons[i].id >= 4 && screen->buttons[i].id <= 9)
+	    {
+	      hit = BUTTON_HIT;
+	      if (modify_color(&(*screen), screen->buttons[i].id) == EXIT_ERROR)
 		return (EXIT_ERROR);
 	    }
 	}

@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Wed May  3 13:57:52 2017 NANAA
+** Last update Sat May  6 12:03:46 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -77,6 +77,7 @@ int		init_screen(t_screen *screen)
   screen->eyes = eyes;
   screen->dimensions = dimensions;
   screen->lights_count = 1;
+  screen->last_object = -1;
   error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
