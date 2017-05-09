@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May  9 10:55:26 2017 NANAA
+** Last update Tue May  9 17:53:21 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -39,7 +39,7 @@ int		set_button(t_button *buttons)
   int		i;
   int		id;
 
-  position = sfVector2f_create(600, 10);
+  position = sfVector2f_create(700, 10);
   sprite = sfSprite_create();
   if ((texture = sfTexture_createFromFile(IMAGE_NAME, NULL)) == NULL)
     return (EXIT_ERROR);
@@ -53,8 +53,8 @@ int		set_button(t_button *buttons)
       buttons[i].sprite = sprite;
       buttons[i].position = position;
       position.x += 180;
-      if (position.x > 160 * 2 + 600)
-	position = sfVector2f_create(600, position.y + 75);
+      if (position.x > 160 * 2 + 700)
+	position = sfVector2f_create(700, position.y + 75);
       i++;
     }
   return (EXIT_SUCCESS);
@@ -79,11 +79,11 @@ int		init_screen(t_screen *screen)
   screen->lights_count = 1;
   screen->last_object = -1;
   error = init_framebuffer(&screen->framebuffer);
+  screen->rotate = sfVector3f_create(0, 0, 0);
+  screen->translate = sfVector3f_create(0, 0 ,0);
   if (error)
     return (EXIT_ERROR);
   if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) || !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
-    return (EXIT_ERROR);
-  if (screen->buttons == NULL || screen->lights == NULL)
     return (EXIT_ERROR);
   init_lights(screen->lights);
   error = set_button(screen->buttons);

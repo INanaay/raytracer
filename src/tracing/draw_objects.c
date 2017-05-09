@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Wed May  3 11:16:46 2017 NANAA
+** Last update Tue May  9 17:39:01 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -86,6 +86,8 @@ void		draw_objects(t_screen *screen)
       while (screen_pos.x < FRAMEBUFFER_DEFAULT_WIDTH)
 	{
 	  dir_vector = calc_dir_vector(screen_pos);
+	  dir_vector = rotate_xyz(dir_vector, screen->rotate);
+	  dir_vector = translate(dir_vector, screen->translate);
 	  id = find_nearest_intersect(&(screen->objects), &dir_vector, &(screen->eyes));
 	  if (id != -1)
 	    {

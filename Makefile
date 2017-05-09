@@ -23,7 +23,10 @@ SRCS		=	src/main.c							\
 				src/tracing/light.c				\
 				src/gui/modify_objects.c			\
 				src/gui/move_objects.c				\
-				src/window/my_clear_buffer.c
+				src/window/my_clear_buffer.c			\
+				src/tracing/rotate.c				\
+				src/tracing/translate.c				\
+				src/gui/handle_movements.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

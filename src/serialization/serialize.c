@@ -5,8 +5,10 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Mon Apr 24 15:33:38 2017 flavian gontier
+** Last update Tue May  9 13:20:09 2017 NANAA
 */
+
+#include "raytracer.h"
 
 static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
 {
@@ -14,7 +16,7 @@ static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
   int		bytes;
 
   count = (buffer->dimensions.x * buffer->dimensions.y) * 4;
-  bytes = write(fd, &buffer->dimensons, sizeof(buffer->dimensions));
+  bytes = write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
   if (bytes != sizeof(buffer->dimensions))
     return (EXIT_ERROR);
   bytes = write(fd, &buffer->pixels, count);
@@ -23,7 +25,7 @@ static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
   return (EXIT_SUCCESS);
 }
 
-static int	serialize_objects(int fd, t_objects *objects, size_t count)
+static int	serialize_objects(int fd, t_object *objects, size_t count)
 {
   size_t	index;
   size_t	length;
@@ -49,7 +51,7 @@ static int	serialize_lights(int fd, t_light *lights, size_t count)
 {
   size_t	index;
   int		bytes;
-  t_ligth	*ligth;
+  t_light	*ligth;
 
   index = 0;
   bytes = write(fd, &count, sizeof(count));
@@ -98,14 +100,14 @@ int	serialize(t_screen *screen, const char *save_path)
 
   if (save_path == NULL)
     return (EXIT_ERROR);
-  fd = open(save_path, O_WRONLY);
+  fd = open(save_path, O_CREAT);
   if (fd < 0)
     return (EXIT_ERROR);
   ret |= write(fd, &screen->dimensions, sizeof(screen->dimensions));
   ret |= write(fd, &screen->eyes, sizeof(screen->eyes));
-  ret |= serialize_framebuffer(&screen->framebuffer);
-  ret |= serialize_objects(&screen->objects, screen->objects_count);
-  ret |= serialize_lights(&screen->lights, screen->lights_count);
-  ret |= serialize_buttons(&screen->buttons, screen->buttons_count);
+  ret |= serialize_framebuffer(fd, &screen->framebuffer);
+  ret |= serialize_objects(fd, &screen->objects, screen->objects_count);
+  ret |= serialize_lights(fd, &screen->lights, screen->lights_count);
+  ret |= serialize_buttons(fd, &screen->buttons, screen->buttons_count);
   return (ret);
 }

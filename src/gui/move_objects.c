@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Sat May  6 11:46:18 2017 NANAA
+** Last update Tue May  9 17:27:45 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -25,9 +25,9 @@ sfVector2i	calc_new_pos(sfVector2i mouse_position, sfVector2i new_position)
 float		move_x(float x)
 {
   if (sfKeyboard_isKeyPressed(sfKeyPageDown))
-    x += 0.02;
+    x += 0.01;
   if (sfKeyboard_isKeyPressed(sfKeyPageUp))
-    x -= 0.02;
+    x -= 0.01;
   return (x);
 }
 

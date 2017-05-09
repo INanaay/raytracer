@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May  9 11:07:42 2017 NANAA
+** Last update Tue May  9 15:58:01 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -38,6 +38,7 @@
 # define NB_TOTAL_OBJECTS 4
 # define OBJECT_ADDED 0
 # define BUTTON_HIT 2
+# define MOVED 2
 
 typedef enum e_objects
   {
@@ -108,6 +109,8 @@ typedef struct		s_screen
 {
   sfVector2i		dimensions;
   sfVector3f		eyes;
+  sfVector3f		rotate;
+  sfVector3f		translate;
   t_framebuffer		framebuffer;
   t_listObject		objects;
   int			last_object;
@@ -186,5 +189,13 @@ sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_positi
 float		        move_x(float x);
 int		        modify_color(t_screen *screen, int);
 int		        is_cursor_on_button(sfVector2i mouse_position, t_screen *screen, int i);
+void		        print_scene(t_screen *screen, sfTexture *texture);
+int		        button_action(t_screen *screen, int i);
+sfVector3f	        rotate_xyz(sfVector3f to_rotate, sfVector3f angles);
+sfVector3f		rotate_zyx(sfVector3f to_rotate, sfVector3f angles);
+sfVector3f		translate(sfVector3f to_translate, sfVector3f translations);
+int		        move_eye(sfVector3f *eyes);
+int		        handle_movements(t_screen *screen);
+int		        move_rotate(sfVector3f *rotate);
 
 #endif
