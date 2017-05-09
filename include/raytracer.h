@@ -119,9 +119,23 @@ typedef struct		s_screen
 }			t_screen;
 
 /*
+** anat light
+*/
+typedef struct          s_eye
+{
+  sfVector3f            eye_pos;
+  sfVector3f            dir_vector;
+  sfVector2i            pos;
+  sfVector3f            *light_pos;
+  sfColor               *light_color;
+  sfVector2i            screen;
+}                       t_eye;
+sfColor         get_color(t_object **objs, t_eye *eye, int i);
+int		nb_colors(t_eye *eye);
+
+/*
 ** Prototypes
 */
-
 int			init_screen(t_screen *screen);
 int			load_screen(t_screen *screen, char *filepath);
 int			init_framebuffer(t_framebuffer *framebuffer);

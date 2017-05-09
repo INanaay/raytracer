@@ -12,43 +12,70 @@
 #include <SFML/Graphics/Color.h>
 #include "include/ray.h"
 
+#define LUM_AMBIANT 1.2f
+
 sfColor		change_color(sfColor color, int type, float cos)
 {
-  if (type == SPHERE)
-    color.r = color.r * cos;
-  else if (type == PLANE)
-    color.b = color.b * cos;
-  else if (type == CYL)
-    color.g = color.g * cos;
-  else if (type == CONE)
-    {
-      color.r = color.r * cos;
-      color.g = color.r * cos;
-    }
+  color.r = color.r * cos * LUM_AMBIANT;
+  color.b = color.b * cos * LUM_AMBIANT;
+  color.g = color.g * cos * LUM_AMBIANT;
+  if (color.r > 255)
+    color.r = 255;
+  if (color.g > 255)
+    color.g = 255;
+  if (color.b > 255)
+    color.b = 255;
   return (color);
+}
+
+int		nb_colors(t_eye *eye)
+{
+  int	x;
+
+  x = 0;
+  while (eye->light_pos[x])
+    {
+      x++;
+    }
+  return (x);
+}
+
+sfColor		get_color(t_object **objs, t_eye *eye, int i, int x)
+{
+  sfColor       color;
+  sfVector3f    inter_point;
+  sfVector3f    light_v;
+  float         cos;
+  sfVector3f    vector;
+  sfColor	sumcolor;
+
+  sumcolor = sfBlack;
+  inter_point = get_inter_point(eye, objs[i]->inter);
+  while (eye->light_color[x])
+    {
+      color = eye->light_color[x];
+      light_v = light_vector(eye, eye->light_pos[x], objs[i]->inter);
+      light_v = get_normal_vector(light_v);
+      inter_point = get_normalized_object(inter_point, objs[i]);
+      cos = get_light_coef(get_normal_vector(light_v), inter_point);
+      color = change_color(color, objs[i]->type, cos);
+      x++;
+      sumcolor.r = sumcolor.r + (color.r * nb_colors(eye));
+      sumcolor.g = sumcolor.g + (color.g * nb_colors(eye));
+      sumcolor.b = sumcolor.b + (color.b * nb_colors(eye));
+    }
+  return (sumcolor);
 }
 
 void		trace_object(t_object **objs, t_my_framebuffer *framebuffer,
 			     t_eye *eye, int i)
 {
   sfColor	color;
-  sfVector3f	inter_point;
-  sfVector3f	light_v;
-  float		cos;
-  sfVector3f	vector;
+  int		x;
 
-  inter_point = get_inter_point(eye, objs[i]->inter);
-  color = set_color(objs[i]->type);
-  light_v = light_vector(eye, eye->light_pos, objs[i]->inter);
-  light_v = get_normal_vector(light_v);
-  inter_point = get_normalized_object(inter_point, objs[i]);
-  cos = get_light_coef(get_normal_vector(light_v), inter_point);
-  color = change_color(color, objs[i]->type, cos);
-  if (cos > 0)
-    my_put_pixel(framebuffer, eye->pos.x, eye->pos.y, color);
-  else
-    my_put_pixel(framebuffer, eye->pos.x, eye->pos.y, sfBlack);
-
+  x = 0;
+  color = get_color(objs, eye, i, x);
+  my_put_pixel(framebuffer, eye->pos.x, eye->pos.y, color); // y'a un bail avec cos > 0 et sfblack mais ça devrait marcher sans : s'il n'y a pas de couleur, on renvoie sfBlack
 }
 
 t_object	**calculate_all_inter(t_object **objs, t_eye *eye,
