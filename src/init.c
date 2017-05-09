@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Sat May  6 12:03:46 2017 NANAA
+** Last update Tue May  9 10:55:26 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -81,8 +81,8 @@ int		init_screen(t_screen *screen)
   error = init_framebuffer(&screen->framebuffer);
   if (error)
     return (EXIT_ERROR);
-  screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS);
-  screen->lights = malloc(sizeof (t_light) * screen->lights_count);
+  if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) || !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
+    return (EXIT_ERROR);
   if (screen->buttons == NULL || screen->lights == NULL)
     return (EXIT_ERROR);
   init_lights(screen->lights);
@@ -90,6 +90,7 @@ int		init_screen(t_screen *screen)
   if (error)
     return (EXIT_ERROR);
   error = listObject_init(&screen->objects);
+  add_object(&(screen->objects), plane);
   screen->window = my_create_window(NAME, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
   return (EXIT_SUCCESS);
 }

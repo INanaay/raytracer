@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Wed May  3 14:12:42 2017 NANAA
+** Last update Tue May  9 10:58:51 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -20,6 +20,7 @@ void		show_window(t_screen *screen)
   texture = sfTexture_create(screen->framebuffer.dimensions.x, screen->framebuffer.dimensions.y);
   sfSprite_setTexture(sprite, texture, sfTrue);
   sfRenderWindow_drawSprite(screen->window, sprite, NULL);
+  draw_objects(&(*screen));
   sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
   while (sfRenderWindow_isOpen(screen->window))
     {

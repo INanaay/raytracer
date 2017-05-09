@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat May  6 12:10:42 2017 NANAA
+** Last update Tue May  9 11:07:42 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -30,7 +30,7 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 10
-# define NB_BUTTONS 10
+# define NB_BUTTONS 12
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
@@ -42,9 +42,9 @@
 typedef enum e_objects
   {
     sphere,
-    plane,
     cone,
-    cyl
+    cyl,
+    plane
   }	     t_e_objects;
 
 typedef struct		s_object
@@ -142,6 +142,7 @@ int			add_object(t_listObject *objects, int type);
 int			listObject_add(t_listObject *list, t_object object);
 t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
 int		        listObject_remove(t_listObject *list, int64_t);
+void		        listObject_reset_index(t_nodeObject *node);
 float			intersect_sphere(sfVector3f *, sfVector3f *, sfVector3f *, float);
 sfVector3f	        calc_dir_vector(sfVector2i screen_pos);
 sfVector3f	        get_normal_vector(sfVector3f vector);
@@ -170,5 +171,6 @@ void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
 sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_position);
 float		        move_x(float x);
 int		        modify_color(t_screen *screen, int);
+int		        is_cursor_on_button(sfVector2i mouse_position, t_screen *screen, int i);
 
 #endif

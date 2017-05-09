@@ -5,10 +5,20 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Mon Apr 24 16:50:06 2017 flavian gontier
-** Last update Tue Apr 25 13:50:52 2017 NANAA
+** Last update Tue May  9 10:40:25 2017 NANAA
 */
 
 #include "raytracer.h"
+
+void		listObject_reset_index(t_nodeObject *node)
+{
+  node = node->next;
+  while (node != NULL)
+    {
+      node->id = node->id - 1;
+      node = node->next;
+    }
+}
 
 int		listObject_remove(t_listObject *list, int64_t id)
 {
@@ -17,6 +27,7 @@ int		listObject_remove(t_listObject *list, int64_t id)
   node = listObject_getNode(list, id);
   if (node == NULL)
     return (EXIT_ERROR);
+  listObject_reset_index(&(*node));
   if (list->count-- != 1)
   {
     if (node->next == NULL)
