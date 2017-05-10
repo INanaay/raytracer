@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Tue May  9 17:39:01 2017 NANAA
+** Last update Wed May 10 11:36:10 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -19,6 +19,8 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
 
   inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
   inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
+  if (object->is_damier == true)
+    damier(&inter_point, &object->color);
   inter_point = object->normal(inter_point, &(object->position), object->value);
   light_vector = get_light_vector(&(screen->eyes), &(*dir_vector), &(screen->lights[0].coordinates), inter);
   light_vector = get_normal_vector(light_vector);

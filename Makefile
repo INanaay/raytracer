@@ -26,7 +26,8 @@ SRCS		=	src/main.c							\
 				src/window/my_clear_buffer.c			\
 				src/tracing/rotate.c				\
 				src/tracing/translate.c				\
-				src/gui/handle_movements.c
+				src/gui/handle_movements.c			\
+				src/tracing/damier.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

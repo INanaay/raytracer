@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Tue May  2 14:03:43 2017 NANAA
+** Last update Wed May 10 11:35:40 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -48,6 +48,10 @@ t_object	init_object(int type)
     new_object.value = 40;
   new_object.is_transparent = false;
   new_object.is_mirror = false;
+  if (type == plane)
+    new_object.is_damier = true;
+  else
+    new_object.is_damier = false;
   set_object(&new_object, type);
   return (new_object);
 }

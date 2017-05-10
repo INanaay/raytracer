@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May  9 15:58:01 2017 NANAA
+** Last update Wed May 10 11:33:10 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -39,6 +39,7 @@
 # define OBJECT_ADDED 0
 # define BUTTON_HIT 2
 # define MOVED 2
+# define SLAB_SIZE 4
 
 typedef enum e_objects
   {
@@ -54,6 +55,7 @@ typedef struct		s_object
   sfVector3f		position;
   sfColor		color;
   float			value;
+  bool			is_damier;
   bool			is_transparent;
   bool			is_mirror;
   float			(*intersect)(sfVector3f *, sfVector3f *, sfVector3f *, float);
@@ -101,6 +103,7 @@ typedef struct		s_button
 {
   int			id;
   sfVector2f		position;
+  sfVector2i		dimensions;
   sfColor		color;
   sfSprite		*sprite;
 }			t_button;
