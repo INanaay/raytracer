@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 16:56:27 2017 Nathan Lebon
-** Last update Tue May  2 10:48:29 2017 NANAA
+** Last update Thu May 11 14:50:16 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -29,6 +29,7 @@ float		intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *ob
 
 sfVector3f	get_normal_cylinder(sfVector3f inter, sfVector3f *pos, int value)
 {
+  value = value;
   pos = pos;
   inter.z = 0;
   return (get_normal_vector(inter));

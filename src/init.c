@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May  9 17:53:21 2017 NANAA
+** Last update Thu May 11 14:09:48 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -30,36 +30,6 @@ int		init_framebuffer(t_framebuffer *buffer)
   return (EXIT_SUCCESS);
 }
 
-
-int		set_button(t_button *buttons)
-{
-  sfTexture	*texture;
-  sfSprite	*sprite;
-  sfVector2f	position;
-  int		i;
-  int		id;
-
-  position = sfVector2f_create(700, 10);
-  sprite = sfSprite_create();
-  if ((texture = sfTexture_createFromFile(IMAGE_NAME, NULL)) == NULL)
-    return (EXIT_ERROR);
-  sfSprite_setTexture(sprite, texture, sfTrue);
-  sfSprite_setScale(sprite, sfVector2f_create(0.2, 0.2));
-  id = 0;
-  i = 0;
-  while (i < NB_BUTTONS)
-    {
-      buttons[i].id = id++;
-      buttons[i].sprite = sprite;
-      buttons[i].position = position;
-      position.x += 180;
-      if (position.x > 160 * 2 + 700)
-	position = sfVector2f_create(700, position.y + 75);
-      i++;
-    }
-  return (EXIT_SUCCESS);
-}
-
 void		init_lights(t_light *lights)
 {
   lights[0].coordinates = sfVector3f_create(-200, 0 , 10);
@@ -69,13 +39,9 @@ void		init_lights(t_light *lights)
 int		init_screen(t_screen *screen)
 {
   int		error;
-  sfVector3f	eyes;
-  sfVector2i	dimensions;
 
-  eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y, EYES_DEFAULT_Z);
-  dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
-  screen->eyes = eyes;
-  screen->dimensions = dimensions;
+  screen->eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y, EYES_DEFAULT_Z);
+  screen->dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
   screen->lights_count = 1;
   screen->last_object = -1;
   error = init_framebuffer(&screen->framebuffer);
@@ -86,7 +52,7 @@ int		init_screen(t_screen *screen)
   if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) || !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
     return (EXIT_ERROR);
   init_lights(screen->lights);
-  error = set_button(screen->buttons);
+  error = init_buttons(screen->buttons);
   if (error)
     return (EXIT_ERROR);
   error = listObject_init(&screen->objects);

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  9 13:58:40 2017 NANAA
-** Last update Tue May  9 17:49:36 2017 NANAA
+** Last update Thu May 11 14:48:48 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -68,6 +68,30 @@ int	move_translate(sfVector3f *translate)
   return (moved);
 }
 
+int	move_light(t_screen *screen)
+{
+  int	i;
+  bool	moved;
+
+  moved = true;
+  i = screen->current_light;
+  if (sfKeyboard_isKeyPressed(sfKeyA))
+    screen->lights[i].coordinates.y -= 10;
+  else if (sfKeyboard_isKeyPressed(sfKeyD))
+    screen->lights[i].coordinates.y += 10;
+  else if (sfKeyboard_isKeyPressed(sfKeyW))
+    screen->lights[i].coordinates.z += 10;
+  else if (sfKeyboard_isKeyPressed(sfKeyS))
+    screen->lights[i].coordinates.z -= 10;
+  else if (sfKeyboard_isKeyPressed(sfKeyZ))
+    screen->lights[i].coordinates.x += 20;
+  else if (sfKeyboard_isKeyPressed(sfKeyX))
+    screen->lights[i].coordinates.x -= 20;
+  else
+    moved = 0;
+  return (moved);
+}
+
 int	handle_movements(t_screen *screen)
 {
   bool	moved;
@@ -78,6 +102,8 @@ int	handle_movements(t_screen *screen)
   if ((moved = move_translate(&screen->translate)) == true)
     return (MOVED);
   if ((moved = move_eye(&screen->eyes)) == true)
+    return (MOVED);
+  if ((moved = move_light(&(*screen))) == true)
     return (MOVED);
   return (false);
 }

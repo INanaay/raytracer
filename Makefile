@@ -27,7 +27,8 @@ SRCS		=	src/main.c							\
 				src/tracing/rotate.c				\
 				src/tracing/translate.c				\
 				src/gui/handle_movements.c			\
-				src/tracing/damier.c
+				src/tracing/damier.c				\
+				src/gui/create_buttons.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Wed May 10 11:33:10 2017 NANAA
+** Last update Thu May 11 14:49:51 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -19,7 +19,7 @@
 # define NAME "raytracer2"
 # define FRAMEBUFFER_DEFAULT_WIDTH 640
 # define FRAMEBUFFER_DEFAULT_HEIGHT 480
-# define WINDOW_DEFAULT_WIDTH 1200
+# define WINDOW_DEFAULT_WIDTH 1250
 # define WINDOW_DEFAULT_HEIGHT 480
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
@@ -30,7 +30,7 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 10
-# define NB_BUTTONS 12
+# define NB_BUTTONS 16
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
@@ -117,6 +117,7 @@ typedef struct		s_screen
   t_framebuffer		framebuffer;
   t_listObject		objects;
   int			last_object;
+  int			current_light;
   t_light		*lights;
   size_t		lights_count;
   t_button		*buttons;
@@ -150,7 +151,7 @@ sfVector2i	        sfVector2i_create(int x, int y);
 sfRenderWindow          *my_create_window(char *name, int width, int height);
 void			show_window(t_screen *);
 void		        print_gui(t_screen *screen);
-int	                set_button(t_button *buttons);
+//int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *, sfVector2i mouse);
@@ -200,5 +201,9 @@ sfVector3f		translate(sfVector3f to_translate, sfVector3f translations);
 int		        move_eye(sfVector3f *eyes);
 int		        handle_movements(t_screen *screen);
 int		        move_rotate(sfVector3f *rotate);
+void		        set_buttons(t_button *buttons, sfSprite *sprite);
+int			init_buttons(t_button *buttons);
+int			move_light(t_screen *screen);
+void			damier(sfVector3f *inter, sfColor *color);
 
 #endif

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 15:57:16 2017 Nathan Lebon
-** Last update Sat Apr 29 16:31:24 2017 NANAA
+** Last update Thu May 11 14:08:22 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -20,7 +20,7 @@ float           intersect_plane(sfVector3f *dir_vector, sfVector3f *eye_pos, sfV
     return (-1.0f);
   if (dir_vector->z == 0)
     return (-1.0f);
-  k = (-(eye_pos->z) / dir_vector->z);
+  k = (-(eye_pos->z) / dir_vector->z - object->z);
   if (k < 0)
     return (-1.0f);
   return (k);
