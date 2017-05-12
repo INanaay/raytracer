@@ -5,11 +5,10 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Feb 10 15:53:31 2017 Nathan Lebon
-** Last update Mon May  1 11:38:49 2017 NANAA
+** Last update Fri May 12 16:43:15 2017 NANAA
 */
 
 #include "raytracer.h"
-
 
 sfVector3f      calc_dir_vector(sfVector2i screen)
 {

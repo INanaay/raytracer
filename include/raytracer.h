@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri May 12 12:15:32 2017 NANAA
+** Last update Fri May 12 16:40:38 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -40,6 +40,7 @@
 # define BUTTON_HIT 2
 # define MOVED 2
 # define SLAB_SIZE 4
+# define MOVE_DISTANCE 0.2
 
 typedef enum e_objects
   {
@@ -205,5 +206,6 @@ void		        set_buttons(t_button *buttons, sfSprite *sprite);
 int			init_buttons(t_button *buttons);
 int			move_light(t_screen *screen);
 void			damier(sfVector3f *inter, sfColor *color);
+sfVector3f      c_dir_vector(sfVector2i screen);
 
 #endif
