@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Wed May 10 11:36:10 2017 NANAA
+** Last update Fri May 12 11:08:39 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -51,7 +51,7 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
 				    node->object.value);
       if (temp < min && temp > 0)
 	{
-	  id = node->id;
+	  id = index;
 	  min = temp;
 	}
       node = node->next;
@@ -65,11 +65,14 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
 t_object	get_object_to_draw(t_listObject *objects, int id)
 {
   t_nodeObject	*temp;
+  int		index;
 
+  index = 0;
   temp = objects->begin;
-  while (temp->id != id)
+  while (index != id)
     {
       temp = temp->next;
+      index++;
     }
   return (temp->object);
 }

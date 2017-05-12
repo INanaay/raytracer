@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Mon Apr 24 16:31:24 2017 flavian gontier
-** Last update Tue May  9 10:49:04 2017 NANAA
+** Last update Fri May 12 11:49:08 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -22,7 +22,7 @@ int		listObject_add(t_listObject *list, t_object object)
   node->next = NULL;
   if (list->end == NULL)
     {
-      node->id = 0;
+      //node->id = 0;
       node->prev = NULL;
       list->begin = node;
       list->end = node;
@@ -31,7 +31,7 @@ int		listObject_add(t_listObject *list, t_object object)
     {
       list->end->next = node;
       node->prev = list->end;
-      node->id = node->prev->id + 1;
+      // node->id = node->prev->id + 1;
       list->end = node;
     }
   list->count++;

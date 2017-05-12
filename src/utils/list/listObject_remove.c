@@ -5,11 +5,12 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Mon Apr 24 16:50:06 2017 flavian gontier
-** Last update Fri May 12 10:40:32 2017 NANAA
+** Last update Fri May 12 11:48:50 2017 NANAA
 */
 
 #include "raytracer.h"
 
+/*
 void		listObject_reset_index(t_nodeObject *node)
 {
   node = node->next;
@@ -18,7 +19,7 @@ void		listObject_reset_index(t_nodeObject *node)
       node->id = node->id - 1;
       node = node->next;
     }
-}
+    }*/
 
 int		listObject_remove(t_listObject *list, int64_t id)
 {
@@ -44,7 +45,7 @@ int		listObject_remove(t_listObject *list, int64_t id)
       node->prev->next = node->next;
       node->next->prev = node->prev;
     }
-    listObject_reset_index(&(*node));
+    //    listObject_reset_index(&(*node));
   }
   free(node);
   return (EXIT_SUCCESS);

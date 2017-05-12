@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri May 12 10:51:02 2017 NANAA
+** Last update Fri May 12 12:15:32 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -58,6 +58,7 @@ typedef struct		s_object
   bool			is_damier;
   bool			is_transparent;
   bool			is_mirror;
+  sfVector3f		rotation;
   float			(*intersect)(sfVector3f *, sfVector3f *, sfVector3f *, float);
   sfVector3f		(*normal)(sfVector3f, sfVector3f *, int);
 }			t_object;
@@ -68,7 +69,6 @@ typedef struct		s_object
 
 typedef struct		s_nodeObject
 {
-  int			id;
   struct s_object	object;
   struct s_nodeObject	*next;
   struct s_nodeObject	*prev;

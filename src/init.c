@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Thu May 11 14:09:48 2017 NANAA
+** Last update Fri May 12 11:57:01 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -40,16 +40,19 @@ int		init_screen(t_screen *screen)
 {
   int		error;
 
-  screen->eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y, EYES_DEFAULT_Z);
-  screen->dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
+  screen->eyes = sfVector3f_create(EYES_DEFAULT_X, EYES_DEFAULT_Y,
+				   EYES_DEFAULT_Z);
+  screen->dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH,
+					 FRAMEBUFFER_DEFAULT_HEIGHT);
   screen->lights_count = 1;
   screen->last_object = -1;
   error = init_framebuffer(&screen->framebuffer);
   screen->rotate = sfVector3f_create(0, 0, 0);
-  screen->translate = sfVector3f_create(0, 0 ,0);
+  screen->translate = sfVector3f_create(0, 0 , 0);
   if (error)
     return (EXIT_ERROR);
-  if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) || !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
+  if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) ||
+      !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
     return (EXIT_ERROR);
   init_lights(screen->lights);
   error = init_buttons(screen->buttons);
@@ -57,7 +60,8 @@ int		init_screen(t_screen *screen)
     return (EXIT_ERROR);
   error = listObject_init(&screen->objects);
   add_object(&(screen->objects), plane);
-  screen->window = my_create_window(NAME, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
+  screen->window = my_create_window(NAME, WINDOW_DEFAULT_WIDTH,
+				    WINDOW_DEFAULT_HEIGHT);
   return (EXIT_SUCCESS);
 }
 

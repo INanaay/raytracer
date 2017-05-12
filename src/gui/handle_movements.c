@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  9 13:58:40 2017 NANAA
-** Last update Thu May 11 14:48:48 2017 NANAA
+** Last update Fri May 12 12:36:55 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -60,9 +60,9 @@ int	move_translate(sfVector3f *translate)
   else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyDown)))
     translate->z -= 0.1;
   else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyLeft)))
-    translate->x += 0.1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyRight)))
     translate->y += 0.1;
+  else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyRight)))
+    translate->y -= 0.1;
   else
     moved = false;
   return (moved);

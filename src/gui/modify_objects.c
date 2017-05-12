@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Sat May  6 11:46:56 2017 NANAA
-** Last update Thu May 11 14:52:38 2017 NANAA
+** Last update Fri May 12 11:51:15 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -13,11 +13,13 @@
 int		change_damier(t_screen *screen)
 {
   t_nodeObject	*temp;
+  int		index;
 
+  index = 0;
   if (screen->last_object == -1)
     return (EXIT_ERROR);
   temp = screen->objects.begin;
-  while (temp->id != screen->last_object)
+  while (index++ != screen->last_object)
     temp = temp->next;
   if (temp->object.is_damier == 1)
     temp->object.is_damier = 0;
@@ -29,11 +31,13 @@ int		change_damier(t_screen *screen)
 int		modify_color(t_screen *screen, int button_id)
 {
   t_nodeObject	*temp;
+  int		index;
 
+  index = 0;
   if (screen->last_object == -1)
     return (EXIT_ERROR);
   temp = screen->objects.begin;
-  while (temp->id != screen->last_object)
+  while (index++ != screen->last_object)
     temp = temp->next;
   if (button_id == 3 && temp->object.color.r > 0)
     temp->object.color.r -= 5;
