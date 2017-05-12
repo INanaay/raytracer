@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Tue May  9 13:20:09 2017 NANAA
+** Last update Fri May 12 10:34:13 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -16,7 +16,7 @@ static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
   int		bytes;
 
   count = (buffer->dimensions.x * buffer->dimensions.y) * 4;
-  bytes = write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
+  bytes = (size_t)write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
   if (bytes != sizeof(buffer->dimensions))
     return (EXIT_ERROR);
   bytes = write(fd, &buffer->pixels, count);

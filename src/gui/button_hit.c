@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Thu May 11 14:54:07 2017 NANAA
+** Last update Fri May 12 10:56:19 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -39,6 +39,11 @@ int		button_action(t_screen *screen, int i)
   else if (screen->buttons[i].id == 5)
     {
       if (change_damier(&(*screen)) == EXIT_ERROR)
+	return (EXIT_ERROR);
+    }
+  else if (screen->buttons[i].id == 12)
+    {
+      if (listObject_remove(&screen->objects, screen->last_object))
 	return (EXIT_ERROR);
     }
   else
