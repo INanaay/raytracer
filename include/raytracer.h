@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri May 12 16:40:38 2017 NANAA
+** Last update Mon May 15 12:00:43 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -193,7 +193,8 @@ void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
 sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_position);
 float		        move_x(float x);
 int		        modify_color(t_screen *screen, int);
-int		        is_cursor_on_button(sfVector2i mouse_position, t_screen *screen, int i);
+int		        is_cursor_on_button(sfVector2i mouse_position,
+					    t_screen *screen, int i);
 void		        print_scene(t_screen *screen, sfTexture *texture);
 int		        button_action(t_screen *screen, int i);
 sfVector3f	        rotate_xyz(sfVector3f to_rotate, sfVector3f angles);
@@ -206,6 +207,8 @@ void		        set_buttons(t_button *buttons, sfSprite *sprite);
 int			init_buttons(t_button *buttons);
 int			move_light(t_screen *screen);
 void			damier(sfVector3f *inter, sfColor *color);
-sfVector3f      c_dir_vector(sfVector2i screen);
-
+sfVector3f		c_dir_vector(sfVector2i screen);
+int			handle_movements(t_screen *screen);
+int			change_damier(t_screen *screen);
+void			change_light(t_screen *screen);
 #endif

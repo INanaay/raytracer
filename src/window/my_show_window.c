@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 ** 
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Tue May  9 16:08:08 2017 NANAA
+** Last update Mon May 15 11:05:19 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -37,6 +37,7 @@ void		show_window(t_screen *screen)
     {
     sfRenderWindow_drawSprite(screen->window, sprite, NULL);
     sfRenderWindow_display(screen->window);
+    change_light(&(*screen));
     if (handle_movements(&(*screen)) == MOVED)
       print_scene(&(*screen), texture);
     if (sfKeyboard_isKeyPressed(sfKeyEscape))
