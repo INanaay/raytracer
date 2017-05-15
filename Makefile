@@ -39,7 +39,7 @@ RM			= 	rm -rf
 
 CFLAGS		= 	-O2
 
-CPPFLAGS	= 	-Iinclude -Wall -Wextra
+CPPFLAGS	= 	-Iinclude -Wall -Wextra -g3
 
 MY_LIB		=	src/lib
 

@@ -1,14 +1,50 @@
 /*
 ** draw_objects.c for Project-Master in /home/NANAA/Projets/raytracer2/src/tracing
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Fri May 12 11:08:39 2017 NANAA
+** Last update Mon May 15 15:08:36 2017 anatole zeyen
 */
 
 #include "raytracer.h"
+#define NBR_COLORS 3
+
+sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
+{
+  color.r = (color.r * cos) / 2 + (obj_color.r * cos) / 2;
+  color.g = (color.g * cos) / 2 + (obj_color.g * cos) / 2;
+  color.b = (color.b * cos) / 2 + (obj_color.b * cos) / 2;
+  return (color);
+}
+
+sfColor		get_my_color(t_object *object, t_screen *screen, sfVector3f inter_point, sfVector3f *dir_vector)
+{
+  sfColor	color;
+  sfColor	sumcolor;
+  int		x;
+  float		cos;
+  sfVector3f	light_vector;
+  float	inter;
+
+  x = 0;
+  inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
+  sumcolor = sfBlack;
+  while (x != 2)
+    {
+      color = screen->lights[x].color;
+      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector), &(screen->lights[x].coordinates), inter);
+      light_vector = get_normal_vector(light_vector);
+      cos = get_light_coef(&light_vector, &inter_point);
+      color = get_real_color(color, cos, object->color);
+      sumcolor.r = sumcolor.r + (int)(color.r / NBR_COLORS);
+      sumcolor.g = sumcolor.g + (int)(color.g / NBR_COLORS);
+      sumcolor.b = sumcolor.b + (int)(color.b / NBR_COLORS);
+      x++;
+    }
+  return (sumcolor);
+}
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object)
 {
@@ -17,6 +53,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   float		cos;
   float		inter;
 
+  sfColor	color_to_apply;
   inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
   inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
   if (object->is_damier == true)
@@ -26,6 +63,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   light_vector = get_normal_vector(light_vector);
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
+  object->color = get_my_color(object, screen, inter_point, dir_vector);
   if (cos > 0)
     my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
 }
@@ -83,7 +121,7 @@ void		draw_objects(t_screen *screen)
   sfVector3f	dir_vector;
   int		id;
   t_object	obj;
-  
+
   screen_pos = sfVector2i_create(0, 0);
   while (screen_pos.y < FRAMEBUFFER_DEFAULT_HEIGHT)
     {

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Feb 28 17:16:02 2017 Nathan Lebon
-** Last update Fri Mar 17 16:14:04 2017 NANAA
+** Last update Mon May 15 13:47:41 2017 anatole zeyen
 */
 
 #include <math.h>
@@ -14,11 +14,12 @@
 
 #define LUM_AMBIANT 1.2f
 
-sfColor		change_color(sfColor color, int type, float cos)
+sfColor		change_color(sfColor color, int type, float cos,
+			     sfColor light_color)
 {
-  color.r = color.r * cos * LUM_AMBIANT;
-  color.b = color.b * cos * LUM_AMBIANT;
-  color.g = color.g * cos * LUM_AMBIANT;
+  color.r = (color.r * cos) / 2 + (light_color.r * cos) / 2;
+  color.g = (color.g * cos) / 2 + (light_color.g * cos) / 2;
+  color.b = (color.b * cos) / 2 + (light_color.b * cos) / 2;
   if (color.r > 255)
     color.r = 255;
   if (color.g > 255)
@@ -58,11 +59,11 @@ sfColor		get_color(t_object **objs, t_eye *eye, int i, int x)
       light_v = get_normal_vector(light_v);
       inter_point = get_normalized_object(inter_point, objs[i]);
       cos = get_light_coef(get_normal_vector(light_v), inter_point);
-      color = change_color(color, objs[i]->type, cos);
+      color = change_color(color, objs[i]->type, cos, eye->light_color[x]);
       x++;
-      sumcolor.r = sumcolor.r + (color.r * nb_colors(eye));
-      sumcolor.g = sumcolor.g + (color.g * nb_colors(eye));
-      sumcolor.b = sumcolor.b + (color.b * nb_colors(eye));
+      sumcolor.r = sumcolor.r + (color.r / nb_colors(eye));
+      sumcolor.g = sumcolor.g + (color.g / nb_colors(eye));
+      sumcolor.b = sumcolor.b + (color.b / nb_colors(eye));
     }
   return (sumcolor);
 }
