@@ -5,11 +5,11 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Tue May 16 10:36:30 2017 anatole zeyen
+** Last update Tue May 16 11:34:34 2017 NANAA
 */
 
 #include "raytracer.h"
-#define NBR_COLORS 3
+#define NBR_COLORS screen->lights_count
 
 sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
 {
@@ -21,24 +21,26 @@ sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
   return (color);
 }
 
-sfColor		get_my_color(t_object *object, t_screen *screen, sfVector3f inter_point, sfVector3f *dir_vector)
+sfColor		get_my_color(t_object *object, t_screen *screen, sfVector3f *inter_point, sfVector3f *dir_vector)
 {
   sfColor	color;
   sfColor	sumcolor;
-  int		x;
+  size_t	x;
   float		cos;
   sfVector3f	light_vector;
-  float	inter;
+  float		inter;
 
   x = 0;
-  inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
+  inter = object->intersect(&(*dir_vector), &(screen->eyes),
+			    &object->position, object->value);
   sumcolor = sfBlack;
-  while (x != 2)
+  while (x != screen->lights_count)
     {
       color = screen->lights[x].color;
-      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector), &(screen->lights[x].coordinates), inter);
+      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
+				      &(screen->lights[x].coordinates), inter);
       light_vector = get_normal_vector(light_vector);
-      cos = get_light_coef(&light_vector, &inter_point);
+      cos = get_light_coef(&light_vector, &(*inter_point));
       color = get_real_color(color, cos, object->color);
       sumcolor.r = sumcolor.r + (int)(color.r / NBR_COLORS);
       sumcolor.g = sumcolor.g + (int)(color.g / NBR_COLORS);
@@ -67,7 +69,7 @@ sfColor         div_color_by_4(sfColor color)
   return (new);
 }
 
-/*int	if_dark(sfVector3f lightv,)
+/*int	shadow(sfVector3f lightv, listObject *objects, t_light *light, sfVector3f *inter_point)
 {
   int           x;
   float         closest;
@@ -110,7 +112,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   light_vector = get_normal_vector(light_vector);
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
-  object->color = get_my_color(object, screen, inter_point, dir_vector);
+  object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
   /*  if (if_dark(light_vector) == 0)
     my_put_pixel(&(screen->framebuffer), *screen_pos, div_color_by_4(object->color));
     else*/

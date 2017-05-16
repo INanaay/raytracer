@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May 16 10:40:17 2017 anatole zeyen
+** Last update Tue May 16 11:17:16 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -59,7 +59,7 @@ int		init_screen(t_screen *screen)
   if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) ||
       !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
     return (EXIT_ERROR);
-  init_lights(screen->lights);
+  init_lights(&(*screen->lights));
   error = init_buttons(screen->buttons);
   if (error)
     return (EXIT_ERROR);

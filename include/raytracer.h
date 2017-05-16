@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May 15 12:00:43 2017 NANAA
+** Last update Tue May 16 11:29:39 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -125,21 +125,6 @@ typedef struct		s_screen
   size_t		buttons_count;
   sfRenderWindow	*window;
 }			t_screen;
-
-/*
-** anat light
-*/
-typedef struct          s_eye
-{
-  sfVector3f            eye_pos;
-  sfVector3f            dir_vector;
-  sfVector2i            pos;
-  sfVector3f            *light_pos;
-  sfColor               *light_color;
-  sfVector2i            screen;
-}                       t_eye;
-sfColor         get_color(t_object **objs, t_eye *eye, int i);
-int		nb_colors(t_eye *eye);
 
 /*
 ** Prototypes
