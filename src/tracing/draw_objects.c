@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 15 15:08:36 2017 anatole zeyen
+** Last update Tue May 16 10:36:30 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -13,6 +13,8 @@
 
 sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
 {
+  if (color.r == 255 && color.g == 255 && color.b == 255)
+    return (obj_color);
   color.r = (color.r * cos) / 2 + (obj_color.r * cos) / 2;
   color.g = (color.g * cos) / 2 + (obj_color.g * cos) / 2;
   color.b = (color.b * cos) / 2 + (obj_color.b * cos) / 2;
@@ -46,6 +48,51 @@ sfColor		get_my_color(t_object *object, t_screen *screen, sfVector3f inter_point
   return (sumcolor);
 }
 
+sfColor         div_color_by_4(sfColor color)
+{
+  sfColor       new;
+
+  if (color.r > 0)
+    new.r = color.r / 4;
+  else
+    new.r = 0;
+  if (color.g > 0)
+    new.g = color.g / 4;
+  else
+    new.g = 0;
+  if (color.b > 0)
+    new.b = color.b / 4;
+  else
+    new.b = 0;
+  return (new);
+}
+
+/*int	if_dark(sfVector3f lightv,)
+{
+  int           x;
+  float         closest;
+  sfVector3f    dir_vector;
+  sfVector3f    obj_pos;
+
+  x = -1;
+  closest = -1.0;
+  dir_vector.x = -lightv.x;
+  dir_vector.y = -lightv.y;
+  dir_vector.z = -lightv.z;
+  while (objs[++x])
+    {
+      obj_pos.x = objs[x]->x - inter_point.x;
+      obj_pos.y = objs[x]->y - inter_point.y;
+      obj_pos.z = objs[x]->z - inter_point.z;
+      closest = get_real_intersect(obj_pos, dir_vector,
+				   objs[x]->radius, objs[x]->type);
+      if (x != i && closest > 0.0 &&
+	  (objs[i]->z + objs[i]->radius <= eye->light_pos.z) || objs[x]->z > eye->light_pos.z)
+	return (0);
+    }
+  return (1);
+  }*/
+
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object)
 {
   sfVector3f	inter_point;
@@ -64,8 +111,10 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, inter_point, dir_vector);
-  if (cos > 0)
-    my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
+  /*  if (if_dark(light_vector) == 0)
+    my_put_pixel(&(screen->framebuffer), *screen_pos, div_color_by_4(object->color));
+    else*/
+  my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
 }
 
 int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)
