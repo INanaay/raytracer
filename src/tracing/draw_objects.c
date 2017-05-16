@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Tue May 16 11:34:34 2017 NANAA
+** Last update Tue May 16 16:28:19 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -69,42 +69,18 @@ sfColor         div_color_by_4(sfColor color)
   return (new);
 }
 
-/*int	shadow(sfVector3f lightv, listObject *objects, t_light *light, sfVector3f *inter_point)
-{
-  int           x;
-  float         closest;
-  sfVector3f    dir_vector;
-  sfVector3f    obj_pos;
-
-  x = -1;
-  closest = -1.0;
-  dir_vector.x = -lightv.x;
-  dir_vector.y = -lightv.y;
-  dir_vector.z = -lightv.z;
-  while (objs[++x])
-    {
-      obj_pos.x = objs[x]->x - inter_point.x;
-      obj_pos.y = objs[x]->y - inter_point.y;
-      obj_pos.z = objs[x]->z - inter_point.z;
-      closest = get_real_intersect(obj_pos, dir_vector,
-				   objs[x]->radius, objs[x]->type);
-      if (x != i && closest > 0.0 &&
-	  (objs[i]->z + objs[i]->radius <= eye->light_pos.z) || objs[x]->z > eye->light_pos.z)
-	return (0);
-    }
-  return (1);
-  }*/
-
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object)
 {
   sfVector3f	inter_point;
   sfVector3f	light_vector;
   float		cos;
   float		inter;
-
   sfColor	color_to_apply;
+  sfVector3f	save_inter_point;
+
   inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
   inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
+  save_inter_point = inter_point;
   if (object->is_damier == true)
     damier(&inter_point, &object->color);
   inter_point = object->normal(inter_point, &(object->position), object->value);
@@ -113,10 +89,10 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
-  /*  if (if_dark(light_vector) == 0)
+  if (shadow(light_vector, screen, object, &save_inter_point) == 0)
     my_put_pixel(&(screen->framebuffer), *screen_pos, div_color_by_4(object->color));
-    else*/
-  my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
+  else
+    my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
 }
 
 int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)

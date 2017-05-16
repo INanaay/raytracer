@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May 16 11:29:39 2017 NANAA
+** Last update Tue May 16 16:28:29 2017 anatole zeyen
 */
 
 #ifndef RAY_H_
@@ -126,6 +126,12 @@ typedef struct		s_screen
   sfRenderWindow	*window;
 }			t_screen;
 
+float   real_intersect_plane(sfVector3f eye_pos, sfVector3f dir_vector);
+float   real_intersect_sphere(sfVector3f eye_pos,
+			      sfVector3f dir_vector, float radius);
+int     shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
+float   get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
+			   float radius, int type);
 /*
 ** Prototypes
 */

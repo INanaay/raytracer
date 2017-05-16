@@ -2,6 +2,7 @@ SRCS		=	src/main.c							\
 		  		src/window/my_create_window.c		\
 		  		src/window/my_show_window.c			\
 		  		src/utils/create_vectors.c			\
+				src/tracing/shadow.c				\
 		  		src/gui/print_gui.c					\
 		  		src/init.c							\
 		  		src/tracing/utils.c					\
