@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Tue May 16 16:28:29 2017 anatole zeyen
+** Last update Wed May 17 10:54:07 2017 anatole zeyen
 */
 
 #ifndef RAY_H_
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
+# define NBR_COLORS screen->lights_count
 # define NAME "raytracer2"
 # define FRAMEBUFFER_DEFAULT_WIDTH 640
 # define FRAMEBUFFER_DEFAULT_HEIGHT 480
@@ -126,12 +127,14 @@ typedef struct		s_screen
   sfRenderWindow	*window;
 }			t_screen;
 
-float   real_intersect_plane(sfVector3f eye_pos, sfVector3f dir_vector);
-float   real_intersect_sphere(sfVector3f eye_pos,
-			      sfVector3f dir_vector, float radius);
-int     shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
-float   get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
-			   float radius, int type);
+sfColor			div_color_by_4(sfColor color);
+sfColor			get_my_color(t_object *object, t_screen *screen,
+				     sfVector3f *inter_point, sfVector3f *dir_vector);
+sfColor			get_real_color(sfColor color, float cos, sfColor obj_color);
+int			compare_current_obj_and_other(t_object *current_obj, t_object other);
+int			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
+float			get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
+					   float radius, int type);
 /*
 ** Prototypes
 */

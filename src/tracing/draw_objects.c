@@ -5,68 +5,22 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Tue May 16 16:28:19 2017 anatole zeyen
+** Last update Wed May 17 11:31:36 2017 anatole zeyen
 */
 
+# include <SFML/Graphics/Color.h>
 #include "raytracer.h"
-#define NBR_COLORS screen->lights_count
 
-sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
+void    my_anatole_putpixel(t_my_framebuffer *framebuffer, int x, int y, sfColor color\
+		     )
 {
-  if (color.r == 255 && color.g == 255 && color.b == 255)
-    return (obj_color);
-  color.r = (color.r * cos) / 2 + (obj_color.r * cos) / 2;
-  color.g = (color.g * cos) / 2 + (obj_color.g * cos) / 2;
-  color.b = (color.b * cos) / 2 + (obj_color.b * cos) / 2;
-  return (color);
-}
-
-sfColor		get_my_color(t_object *object, t_screen *screen, sfVector3f *inter_point, sfVector3f *dir_vector)
-{
-  sfColor	color;
-  sfColor	sumcolor;
-  size_t	x;
-  float		cos;
-  sfVector3f	light_vector;
-  float		inter;
-
-  x = 0;
-  inter = object->intersect(&(*dir_vector), &(screen->eyes),
-			    &object->position, object->value);
-  sumcolor = sfBlack;
-  while (x != screen->lights_count)
+  if (x < framebuffer->dimensions.y && y < framebuffer->dimensions.x && x >= 0 && y >= 0)
     {
-      color = screen->lights[x].color;
-      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
-				      &(screen->lights[x].coordinates), inter);
-      light_vector = get_normal_vector(light_vector);
-      cos = get_light_coef(&light_vector, &(*inter_point));
-      color = get_real_color(color, cos, object->color);
-      sumcolor.r = sumcolor.r + (int)(color.r / NBR_COLORS);
-      sumcolor.g = sumcolor.g + (int)(color.g / NBR_COLORS);
-      sumcolor.b = sumcolor.b + (int)(color.b / NBR_COLORS);
-      x++;
+      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4] = color.r;
+      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 1] = color.g;
+      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 2] = color.b;
+      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 3] = color.a;
     }
-  return (sumcolor);
-}
-
-sfColor         div_color_by_4(sfColor color)
-{
-  sfColor       new;
-
-  if (color.r > 0)
-    new.r = color.r / 4;
-  else
-    new.r = 0;
-  if (color.g > 0)
-    new.g = color.g / 4;
-  else
-    new.g = 0;
-  if (color.b > 0)
-    new.b = color.b / 4;
-  else
-    new.b = 0;
-  return (new);
 }
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object)
@@ -75,7 +29,6 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   sfVector3f	light_vector;
   float		cos;
   float		inter;
-  sfColor	color_to_apply;
   sfVector3f	save_inter_point;
 
   inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
@@ -90,7 +43,10 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
   if (shadow(light_vector, screen, object, &save_inter_point) == 0)
-    my_put_pixel(&(screen->framebuffer), *screen_pos, div_color_by_4(object->color));
+    {
+      object->color = div_color_by_4(object->color);
+      my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
+    }
   else
     my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
 }
