@@ -1,11 +1,11 @@
 /*
 ** color.c for Project-Master in /home/NANAA/Projets/raytracer2/src/tracing
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Wed May 17 11:32:09 2017 anatole zeyen
+** Last update Fri May 19 13:28:27 2017 anatole zeyen
 */
 
 # include <SFML/Graphics/Color.h>

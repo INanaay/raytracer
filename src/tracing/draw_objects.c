@@ -5,25 +5,14 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Wed May 17 11:31:36 2017 anatole zeyen
+** Last update Fri May 19 13:23:52 2017 anatole zeyen
 */
 
 # include <SFML/Graphics/Color.h>
 #include "raytracer.h"
 
-void    my_anatole_putpixel(t_my_framebuffer *framebuffer, int x, int y, sfColor color\
-		     )
-{
-  if (x < framebuffer->dimensions.y && y < framebuffer->dimensions.x && x >= 0 && y >= 0)
-    {
-      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4] = color.r;
-      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 1] = color.g;
-      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 2] = color.b;
-      framebuffer->pixels[(framebuffer->dimensions.x * y + x) * 4 + 3] = color.a;
-    }
-}
-
-void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vector, t_object *object)
+void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
+			   sfVector3f *dir_vector, t_object *object)
 {
   sfVector3f	inter_point;
   sfVector3f	light_vector;
@@ -31,22 +20,23 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos, sfVector3f *dir_vecto
   float		inter;
   sfVector3f	save_inter_point;
 
-  inter = object->intersect(&(*dir_vector), &(screen->eyes), &object->position, object->value);
+  inter = object->intersect(&(*dir_vector), &(screen->eyes),
+			    &object->position, object->value);
   inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
   save_inter_point = inter_point;
   if (object->is_damier == true)
     damier(&inter_point, &object->color);
-  inter_point = object->normal(inter_point, &(object->position), object->value);
-  light_vector = get_light_vector(&(screen->eyes), &(*dir_vector), &(screen->lights[0].coordinates), inter);
+  inter_point = object->normal(inter_point, &(object->position),
+			       object->value);
+  light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
+				  &(screen->lights[0].coordinates), inter);
   light_vector = get_normal_vector(light_vector);
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
   if (shadow(light_vector, screen, object, &save_inter_point) == 0)
-    {
-      object->color = div_color_by_4(object->color);
-      my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
-    }
+    my_put_pixel(&(screen->framebuffer), *screen_pos,
+		 div_color_by_4(object->color));
   else
     my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
 }

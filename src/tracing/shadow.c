@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Wed May 17 10:58:06 2017 anatole zeyen
+** Last update Fri May 19 13:33:39 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -14,13 +14,16 @@ int	compare_current_obj_and_other(t_object *current_obj, t_object other)
 {
   if (current_obj->type != other.type)
     return (1);
-  if (current_obj->position.x == other.position.x && current_obj->position.y == other.position.y &&
-      current_obj->position.z == other.position.z && current_obj->value == other.value)
+  if (current_obj->position.x == other.position.x && current_obj->position.y
+      == other.position.y &&
+      current_obj->position.z == other.position.z && current_obj->value ==
+      other.value)
     return (0);
   return (1);
 }
 
-int			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point)
+int			shadow(sfVector3f light_v, t_screen *screen,
+			       t_object *current_obj, sfVector3f *inter_point)
 {
   unsigned int		x;
   float			closest;
@@ -39,9 +42,13 @@ int			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVect
       obj_pos.x = temp->object.position.x - inter_point->x;
       obj_pos.y = temp->object.position.y - inter_point->y;
       obj_pos.z = temp->object.position.z - inter_point->z;
-      closest = temp->object.intersect(&dir_vector, &obj_pos, &current_obj->position, temp->object.value);
-      if (compare_current_obj_and_other(current_obj, temp->object) != 0 && closest > 0.0 &&
-	  ((current_obj->position.z + current_obj->value <= screen->lights->coordinates.z) || (temp->object.position.z > screen->lights->coordinates.z)))
+      closest = temp->object.intersect(&dir_vector, &obj_pos, &temp->
+				       object.position, temp->object.value);
+      if ((compare_current_obj_and_other(current_obj, temp->object)) != 0 &&
+	  (closest > 0.0f) &&
+	  ((current_obj->position.z + current_obj->value <
+	    screen->lights->coordinates.z) || (temp->object.position.z - 1>
+					       screen->lights->coordinates.z)))
 	return (0);
       x++;
       temp = temp->next;

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Fri May 12 12:18:57 2017 NANAA
+** Last update Fri May 19 13:22:33 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -56,4 +56,3 @@ t_object	init_object(int type)
   set_object(&new_object, type);
   return (new_object);
 }
-  
