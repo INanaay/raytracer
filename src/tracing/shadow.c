@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Fri May 19 13:33:39 2017 anatole zeyen
+** Last update Fri May 19 13:35:46 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -47,7 +47,7 @@ int			shadow(sfVector3f light_v, t_screen *screen,
       if ((compare_current_obj_and_other(current_obj, temp->object)) != 0 &&
 	  (closest > 0.0f) &&
 	  ((current_obj->position.z + current_obj->value <
-	    screen->lights->coordinates.z) || (temp->object.position.z - 1>
+	    screen->lights->coordinates.z) || (temp->object.position.z / 2>
 					       screen->lights->coordinates.z)))
 	return (0);
       x++;
