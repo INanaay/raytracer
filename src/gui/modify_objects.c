@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Sat May  6 11:46:56 2017 NANAA
-** Last update Mon May 22 13:34:06 2017 NANAA
+** Last update Mon May 22 15:56:18 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -25,6 +25,24 @@ int		change_damier(t_screen *screen)
     temp->object.is_damier = 0;
   else
     temp->object.is_damier = 1;
+  return (EXIT_SUCCESS);
+}
+
+int		modify_size(t_screen *screen, int button_id)
+{
+  t_nodeObject	*temp;
+  int		index;
+
+  index = 0;
+  if (screen->last_object == -1)
+    return (EXIT_ERROR);
+  temp = screen->objects.begin;
+  while (index++ != screen->last_object)
+    temp = temp->next;
+  if (button_id == 14)
+    temp->object.value += 2;
+  if (button_id == 17)
+    temp->object.value -= 2;
   return (EXIT_SUCCESS);
 }
 

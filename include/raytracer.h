@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May 22 14:04:56 2017 NANAA
+** Last update Mon May 22 15:43:00 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -206,4 +206,6 @@ sfVector3f		c_dir_vector(sfVector2i screen);
 int			handle_movements(t_screen *screen);
 int			change_damier(t_screen *screen);
 void			change_light(t_screen *screen);
+int			modify_size(t_screen *screen, int button_id);
+
 #endif
