@@ -5,12 +5,13 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 17:46:30 2017 schwarzy
+** Last update Mon May 22 18:06:53 2017 schwarzy
 */
 
 #include "raytracer.h"
 
-static void		aliasing(t_screen *screen, sfVector2i *screen_pos, t_object *object)
+static void		aliasing(t_screen *screen, sfVector2i *screen_pos,
+				 t_object *object)
 {
   sfVector2i		to_reach;
 
@@ -53,20 +54,18 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
 				  sfVector3f *dir_vector)
 {
   sfVector3f	light_vector;
-  float		tmp;
   float		light_coef;
   size_t	index;
 
   index = 0;
-  light_coef = 1;
+  light_coef = 0;
   while (index < screen->lights_count)
     {
       light_vector = change_object_color(inters, screen, dir_vector, index);
-      tmp = shadow(light_vector, screen, inters.object, &inters.point);
-      if (index == 0 || (tmp > 0.0 && tmp < 1.0 && tmp < light_coef))
-	light_coef = tmp;
+      light_coef += shadow(light_vector, screen, inters.object, &inters.point);
       index++;
     }
+  light_coef = light_coef / screen->lights_count;
   return (light_coef);
 }
 

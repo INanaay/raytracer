@@ -1,11 +1,11 @@
 /*
 ** init.c for raytracer in /home/flavian.gontier/Tek1/C_Graphical/raytracer2/src
-** 
+**
 ** Made by flavian gontier
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
-** 
+**
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May 23 13:06:20 2017 NANAA
+** Last update Mon May 22 18:02:40 2017 schwarzy
 */
 
 #include <stdlib.h>
@@ -32,11 +32,11 @@ int		init_framebuffer(t_framebuffer *buffer)
 
 void		init_lights(t_light *lights)
 {
-  lights[0].coordinates = sfVector3f_create(-200, 0 , 10);
+  lights[0].coordinates = sfVector3f_create(-100, 0 , 10);
   lights[0].color = sfWhite;
-  lights[1].coordinates = sfVector3f_create(-200, 0 , 10);
+  lights[1].coordinates = sfVector3f_create(-100, 0 , 10);
   lights[1].color = sfBlue;
-  lights[2].coordinates = sfVector3f_create(-200, 0 , 10);
+  lights[2].coordinates = sfVector3f_create(-100, 0 , 10);
   lights[2].color = sfRed;
  }
 
