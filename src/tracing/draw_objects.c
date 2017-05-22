@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 15:36:28 2017 schwarzy
+** Last update Mon May 22 16:05:09 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -55,6 +55,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   sfVector3f	inter_point;
   sfVector3f	light_vector;
   float		inter;
+  float		light_coef;
 
   inter = object->intersect(&(*dir_vector), &(screen->eyes),
 			    &object->position, object->value);
@@ -62,8 +63,8 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   if (object->is_damier == true)
     damier(&inter_point, &object->color);
   light_vector = change_object_color(inter_point, screen, object, dir_vector);
-  if (shadow(light_vector, screen, object, &inter_point) == 0)
-    object->color = div_color_by_4(object->color);
+  light_coef = shadow(light_vector, screen, object, &inter_point);
+  change_color(&object->color, light_coef);
   aliasing(screen, screen_pos, object);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Tue May 23 12:58:32 2017 NANAA
+** Last update Mon May 22 16:04:42 2017 schwarzy
 */
 
 # include <SFML/Graphics/Color.h>
@@ -49,17 +49,6 @@ sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
   color.g = (color.g * cos) / 2 + (obj_color.g * cos) / 2;
   color.b = (color.b * cos) / 2 + (obj_color.b * cos) / 2;
   return (color);
-}
-
-sfColor		div_color_by_4(sfColor color)
-{
-  sfColor	new;
-
-  new.r = color.r / 4;
-  new.g = color.g / 4;
-  new.b = color.b / 4;
-  new.a = color.a;
-  return (new);
 }
 
 sfColor		create_color(int r, int g, int b, int alpha)

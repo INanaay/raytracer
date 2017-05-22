@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Mon May 22 15:45:20 2017 schwarzy
+** Last update Mon May 22 15:58:24 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -21,7 +21,7 @@ int	not_this_obj(t_object *current_obj, t_object other)
   return (1);
 }
 
-int			shadow(sfVector3f light_v, t_screen *screen,
+float			shadow(sfVector3f light_v, t_screen *screen,
 			       t_object *current_obj, sfVector3f *inter_point)
 {
   float			closest;
@@ -29,7 +29,6 @@ int			shadow(sfVector3f light_v, t_screen *screen,
   sfVector3f		obj_pos;
 
   temp = screen->objects.begin;
-  closest = -1.0;
   light_v.x = -light_v.x;
   light_v.y = -light_v.y;
   light_v.z = -light_v.z;
@@ -38,13 +37,13 @@ int			shadow(sfVector3f light_v, t_screen *screen,
       obj_pos.x = temp->object.position.x - inter_point->x;
       obj_pos.y = temp->object.position.y - inter_point->y;
       obj_pos.z = temp->object.position.z - inter_point->z;
-      closest =
-	temp->object.intersect(&light_v, &obj_pos,
-			       &current_obj->position, temp->object.value);
-      if (not_this_obj(current_obj, temp->object) && closest > 0.0
-	  && closest < 1.0f)
-	return (0);
+      closest = temp->object.intersect(&light_v, &obj_pos,
+				       &current_obj->position,
+				       temp->object.value);
+      if (not_this_obj(current_obj, temp->object)
+	  && closest > 0.0f && closest < 1.0f)
+	return (closest);
       temp = temp->next;
     }
-  return (1);
+  return (1.0);
 }

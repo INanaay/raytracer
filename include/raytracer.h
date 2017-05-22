@@ -1,11 +1,11 @@
 /*
 ** ray.h for Project-Master in /home/NANAA/Projets/raytracer2/include
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May 22 18:11:06 2017 NANAA
+** Last update Mon May 22 16:05:57 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -128,12 +128,11 @@ typedef struct		s_screen
   int			aliasing;
 }			t_screen;
 
-sfColor			div_color_by_4(sfColor color);
 sfColor			get_my_color(t_object *object, t_screen *screen,
 				     sfVector3f *inter_point, sfVector3f *dir_vector);
 sfColor			get_real_color(sfColor color, float cos, sfColor obj_color);
 int			compare_current_obj_and_other(t_object *current_obj, t_object other);
-int			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
+float			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
 float			get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
 					   float radius, int type);
 /*
