@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed May 10 10:59:12 2017 NANAA
-** Last update Wed May 17 11:16:11 2017 anatole zeyen
+** Last update Mon May 22 16:15:52 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -30,8 +30,8 @@ void		damier(sfVector3f *inter, sfColor *color)
     {
       if ((y % 2 != 0 && z % 2 != 0) ||
 	  (y % 2 == 0 && z % 2 == 0))
-	*color = sfBlue;
+	*color = sfBlack;
       else
-	*color = sfRed;
+	*color = sfWhite;
     }
 }
