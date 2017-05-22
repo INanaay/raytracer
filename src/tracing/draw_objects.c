@@ -5,17 +5,14 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 14:21:22 2017 NANAA
+** Last update Mon May 22 16:14:49 2017 NANAA
 */
 
-//#include <SFML/Graphics/Color.h>
 #include "raytracer.h"
 
-//#define MACRO_ALIAS 1
-
-void		loop_put_pixel(t_screen *screen, sfVector2i *screen_pos, t_object *object)
+static void		aliasing(t_screen *screen, sfVector2i *screen_pos, t_object *object)
 {
-  sfVector2i	to_reach;
+  sfVector2i		to_reach;
 
   to_reach.x = screen_pos->x + screen->aliasing;
   while (to_reach.x > screen_pos->x)
@@ -55,8 +52,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
   if (shadow(light_vector, screen, object, &save_inter_point) == 0)
     object->color = div_color_by_4(object->color);
-  loop_put_pixel(screen, screen_pos, object);
-  my_put_pixel(&(screen->framebuffer), *screen_pos, object->color);
+  aliasing(screen, screen_pos, object);
 }
 
 int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVector3f *eyes)
