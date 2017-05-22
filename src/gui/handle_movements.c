@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  9 13:58:40 2017 NANAA
-** Last update Mon May 22 13:33:40 2017 NANAA
+** Last update Mon May 22 18:07:53 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -112,6 +112,9 @@ int	handle_movements(t_screen *screen)
   if ((moved = move_eye(&screen->eyes)) == true)
     return (MOVED);
   if ((moved = move_light(&(*screen))) == true)
+    return (MOVED);
+  if ((moved = rotate_object(&(screen->objects),
+			     screen->last_object)) == true)
     return (MOVED);
   return (false);
 }
