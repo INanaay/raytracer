@@ -1,11 +1,11 @@
 /*
 ** create_object.c for Project-Master in /home/NANAA/Projets/raytracer2/src/tracing
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Tue May 23 13:11:19 2017 NANAA
+** Last update Mon May 22 16:31:04 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -46,7 +46,7 @@ t_object	init_object(int type)
   if (type == plane)
     {
       new_object.value = 0;
-      new_object.position.z = 10;
+      new_object.position.z = 0;
     }
   else if (type == cyl)
     new_object.value = 20;
