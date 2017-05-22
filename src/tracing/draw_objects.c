@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 16:05:09 2017 schwarzy
+** Last update Mon May 22 17:46:30 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -27,43 +27,62 @@ static void		aliasing(t_screen *screen, sfVector2i *screen_pos, t_object *object
     }
 }
 
-sfVector3f	change_object_color(sfVector3f inter_point, t_screen *screen,
-				    t_object *object, sfVector3f *dir_vector)
+sfVector3f	change_object_color(t_inter inters, t_screen *screen,
+				    sfVector3f *dir_vector, int index)
 {
   sfVector3f	light_vector;
   sfVector3f	light_v;
   float		cos;
-  float		inter;
+  t_object	*object;
 
-  inter = object->intersect(&(*dir_vector), &(screen->eyes),
-			   &object->position, object->value);
-  inter_point = object->normal(inter_point, &(object->position),
+  object = inters.object;
+  inters.point = object->normal(inters.point, &(object->position),
 			       object->value);
-  light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
-				  &(screen->lights[0].coordinates), inter);
+  light_vector = get_light_vector(&screen->eyes, &(*dir_vector),
+				  &screen->lights[index].coordinates,
+				  inters.inter);
   light_v = light_vector;
   light_vector = get_normal_vector(light_vector);
-  cos = get_light_coef(&light_vector, &inter_point);
+  cos = get_light_coef(&light_vector, &inters.point);
   change_color(&(object->color), cos);
-  object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
+  object->color = get_my_color(object, screen, &inters.point, &(*dir_vector));
   return (light_v);
+}
+
+float		multilight_shadow(t_inter inters, t_screen *screen,
+				  sfVector3f *dir_vector)
+{
+  sfVector3f	light_vector;
+  float		tmp;
+  float		light_coef;
+  size_t	index;
+
+  index = 0;
+  light_coef = 1;
+  while (index < screen->lights_count)
+    {
+      light_vector = change_object_color(inters, screen, dir_vector, index);
+      tmp = shadow(light_vector, screen, inters.object, &inters.point);
+      if (index == 0 || (tmp > 0.0 && tmp < 1.0 && tmp < light_coef))
+	light_coef = tmp;
+      index++;
+    }
+  return (light_coef);
 }
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 			   sfVector3f *dir_vector, t_object *object)
 {
-  sfVector3f	inter_point;
-  sfVector3f	light_vector;
-  float		inter;
+  t_inter	inters;
   float		light_coef;
 
-  inter = object->intersect(&(*dir_vector), &(screen->eyes),
+  inters.inter = object->intersect(&(*dir_vector), &(screen->eyes),
 			    &object->position, object->value);
-  inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
+  inters.point = get_inter_point(&(screen->eyes), &(*dir_vector), inters.inter);
+  inters.object = object;
   if (object->is_damier == true)
-    damier(&inter_point, &object->color);
-  light_vector = change_object_color(inter_point, screen, object, dir_vector);
-  light_coef = shadow(light_vector, screen, object, &inter_point);
+    damier(&inters.point, &object->color);
+  light_coef = multilight_shadow(inters, screen, dir_vector);
   change_color(&object->color, light_coef);
   aliasing(screen, screen_pos, object);
 }

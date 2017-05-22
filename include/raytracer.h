@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May 22 16:05:57 2017 schwarzy
+** Last update Mon May 22 17:26:25 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -94,6 +94,13 @@ typedef struct		s_my_framebuffer
 }			t_my_framebuffer;
 
 typedef t_my_framebuffer t_framebuffer;
+
+typedef struct		s_inter
+{
+  float			inter;
+  sfVector3f		point;
+  t_object		*object;
+}			t_inter;
 
 typedef struct		s_light
 {
