@@ -1,4 +1,4 @@
-SRCS		=	src/main.c							\
+SRCS		=		src/main.c							\
 		  		src/window/my_create_window.c		\
 		  		src/window/my_show_window.c			\
 		  		src/utils/create_vectors.c			\
