@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 16:14:49 2017 NANAA
+** Last update Mon May 22 18:16:06 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -62,6 +62,7 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
   t_nodeObject	*node;
   size_t       	index;
   float		temp;
+  sfVector3f	dir_vector_copy;
 
   min = 1000000;
   id = -1;
@@ -72,7 +73,10 @@ int		find_nearest_intersect(t_listObject *objects, sfVector3f *dir_vector, sfVec
   index = 0;
   while (index < objects->count)
     {
-      temp = node->object.intersect(&(*dir_vector), &(*eyes), &node->object.position,
+      dir_vector_copy = sfVector3f_cpy(*dir_vector);
+      if (node->object.rotation.x != 0)
+	dir_vector_copy = rotate_xyz(dir_vector_copy, node->object.rotation);
+      temp = node->object.intersect(&(dir_vector_copy), &(*eyes), &node->object.position,
 				    node->object.value);
       if (temp < min && temp > 0)
 	{
@@ -122,6 +126,7 @@ void		draw_objects(t_screen *screen)
 	  if (id != -1)
 	    {
 	      obj = get_object_to_draw(&(screen->objects), id);
+	      dir_vector = rotate_xyz(dir_vector, obj.rotation);
 	      draw_pixel(&(*screen), &screen_pos, &dir_vector, &obj);
 	    }
 	  screen_pos.x = screen_pos.x + screen->aliasing;

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Fri May 19 13:22:33 2017 anatole zeyen
+** Last update Mon May 22 18:17:06 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -45,6 +45,8 @@ t_object	init_object(int type)
   new_object.color = sfRed;
   if (type == plane)
     new_object.value = 0;
+  else if (type == cyl)
+    new_object.value = 20;
   else
     new_object.value = 40;
   new_object.is_transparent = false;
