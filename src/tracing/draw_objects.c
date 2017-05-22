@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 16:14:49 2017 NANAA
+** Last update Mon May 22 18:10:51 2017 anatole zeyen
 */
 
 #include "raytracer.h"
@@ -27,21 +27,15 @@ static void		aliasing(t_screen *screen, sfVector2i *screen_pos, t_object *object
     }
 }
 
-void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
-			   sfVector3f *dir_vector, t_object *object)
+void		change_object_color(sfVector3f inter_point, t_screen *screen,
+				    t_object *object, sfVector3f *dir_vector)
 {
-  sfVector3f	inter_point;
   sfVector3f	light_vector;
   float		cos;
   float		inter;
-  sfVector3f	save_inter_point;
 
   inter = object->intersect(&(*dir_vector), &(screen->eyes),
-			    &object->position, object->value);
-  inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
-  save_inter_point = inter_point;
-  if (object->is_damier == true)
-    damier(&inter_point, &object->color);
+			   &object->position, object->value);
   inter_point = object->normal(inter_point, &(object->position),
 			       object->value);
   light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
@@ -50,7 +44,23 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
-  if (shadow(light_vector, screen, object, &save_inter_point) == 0)
+}
+
+void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
+			   sfVector3f *dir_vector, t_object *object)
+{
+  sfVector3f	inter_point;
+  sfVector3f	light_vector;
+  float		cos;
+  float		inter;
+
+  inter = object->intersect(&(*dir_vector), &(screen->eyes),
+			    &object->position, object->value);
+  inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
+  if (object->is_damier == true)
+    damier(&inter_point, &object->color);
+  change_object_color(inter_point, screen, object, dir_vector);
+  if (shadow(light_vector, screen, object, &inter_point) == 0)
     object->color = div_color_by_4(object->color);
   aliasing(screen, screen_pos, object);
 }
