@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Fri May 12 16:42:51 2017 NANAA
+** Last update Mon May 22 13:42:44 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -31,6 +31,13 @@ float		move_x(float x)
   return (x);
 }
 
+static void		get_new_pos(sfVector3f *obj_pos, sfVector2i *pos, float x)
+{
+  obj_pos->y += (float)pos->x;
+  obj_pos->z += (float)pos->y;
+  obj_pos->x += x;
+}
+
 int		move_objects(sfVector2i mouse_position, t_screen *screen)
 {
   int		id;
@@ -48,16 +55,14 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
     }
   new_position = calc_new_pos(mouse_position, new_position);
   dir_vector = calc_dir_vector(mouse_position);
-  id = find_nearest_intersect(&(screen->objects), &dir_vector, &(screen->eyes));
+  id = find_nearest_intersect(&(screen->objects), &dir_vector,
+			      &(screen->eyes));
   if (id == -1)
       return (EXIT_ERROR);
   temp = screen->objects.begin;
   index = 0;
   while (index++ != id)
     temp = temp->next;
-  temp->object.position.y += (float)new_position.x;
-  temp->object.position.z += (float)new_position.y;
-  temp->object.position.x += x;
-  screen->last_object = id;
+  get_new_pos(&(temp->object.position), &new_position, x);
   return (EXIT_SUCCESS);
 }

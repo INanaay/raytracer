@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Tue May 16 14:09:06 2017 anatole zeyen
+** Last update Mon May 22 13:24:19 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -54,8 +54,6 @@ int		init_screen(t_screen *screen)
   error = init_framebuffer(&screen->framebuffer);
   screen->rotate = sfVector3f_create(0, 0, 0);
   screen->translate = sfVector3f_create(0, 0 , 0);
-  if (error)
-    return (EXIT_ERROR);
   if (!(screen->buttons = malloc(sizeof(t_button) * NB_BUTTONS)) ||
       !(screen->lights = malloc(sizeof (t_light) * screen->lights_count)))
     return (EXIT_ERROR);

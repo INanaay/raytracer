@@ -5,10 +5,10 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 10:13:52 2017 anatole zeyen
+** Last update Mon May 22 13:26:24 2017 NANAA
 */
 
-# include <SFML/Graphics/Color.h>
+//#include <SFML/Graphics/Color.h>
 #include "raytracer.h"
 
 #define MACRO_ALIAS 10

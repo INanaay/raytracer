@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  9 13:58:40 2017 NANAA
-** Last update Fri May 12 12:36:55 2017 NANAA
+** Last update Mon May 22 13:33:40 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -37,13 +37,17 @@ int	move_rotate(sfVector3f *rotate)
   bool	moved;
 
   moved = true;
-  if (sfKeyboard_isKeyPressed(sfKeyLControl) && (sfKeyboard_isKeyPressed(sfKeyLeft)))
+  if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
+      (sfKeyboard_isKeyPressed(sfKeyLeft)))
     rotate->z += 1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLControl) && (sfKeyboard_isKeyPressed(sfKeyRight)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
+	   (sfKeyboard_isKeyPressed(sfKeyRight)))
     rotate->z -= 1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLControl) && (sfKeyboard_isKeyPressed(sfKeyUp)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
+	   (sfKeyboard_isKeyPressed(sfKeyUp)))
     rotate->y += 1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLControl) && (sfKeyboard_isKeyPressed(sfKeyDown)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
+	   (sfKeyboard_isKeyPressed(sfKeyDown)))
     rotate->y -= 1;
   else
     moved = false;
@@ -55,13 +59,17 @@ int	move_translate(sfVector3f *translate)
   int	moved;
 
   moved = true;
-  if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyUp)))
+  if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
+      (sfKeyboard_isKeyPressed(sfKeyUp)))
     translate->z += 0.1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyDown)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
+	   (sfKeyboard_isKeyPressed(sfKeyDown)))
     translate->z -= 0.1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyLeft)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
+	   (sfKeyboard_isKeyPressed(sfKeyLeft)))
     translate->y += 0.1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLShift) && (sfKeyboard_isKeyPressed(sfKeyRight)))
+  else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
+	   (sfKeyboard_isKeyPressed(sfKeyRight)))
     translate->y -= 0.1;
   else
     moved = false;
@@ -95,7 +103,7 @@ int	move_light(t_screen *screen)
 int	handle_movements(t_screen *screen)
 {
   bool	moved;
-  
+
   moved = false;
   if ((moved = move_rotate(&screen->rotate)) == true)
     return (MOVED);

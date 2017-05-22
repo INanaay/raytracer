@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Sat May  6 11:46:56 2017 NANAA
-** Last update Fri May 12 11:51:15 2017 NANAA
+** Last update Mon May 22 13:34:06 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -48,7 +48,7 @@ int		modify_color(t_screen *screen, int button_id)
   if (button_id == 7 && temp->object.color.g < 255)
     temp->object.color.g += 5;
   if (button_id == 9 && temp->object.color.b > 0)
-    temp->object.color.b -=5;
+    temp->object.color.b -= 5;
   if (button_id == 10 && temp->object.color.b < 255)
     temp->object.color.b += 5;
   return (EXIT_SUCCESS);

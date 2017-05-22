@@ -5,12 +5,13 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Fri May 12 10:56:19 2017 NANAA
+** Last update Mon May 22 13:31:55 2017 NANAA
 */
 
 #include "raytracer.h"
 
-int		is_cursor_on_button(sfVector2i mouse_position, t_screen *screen, int i)
+int		is_cursor_on_button(sfVector2i mouse_position,
+				    t_screen *screen, int i)
 {
   if ((mouse_position.x >= screen->buttons[i].position.x &&
        mouse_position.x <=  screen->buttons[i].position.x + 160) &&
@@ -18,7 +19,6 @@ int		is_cursor_on_button(sfVector2i mouse_position, t_screen *screen, int i)
        mouse_position.y <= screen->buttons[i].position.y + 74))
     return (EXIT_SUCCESS);
   return (EXIT_ERROR);
-   
 }
 
 int		add_object(t_listObject *objects, int type)
