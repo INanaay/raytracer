@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Mon May 22 16:05:19 2017 NANAA
+** Last update Mon May 22 16:24:06 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -15,8 +15,7 @@ sfVector2i	calc_new_pos(sfVector2i mouse_position, sfVector2i new_position)
   sfVector2i	move;
 
   move = sfVector2i_create(0, 0);
-  if (new_position.x < FRAMEBUFFER_DEFAULT_WIDTH && new_position.x > 0
-      && new_position.y < FRAMEBUFFER_DEFAULT_HEIGHT && new_position.y < 0)
+  if (new_position.x < FRAMEBUFFER_DEFAULT_WIDTH)
     {
       move.x = mouse_position.x - new_position.x;
       move.y = mouse_position.y - new_position.y;
@@ -67,5 +66,6 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
     temp = temp->next;
   get_new_pos(&(temp->object.position), &new_position, x);
   screen->last_object = id;
+  printf("lol\n");
   return (EXIT_SUCCESS);
 }
