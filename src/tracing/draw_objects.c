@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Tue May 23 13:04:08 2017 NANAA
+** Last update Mon May 22 15:36:28 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -27,10 +27,11 @@ static void		aliasing(t_screen *screen, sfVector2i *screen_pos, t_object *object
     }
 }
 
-void		change_object_color(sfVector3f inter_point, t_screen *screen,
+sfVector3f	change_object_color(sfVector3f inter_point, t_screen *screen,
 				    t_object *object, sfVector3f *dir_vector)
 {
   sfVector3f	light_vector;
+  sfVector3f	light_v;
   float		cos;
   float		inter;
 
@@ -40,10 +41,12 @@ void		change_object_color(sfVector3f inter_point, t_screen *screen,
 			       object->value);
   light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
 				  &(screen->lights[0].coordinates), inter);
+  light_v = light_vector;
   light_vector = get_normal_vector(light_vector);
   cos = get_light_coef(&light_vector, &inter_point);
   change_color(&(object->color), cos);
   object->color = get_my_color(object, screen, &inter_point, &(*dir_vector));
+  return (light_v);
 }
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
@@ -58,7 +61,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   inter_point = get_inter_point(&(screen->eyes), &(*dir_vector), inter);
   if (object->is_damier == true)
     damier(&inter_point, &object->color);
-  change_object_color(inter_point, screen, object, dir_vector);
+  light_vector = change_object_color(inter_point, screen, object, dir_vector);
   if (shadow(light_vector, screen, object, &inter_point) == 0)
     object->color = div_color_by_4(object->color);
   aliasing(screen, screen_pos, object);
