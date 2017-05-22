@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Wed May 17 10:54:07 2017 anatole zeyen
+** Last update Mon May 22 14:04:56 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -31,7 +31,7 @@
 # define EYES_DEFAULT_X - 200
 # define EYES_DEFAULT_Y 0
 # define EYES_DEFAULT_Z 10
-# define NB_BUTTONS 15
+# define NB_BUTTONS 18
 # define IMAGE_NAME "src/button.png"
 # define SCENE_DEFAULT_X 0
 # define SCENE_DEFAULT_Y 0
@@ -125,6 +125,7 @@ typedef struct		s_screen
   t_button		*buttons;
   size_t		buttons_count;
   sfRenderWindow	*window;
+  int			aliasing;
 }			t_screen;
 
 sfColor			div_color_by_4(sfColor color);

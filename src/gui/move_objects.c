@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Mon May 22 13:42:44 2017 NANAA
+** Last update Mon May 22 13:55:12 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -64,5 +64,6 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
   while (index++ != id)
     temp = temp->next;
   get_new_pos(&(temp->object.position), &new_position, x);
+  screen->last_object = id;
   return (EXIT_SUCCESS);
 }

@@ -5,22 +5,22 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 13:26:24 2017 NANAA
+** Last update Mon May 22 14:21:22 2017 NANAA
 */
 
 //#include <SFML/Graphics/Color.h>
 #include "raytracer.h"
 
-#define MACRO_ALIAS 10
+//#define MACRO_ALIAS 1
 
 void		loop_put_pixel(t_screen *screen, sfVector2i *screen_pos, t_object *object)
 {
   sfVector2i	to_reach;
 
-  to_reach.x = screen_pos->x + MACRO_ALIAS;
+  to_reach.x = screen_pos->x + screen->aliasing;
   while (to_reach.x > screen_pos->x)
     {
-      to_reach.y = screen_pos->y + MACRO_ALIAS;
+      to_reach.y = screen_pos->y + screen->aliasing;
       while (to_reach.y > screen_pos->y)
 	{
 	  my_put_pixel(&(screen->framebuffer), to_reach, object->color);
@@ -128,8 +128,8 @@ void		draw_objects(t_screen *screen)
 	      obj = get_object_to_draw(&(screen->objects), id);
 	      draw_pixel(&(*screen), &screen_pos, &dir_vector, &obj);
 	    }
-	  screen_pos.x = screen_pos.x + MACRO_ALIAS;
+	  screen_pos.x = screen_pos.x + screen->aliasing;
 	}
-      screen_pos.y = screen_pos.y + MACRO_ALIAS;
+      screen_pos.y = screen_pos.y + screen->aliasing;
     }
 }

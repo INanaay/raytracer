@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Mon May 22 13:31:55 2017 NANAA
+** Last update Mon May 22 14:17:07 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -29,6 +29,23 @@ int		add_object(t_listObject *objects, int type)
   return (listObject_add(objects, new_object));
 }
 
+static int	modify_aliasing(t_screen *screen, int button_id)
+{
+  printf("id = %i\n", button_id);
+  printf("aliqsing = %i\n", screen->aliasing);
+  if (button_id == 12 && screen->aliasing > 1)
+    {
+      screen->aliasing--;
+      return (EXIT_SUCCESS);
+    }
+  else if (button_id == 13 && screen->aliasing < 6)
+    {
+      screen->aliasing++;
+      return (EXIT_SUCCESS);
+    }
+  return (EXIT_ERROR);
+}
+
 int		button_action(t_screen *screen, int i)
 {
   if (screen->buttons[i].id < 3)
@@ -41,14 +58,16 @@ int		button_action(t_screen *screen, int i)
       if (change_damier(&(*screen)) == EXIT_ERROR)
 	return (EXIT_ERROR);
     }
-  else if (screen->buttons[i].id == 12)
+  else if (screen->buttons[i].id == 15)
     {
       if (listObject_remove(&screen->objects, screen->last_object))
 	return (EXIT_ERROR);
     }
+  
   else
     {
-      if (modify_color(&(*screen), screen->buttons[i].id) == EXIT_ERROR)
+      if (modify_color(&(*screen), screen->buttons[i].id) == EXIT_ERROR ||
+	  modify_aliasing(&(*screen), screen->buttons[i].id) == EXIT_ERROR)
 	return (EXIT_ERROR);
     }
   return (EXIT_SUCCESS);
