@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Mon May 22 15:54:30 2017 NANAA
+** Last update Tue May 23 12:25:24 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -58,7 +58,7 @@ int		button_action(t_screen *screen, int i)
     return (modify_aliasing(&(*screen), screen->buttons[i].id));
   else if (screen->buttons[i].id == 14 || screen->buttons[i].id == 17)
     return (modify_size(&(*screen), screen->buttons[i].id));
-  else if (screen->buttons[i].id == 15)
+  else if (screen->buttons[i].id == 15 && screen->last_object >= 1)
     {
       return (listObject_remove(&screen->objects, screen->last_object));
     }
