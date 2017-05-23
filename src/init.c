@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Mon May 22 14:05:15 2017 NANAA
+** Last update Tue May 23 13:06:20 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -33,11 +33,11 @@ int		init_framebuffer(t_framebuffer *buffer)
 void		init_lights(t_light *lights)
 {
   lights[0].coordinates = sfVector3f_create(-200, 0 , 10);
-  lights[0].color = sfWhite;//create_color(255, 255, 255, 255);
-  /*  lights[1].coordinates = sfVector3f_create(-200, 0 , 10);
-  lights[1].color = sfBlue;//create_color(255, 255, 255, 255);
+  lights[0].color = sfWhite;
+  lights[1].coordinates = sfVector3f_create(-200, 0 , 10);
+  lights[1].color = sfBlue;
   lights[2].coordinates = sfVector3f_create(-200, 0 , 10);
-  lights[2].color = sfRed;//create_color(255, 255, 255, 255);*/
+  lights[2].color = sfRed;
  }
 
 int		init_screen(t_screen *screen)
@@ -48,7 +48,7 @@ int		init_screen(t_screen *screen)
 				   EYES_DEFAULT_Z);
   screen->dimensions = sfVector2i_create(FRAMEBUFFER_DEFAULT_WIDTH,
 					 FRAMEBUFFER_DEFAULT_HEIGHT);
-  screen->lights_count = 1;
+  screen->lights_count = 3;
   screen->last_object = -1;
   screen->aliasing = 1;
   screen->current_light = 0;

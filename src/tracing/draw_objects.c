@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Mon May 22 19:31:19 2017 anatole zeyen
+** Last update Tue May 23 13:04:08 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -51,7 +51,6 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 {
   sfVector3f	inter_point;
   sfVector3f	light_vector;
-  float		cos;
   float		inter;
 
   inter = object->intersect(&(*dir_vector), &(screen->eyes),

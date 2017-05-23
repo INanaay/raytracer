@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Mon May 22 18:17:06 2017 NANAA
+** Last update Tue May 23 13:11:19 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -40,11 +40,14 @@ t_object	init_object(int type)
   t_object	new_object;
 
   new_object.type = type;
-  new_object.position = sfVector3f_create(0, 0, 10);
+  new_object.position = sfVector3f_create(0, 0, 40);
   new_object.rotation = sfVector3f_create(0, 0 ,0);
   new_object.color = sfRed;
   if (type == plane)
-    new_object.value = 0;
+    {
+      new_object.value = 0;
+      new_object.position.z = 10;
+    }
   else if (type == cyl)
     new_object.value = 20;
   else

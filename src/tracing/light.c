@@ -5,23 +5,10 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Mar  1 13:26:15 2017 Nathan Lebon
-** Last update Mon May  1 11:30:54 2017 NANAA
+** Last update Tue May 23 12:55:22 2017 NANAA
 */
 
 #include "raytracer.h"
-/*
-sfVector3f	get_normalized_object(sfVector3f inter, t_object *obj)
-{
-  if (obj->type == SPHERE)
-    inter = get_normal_sphere(inter, obj->x, obj->y, obj->z);
-  else if (obj->type == PLANE)
-    inter = get_normal_plane(1);
-  else if (obj->type == CYL)
-    inter = get_normal_cylinder(inter);
-  else if (obj->type == CONE)
-    inter = get_normal_cone(inter, obj);
-  return (inter);
-}*/
 
 sfVector3f	get_inter_point(sfVector3f *eye_pos, sfVector3f *dir_vector, float dist)
 {
