@@ -5,30 +5,12 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 15:24:46 2017 flavian gontier
+** Last update Thu May 25 16:07:12 2017 flavian gontier
 */
 
 #include <fcntl.h>
 #include "libmy.h"
 #include "raytracer.h"
-
-static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
-{
-  int		bytes;
-  int		frame_size;
-  int		total_size;
-
-  frame_size = (buffer->dimensions.x * buffer->dimensions.y * 4);
-  total_size = frame_size + sizeof(buffer->dimensions);
-  bytes = write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
-  bytes += write(fd, &buffer->pixels, frame_size);
-  if (bytes != total_size)
-  {
-    my_puterr("ERROR: Cannot serialize framebuffer.\n");
-    return (-1);
-  }
-  return (bytes);
-}
 
 static int	serialize_objects(int fd, t_listObject *objects)
 {
@@ -107,13 +89,20 @@ int	serialize(t_screen *screen, const char *save_path)
   int	ret;
 
   if (save_path == NULL)
+  {
+    my_puterr("ERROR: Cannot serialize with given path");
     return (-1);
-  fd = open(save_path, O_CREAT);
+  }
+  fd = open(save_path, O_CREAT | O_WRONLY);
   if (fd < 0)
+  {
+    my_puterr("ERROR: Cannot open the save file.\n");
     return (-1);
+  }
+  printf("Opened.\n");
   ret += serialize_screen(fd, screen);
-  ret += serialize_framebuffer(fd, &screen->framebuffer);
   ret += serialize_objects(fd, &screen->objects);
   ret += serialize_lights(fd, screen->lights, screen->lights_count);
+  printf("Serialized.\n");
   return (ret);
 }

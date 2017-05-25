@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Thu May 25 15:42:25 2017 NANAA
+** Last update Thu May 25 16:04:12 2017 flavian gontier
 */
 
 #include "raytracer.h"
@@ -61,7 +61,7 @@ int		button_action(t_screen *screen, int i)
   else if (screen->buttons[i].id == 15 && screen->last_object >= 1)
     return (listObject_remove(&screen->objects, screen->last_object));
   else if (screen->buttons[i].id == 16)
-    return (serialize(&(*screen), "save.rt"));
+    return (serialize(screen, "save.rt"));
   else
     {
       return (modify_color(&(*screen), screen->buttons[i].id));

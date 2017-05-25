@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 15:25:01 2017 flavian gontier
+** Last update Thu May 25 16:10:43 2017 flavian gontier
 */
 
 #include <unistd.h>
@@ -14,30 +14,6 @@
 #include <sys/types.h>
 #include "raytracer.h"
 #include "libmy.h"
-
-static int	deserialize_framebuffer(int fd, t_framebuffer *buffer)
-{
-  int		bytes;
-  int		frame_size;
-  int		total_size;
-
-  bytes = read(fd, &buffer->dimensions, sizeof(buffer->dimensions));
-  if (bytes != sizeof(buffer->dimensions))
-  {
-    my_puterr("ERROR: Cannot deserialize framebuffer (1).\n");
-    return (-1);
-  }
-  frame_size = (buffer->dimensions.x * buffer->dimensions.y * 4);
-  total_size = frame_size + sizeof(buffer->dimensions);
-  bytes = read(fd, &buffer->dimensions, sizeof(buffer->dimensions));
-  bytes += read(fd, &buffer->pixels, frame_size);
-  if (bytes != total_size)
-  {
-    my_puterr("ERROR: Cannot deserialize framebuffer (2).\n");
-    return (-1);
-  }
-  return (bytes);
-}
 
 static int	deserialize_objects(int fd, t_listObject *objects)
 {
@@ -120,7 +96,6 @@ int	deserialize(t_screen *screen, const char *save_path)
   if (fd < 0)
     return (-1);
   ret += deserialize_screen(fd, screen);
-  ret += deserialize_framebuffer(fd, &screen->framebuffer);
   ret += deserialize_objects(fd, &screen->objects);
   ret += deserialize_lights(fd, screen);
   return (ret);
