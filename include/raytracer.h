@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu May 25 13:17:17 2017 flavian gontier
+** Last update Thu May 25 21:45:34 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -137,7 +137,7 @@ typedef struct		s_screen
 
 sfColor			get_my_color(t_object *object, t_screen *screen,
 				     sfVector3f *inter_point, sfVector3f *dir_vector);
-sfColor			get_real_color(sfColor color, float cos, sfColor obj_color);
+sfColor			get_real_color(sfColor color, float cos, sfColor obj_color, float spec);
 int			compare_current_obj_and_other(t_object *current_obj, t_object other);
 float			shadow(sfVector3f light_v, t_screen *screen, t_object *current_obj, sfVector3f *inter_point);
 float			get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
