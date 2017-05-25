@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Thu May 25 22:54:35 2017 schwarzy
+** Last update Thu May 25 19:18:12 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -47,7 +47,7 @@ sfVector3f	change_object_color(t_inter inters, t_screen *screen,
   cos = get_light_coef(&light_vector, &inters.point);
   change_color(&(object->color), cos);
   object->color = get_real_color(screen->lights[index].color,
-				 cos, object->color, 1.0f);
+				 cos, object->color);
   return (light_v);
 }
 
@@ -56,26 +56,17 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
 {
   sfVector3f	light_vector;
   float		light_coef;
-  sfColor	l_color;
-  int		count;
   size_t	index;
 
   index = 0;
   light_coef = 0;
-  count = 0;
   while (index < screen->lights_count)
     {
-      l_color = screen->lights[index].color;
-      if (l_color.r != 0 || l_color.g != 0 || l_color.b != 0)
-	{
-	  count++;
-	  light_vector = change_object_color(inters, screen, dir_vector, index);
-	  light_coef += shadow(light_vector, screen,
-			       inters.object, &inters.point);
-	}
+      light_vector = change_object_color(inters, screen, dir_vector, index);
+      light_coef += shadow(light_vector, screen, inters.object, &inters.point);
       index++;
     }
-  light_coef = light_coef / count;
+  light_coef = light_coef / screen->lights_count;
   return (light_coef);
 }
 
