@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 16:10:43 2017 flavian gontier
+** Last update Thu May 25 16:19:07 2017 flavian gontier
 */
 
 #include <unistd.h>
@@ -91,10 +91,16 @@ int	deserialize(t_screen *screen, const char *save_path)
   int	ret;
 
   if (save_path == NULL)
-    return (-1);
-  fd = open(save_path, O_CREAT);
+    {
+      my_puterr("ERROR: Given path is null.\n");
+      return (-1);
+    }
+  fd = open(save_path, O_RDONLY);
   if (fd < 0)
+  {
+    my_puterr("ERROR: Cannot deserialize given file.\n");
     return (-1);
+  }
   ret += deserialize_screen(fd, screen);
   ret += deserialize_objects(fd, &screen->objects);
   ret += deserialize_lights(fd, screen);
