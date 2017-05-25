@@ -5,41 +5,11 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Mon May 22 16:04:42 2017 schwarzy
+** Last update Thu May 25 19:17:58 2017 schwarzy
 */
 
 # include <SFML/Graphics/Color.h>
 #include "raytracer.h"
-
-sfColor		get_my_color(t_object *object, t_screen *screen,
-			     sfVector3f *inter_point, sfVector3f *dir_vector)
-{
-  sfColor	color;
-  sfColor	sumcolor;
-  size_t	x;
-  float		cos;
-  sfVector3f	light_vector;
-  float		inter;
-
-  x = 0;
-  inter = object->intersect(&(*dir_vector), &(screen->eyes),
-			    &object->position, object->value);
-  sumcolor = sfBlack;
-  while (x < screen->lights_count)
-    {
-      color = screen->lights[x].color;
-      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
-				      &(screen->lights[x].coordinates), inter);
-      light_vector = get_normal_vector(light_vector);
-      cos = get_light_coef(&light_vector, &(*inter_point));
-      color = get_real_color(color, cos, object->color);
-      sumcolor.r = sumcolor.r + (int)(color.r / NBR_COLORS);
-      sumcolor.g = sumcolor.g + (int)(color.g / NBR_COLORS);
-      sumcolor.b = sumcolor.b + (int)(color.b / NBR_COLORS);
-      x++;
-    }
-  return (sumcolor);
-}
 
 sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
 {
