@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Thu May 25 19:18:12 2017 schwarzy
+** Last update Mon May 22 18:06:53 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -46,8 +46,7 @@ sfVector3f	change_object_color(t_inter inters, t_screen *screen,
   light_vector = get_normal_vector(light_vector);
   cos = get_light_coef(&light_vector, &inters.point);
   change_color(&(object->color), cos);
-  object->color = get_real_color(screen->lights[index].color,
-				 cos, object->color);
+  object->color = get_my_color(object, screen, &inters.point, &(*dir_vector));
   return (light_v);
 }
 
