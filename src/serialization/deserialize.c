@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 16:30:02 2017 flavian gontier
+** Last update Thu May 25 16:37:22 2017 flavian gontier
 */
 
 #include <unistd.h>
@@ -23,6 +23,7 @@ static int	deserialize_objects(int fd, t_listObject *objects)
   t_object	object;
 
   bytes = read(fd, &objects->count, sizeof(objects->count));
+  printf("objects count: %lu\n", objects->count);
   total = sizeof(size_t) + (sizeof(int) + sizeof(sfVector3f) * 2 +
     sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * objects->count;
   index = 0;
@@ -35,6 +36,7 @@ static int	deserialize_objects(int fd, t_listObject *objects)
     bytes += read(fd, &object.is_damier, sizeof(bool) * 3);
     set_object(&object, object.type);
     listObject_add(objects, object);
+    printf("index: %lu\n", index);
     index += 1;
   }
   if (bytes != total)
