@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 16:19:07 2017 flavian gontier
+** Last update Thu May 25 16:21:07 2017 flavian gontier
 */
 
 #include <unistd.h>
@@ -104,5 +104,6 @@ int	deserialize(t_screen *screen, const char *save_path)
   ret += deserialize_screen(fd, screen);
   ret += deserialize_objects(fd, &screen->objects);
   ret += deserialize_lights(fd, screen);
+  close(fd);
   return (ret);
 }

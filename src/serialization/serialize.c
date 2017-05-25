@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 16:07:12 2017 flavian gontier
+** Last update Thu May 25 16:21:59 2017 flavian gontier
 */
 
 #include <fcntl.h>
@@ -93,7 +93,7 @@ int	serialize(t_screen *screen, const char *save_path)
     my_puterr("ERROR: Cannot serialize with given path");
     return (-1);
   }
-  fd = open(save_path, O_CREAT | O_WRONLY);
+  fd = open(save_path, O_CREAT | O_WRONLY, 0644);
   if (fd < 0)
   {
     my_puterr("ERROR: Cannot open the save file.\n");
@@ -104,5 +104,6 @@ int	serialize(t_screen *screen, const char *save_path)
   ret += serialize_objects(fd, &screen->objects);
   ret += serialize_lights(fd, screen->lights, screen->lights_count);
   printf("Serialized.\n");
+  close(fd);
   return (ret);
 }
