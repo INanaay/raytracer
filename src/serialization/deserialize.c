@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 17:02:33 2017 flavian gontier
+** Last update Thu May 25 17:03:16 2017 flavian gontier
 */
 
 #include <unistd.h>
@@ -35,7 +35,6 @@ static int	deserialize_objects(int fd, t_listObject *objects)
     bytes += read(fd, &object.is_damier, sizeof(bool) * 3);
     set_object(&object, object.type);
     listObject_add(objects, object);
-    index += 1;
   }
   if (bytes != total)
   {
