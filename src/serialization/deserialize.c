@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 17:03:16 2017 flavian gontier
+** Last update Thu May 25 17:13:26 2017 NANAA
 */
 
 #include <unistd.h>
@@ -23,10 +23,9 @@ static int	deserialize_objects(int fd, t_listObject *objects)
   t_object	object;
 
   bytes = read(fd, &count, sizeof(objects->count));
-  printf("objects count: %lu\n", objects->count);
   total = sizeof(size_t) + (sizeof(int) + sizeof(sfVector3f) * 2 +
-    sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * objects->count;
-  while (objects->count < count)
+    sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * count;
+  while (objects->count < count + 1)
   {
     bytes += read(fd, &object.type, sizeof(int));
     bytes += read(fd, &object.position, sizeof(sfVector3f) * 2);
@@ -103,9 +102,9 @@ int	deserialize(t_screen *screen, const char *save_path)
     my_puterr("ERROR: Cannot deserialize given file.\n");
     return (-1);
   }
-  ret += deserialize_screen(fd, screen);
-  ret += deserialize_objects(fd, &screen->objects);
-  ret += deserialize_lights(fd, screen);
+  ret = deserialize_screen(fd, screen);
+  ret = deserialize_objects(fd, &screen->objects);
+  ret = deserialize_lights(fd, screen);
   close(fd);
   return (ret);
 }

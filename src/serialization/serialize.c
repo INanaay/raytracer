@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 16:21:59 2017 flavian gontier
+** Last update Thu May 25 17:14:43 2017 NANAA
 */
 
 #include <fcntl.h>
@@ -99,11 +99,10 @@ int	serialize(t_screen *screen, const char *save_path)
     my_puterr("ERROR: Cannot open the save file.\n");
     return (-1);
   }
-  printf("Opened.\n");
   ret += serialize_screen(fd, screen);
   ret += serialize_objects(fd, &screen->objects);
   ret += serialize_lights(fd, screen->lights, screen->lights_count);
-  printf("Serialized.\n");
   close(fd);
+  my_putstr("Sucessfully saved scene\n");
   return (ret);
 }

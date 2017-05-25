@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Mon May 22 17:52:03 2017 NANAA
+** Last update Thu May 25 17:20:30 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -56,6 +56,7 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
     }
   new_position = calc_new_pos(mouse_position, new_position);
   dir_vector = calc_dir_vector(mouse_position);
+  dir_vector = apply_rotation(dir_vector, screen->rotate);
   id = find_nearest_intersect(&(screen->objects), &dir_vector,
 			      &(screen->eyes));
   if (id == -1)

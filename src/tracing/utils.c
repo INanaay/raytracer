@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Thu Apr 27 11:28:30 2017 NANAA
+** Last update Thu May 25 17:16:47 2017 NANAA
 */
 
 #include <math.h>
@@ -41,4 +41,11 @@ float	get_root(float a, float b, float delt)
   if (r1 > r2)
     return (r2);
   return (r1);
+}
+
+sfVector3f	apply_rotation(sfVector3f vector, sfVector3f rotation)
+{
+  if (rotation.x != 0 || rotation.y != 0 || rotation.z != 0)
+    vector = rotate_xyz(vector, rotation);
+  return (vector);
 }

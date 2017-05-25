@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu May 25 13:17:17 2017 flavian gontier
+** Last update Thu May 25 17:17:22 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -215,5 +215,7 @@ void			change_light(t_screen *screen);
 int			modify_size(t_screen *screen, int button_id);
 sfVector3f		sfVector3f_cpy(sfVector3f src);
 int             rotate_object(t_listObject *objects, int last_object_id);
+int		 deserialize(t_screen *screen, const char *save_path);
+sfVector3f      apply_rotation(sfVector3f vector, sfVector3f rotation);
 
 #endif

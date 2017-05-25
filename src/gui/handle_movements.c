@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  9 13:58:40 2017 NANAA
-** Last update Mon May 22 18:07:53 2017 NANAA
+** Last update Thu May 25 17:30:23 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -39,38 +39,22 @@ int	move_rotate(sfVector3f *rotate)
   moved = true;
   if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
       (sfKeyboard_isKeyPressed(sfKeyLeft)))
-    rotate->z += 1;
+    rotate->z += 3;
   else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
 	   (sfKeyboard_isKeyPressed(sfKeyRight)))
-    rotate->z -= 1;
+    rotate->z -= 3;
   else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
 	   (sfKeyboard_isKeyPressed(sfKeyUp)))
-    rotate->y += 1;
+    rotate->y -= 3;
   else if (sfKeyboard_isKeyPressed(sfKeyLControl) &&
 	   (sfKeyboard_isKeyPressed(sfKeyDown)))
-    rotate->y -= 1;
-  else
-    moved = false;
-  return (moved);
-}
-
-int	move_translate(sfVector3f *translate)
-{
-  int	moved;
-
-  moved = true;
-  if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
-      (sfKeyboard_isKeyPressed(sfKeyUp)))
-    translate->z += 0.1;
-  else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
-	   (sfKeyboard_isKeyPressed(sfKeyDown)))
-    translate->z -= 0.1;
+    rotate->y += 3;
   else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
 	   (sfKeyboard_isKeyPressed(sfKeyLeft)))
-    translate->y += 0.1;
+    rotate->x += 3;
   else if (sfKeyboard_isKeyPressed(sfKeyLShift) &&
 	   (sfKeyboard_isKeyPressed(sfKeyRight)))
-    translate->y -= 0.1;
+    rotate->x -= 3;
   else
     moved = false;
   return (moved);
@@ -106,8 +90,6 @@ int	handle_movements(t_screen *screen)
 
   moved = false;
   if ((moved = move_rotate(&screen->rotate)) == true)
-    return (MOVED);
-  if ((moved = move_translate(&screen->translate)) == true)
     return (MOVED);
   if ((moved = move_eye(&screen->eyes)) == true)
     return (MOVED);
