@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 **
 ** Started on  Tue Apr 11 11:36:42 2017 flavian gontier
-** Last update Mon May 22 18:02:40 2017 schwarzy
+** Last update Thu May 25 17:45:58 2017 NANAA
 */
 
 #include <stdlib.h>
@@ -50,7 +50,7 @@ int		init_screen(t_screen *screen)
 					 FRAMEBUFFER_DEFAULT_HEIGHT);
   screen->lights_count = 3;
   screen->last_object = -1;
-  screen->aliasing = 1;
+  screen->aliasing = 3;
   screen->current_light = 0;
   error = init_framebuffer(&screen->framebuffer);
   screen->rotate = sfVector3f_create(0, 0, 0);

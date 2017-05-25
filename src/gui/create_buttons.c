@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed May 10 11:36:56 2017 NANAA
-** Last update Thu May 11 14:15:30 2017 NANAA
+** Last update Thu May 25 17:36:46 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -30,7 +30,7 @@ void		set_buttons(t_button *buttons, sfSprite *sprite)
   int		i;
   sfVector2f	position;
 
-  position = sfVector2f_create(700, 0);
+  position = sfVector2f_create(1100, 0);
   id = 0;
   i = 0;
   while (i < NB_BUTTONS)
@@ -39,9 +39,9 @@ void		set_buttons(t_button *buttons, sfSprite *sprite)
       buttons[i].sprite = sprite;
       buttons[i].position = position;
       position.x += 180;
-      if (position.x > 160 * 3 + 700)
+      if (position.x > 160 * 3 + 1100)
 	{
-	  position.x = 700;
+	  position.x = 1100;
 	  position.y += 75;
 	}
       i++;
