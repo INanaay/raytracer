@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Mon May 22 17:26:25 2017 schwarzy
+** Last update Thu May 25 13:17:17 2017 flavian gontier
 */
 
 #ifndef RAY_H_
@@ -55,12 +55,12 @@ typedef struct		s_object
 {
   int			type;
   sfVector3f		position;
+  sfVector3f		rotation;
   sfColor		color;
   float			value;
   bool			is_damier;
   bool			is_transparent;
   bool			is_mirror;
-  sfVector3f		rotation;
   float			(*intersect)(sfVector3f *, sfVector3f *, sfVector3f *, float);
   sfVector3f		(*normal)(sfVector3f, sfVector3f *, int);
 }			t_object;

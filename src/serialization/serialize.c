@@ -5,109 +5,115 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Fri May 12 10:34:13 2017 NANAA
+** Last update Thu May 25 15:24:46 2017 flavian gontier
 */
 
+#include <fcntl.h>
+#include "libmy.h"
 #include "raytracer.h"
 
 static int	serialize_framebuffer(int fd, t_framebuffer *buffer)
 {
-  size_t	count;
   int		bytes;
+  int		frame_size;
+  int		total_size;
 
-  count = (buffer->dimensions.x * buffer->dimensions.y) * 4;
-  bytes = (size_t)write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
-  if (bytes != sizeof(buffer->dimensions))
-    return (EXIT_ERROR);
-  bytes = write(fd, &buffer->pixels, count);
-  if (bytes != count)
-    return (EXIT_ERROR);
-  return (EXIT_SUCCESS);
+  frame_size = (buffer->dimensions.x * buffer->dimensions.y * 4);
+  total_size = frame_size + sizeof(buffer->dimensions);
+  bytes = write(fd, &buffer->dimensions, sizeof(buffer->dimensions));
+  bytes += write(fd, &buffer->pixels, frame_size);
+  if (bytes != total_size)
+  {
+    my_puterr("ERROR: Cannot serialize framebuffer.\n");
+    return (-1);
+  }
+  return (bytes);
 }
 
-static int	serialize_objects(int fd, t_object *objects, size_t count)
+static int	serialize_objects(int fd, t_listObject *objects)
 {
-  size_t	index;
-  size_t	length;
   int		bytes;
-  t_object	*object;
+  int		total;
+  t_nodeObject	*node;
 
-  index = 0;
-  bytes = write(fd, &count, sizeof(count));
-  if (bytes != sizeof(count))
-    return (EXIT_ERROR);
-  while (index < count)
+  node = objects->begin;
+  bytes = write(fd, &objects->count, sizeof(objects->count));
+  total = sizeof(size_t) + (sizeof(int) + sizeof(sfVector3f) * 2 +
+    sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * objects->count;
+  while (node != NULL)
   {
-    length = sizeof(t_object) - sizeof(object->intersect);
-    bytes = write(fd, &object->id, sizeof(int));
-    if (bytes != length)
-      return (EXIT_ERROR);
-    index += 1;
+    bytes += write(fd, &node->object.type, sizeof(int));
+    bytes += write(fd, &node->object.position, sizeof(sfVector3f) * 2);
+    bytes += write(fd, &node->object.color, sizeof(sfColor));
+    bytes += write(fd, &node->object.value, sizeof(float));
+    bytes += write(fd, &node->object.is_damier, sizeof(bool) * 3);
+    node = node->next;
   }
-  return (EXIT_SUCCESS);
+  if (bytes != total)
+  {
+    my_puterr("ERROR: Cannot write objects.\n");
+    return (-1);
+  }
+  return (bytes);
 }
 
 static int	serialize_lights(int fd, t_light *lights, size_t count)
 {
   size_t	index;
   int		bytes;
-  t_light	*ligth;
+  int		total;
+  t_light	*light;
 
   index = 0;
+  total = sizeof(size_t) + sizeof(t_light) * count;
   bytes = write(fd, &count, sizeof(count));
   if (bytes != sizeof(count))
-    return (EXIT_ERROR);
+  {
+    my_puterr("ERROR: Cannot serialize lights.\n");
+    return (-1);
+  }
   while (index < count)
   {
-    ligth = &lights[index];
-    bytes = write(fd, ligth, sizeof(t_light));
-    if (bytes != sizeof(t_light))
-      return (EXIT_ERROR);
+    light = lights + index;
+    bytes += write(fd, light, sizeof(t_light));
     index += 1;
   }
-  return (EXIT_SUCCESS);
+  if (bytes != total)
+  {
+    my_puterr("ERROR: Cannot serialize light.\n");
+    return (-1);
+  }
+  return (bytes);
 }
 
-static int	serialize_buttons(int fd, t_button *buttons, size_t count)
+static int	serialize_screen(int fd, t_screen *screen)
 {
-  size_t	index;
   int		bytes;
-  t_button	*button;
 
-  index = 0;
-  bytes = write(fd, &count, sizeof(size_t));
-  if (bytes != sizeof(size_t))
-    return (EXIT_ERROR);
-  while (index < count)
+  bytes = 0;
+  bytes = write(fd, &screen->dimensions, sizeof(screen->dimensions));
+  bytes += write(fd, &screen->eyes, sizeof(screen->eyes));
+  if (bytes != (sizeof(screen->dimensions) + sizeof(screen->eyes)))
   {
-    button = &buttons[index];
-    bytes = write(fd, button.position, sizeof(sfVector2f));
-    if (bytes != sizeof(sfVector2f))
-      return (EXIT_ERROR);
-    bytes = write(fd, button.color, sizeof(sfColor));
-    if (bytes != sizeof(sfColor))
-      return (EXIT_ERROR);
-    index += 1;
+    my_puterr("ERROR: Cannot serialize screen.\n");
+    return (-1);
   }
-  return (EXIT_SUCCESS);
+  return (bytes);
 }
 
 int	serialize(t_screen *screen, const char *save_path)
 {
   int	fd;
   int	ret;
-  int	bytes;
 
   if (save_path == NULL)
-    return (EXIT_ERROR);
+    return (-1);
   fd = open(save_path, O_CREAT);
   if (fd < 0)
-    return (EXIT_ERROR);
-  ret |= write(fd, &screen->dimensions, sizeof(screen->dimensions));
-  ret |= write(fd, &screen->eyes, sizeof(screen->eyes));
-  ret |= serialize_framebuffer(fd, &screen->framebuffer);
-  ret |= serialize_objects(fd, &screen->objects, screen->objects_count);
-  ret |= serialize_lights(fd, &screen->lights, screen->lights_count);
-  ret |= serialize_buttons(fd, &screen->buttons, screen->buttons_count);
+    return (-1);
+  ret += serialize_screen(fd, screen);
+  ret += serialize_framebuffer(fd, &screen->framebuffer);
+  ret += serialize_objects(fd, &screen->objects);
+  ret += serialize_lights(fd, screen->lights, screen->lights_count);
   return (ret);
 }

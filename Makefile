@@ -31,7 +31,9 @@ SRCS		=		src/main.c							\
 				src/tracing/damier.c				\
 				src/gui/create_buttons.c			\
 				src/gui/choose_light.c				\
-				src/tracing/rotate_object.c
+				src/tracing/rotate_object.c			\
+				src/serialization/serialize.c		\
+				src/serialization/deserialize.c		\
 
 OBJS		= 	$(SRCS:.c=.o)
 
@@ -58,7 +60,7 @@ clean:
 			$(RM) $(OBJS)
 			make -C src/lib clean
 
-fclean:			clean	
+fclean:			clean
 			$(RM) $(NAME)
 			make -C src/lib fclean
 
