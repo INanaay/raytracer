@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Thu May 25 17:36:23 2017 NANAA
+** Last update Fri May 26 15:08:59 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -20,7 +20,7 @@
 # define NAME "raytracer2"
 # define FRAMEBUFFER_DEFAULT_WIDTH 1080
 # define FRAMEBUFFER_DEFAULT_HEIGHT 720
-# define WINDOW_DEFAULT_WIDTH 1600
+# define WINDOW_DEFAULT_WIDTH 1700
 # define WINDOW_DEFAULT_HEIGHT 720
 # define BYTES_PER_PIXEL 4
 # define BITS_PER_PIXEL 32
@@ -113,6 +113,7 @@ typedef struct		s_button
   sfVector2i		dimensions;
   sfColor		color;
   sfSprite		*sprite;
+  char			*text;
 }			t_button;
 
 typedef struct		s_screen
@@ -151,7 +152,6 @@ sfVector2i	        sfVector2i_create(int x, int y);
 sfRenderWindow          *my_create_window(char *name, int width, int height);
 void			show_window(t_screen *);
 void		        print_gui(t_screen *screen);
-//int	                set_button(t_button *buttons);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color);
 sfVector2f		sfVector2f_create(float, float);
 int			check_button_hit(t_screen *, sfVector2i mouse);
@@ -190,7 +190,6 @@ void		        init_lights(t_light *lights);
 int		        move_objects(sfVector2i mouse_position, t_screen *screen);
 void			clear_buffer(t_my_framebuffer *buffer, int width, int height);
 sfVector2i	        calc_new_pos(sfVector2i mouse_position, sfVector2i new_position);
-float		        move_x(float x);
 int		        modify_color(t_screen *screen, int);
 int		        is_cursor_on_button(sfVector2i mouse_position,
 					    t_screen *screen, int i);
@@ -212,9 +211,10 @@ int			change_damier(t_screen *screen);
 void			change_light(t_screen *screen);
 int			modify_size(t_screen *screen, int button_id);
 sfVector3f		sfVector3f_cpy(sfVector3f src);
-int             rotate_object(t_listObject *objects, int last_object_id);
-int		deserialize(t_screen *screen, const char *save_path);
-sfVector3f      apply_rotation(sfVector3f vector, sfVector3f rotation);
-int		serialize(t_screen *screen, const char *save_path);
+int			rotate_object(t_listObject *objects, int last_object_id);
+int			deserialize(t_screen *screen, const char *save_path);
+sfVector3f		apply_rotation(sfVector3f vector, sfVector3f rotation);
+int			serialize(t_screen *screen, const char *save_path);
+sfText			*create_text();
 
 #endif
