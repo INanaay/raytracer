@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Thu May 25 17:44:49 2017 NANAA
+** Last update Fri May 26 17:45:33 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -62,7 +62,7 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
   while (index < screen->lights_count)
     {
       light_vector = change_object_color(inters, screen, dir_vector, index);
-      light_coef += shadow(light_vector, screen, inters.object, &inters.point);
+      light_coef += shadow(light_vector, screen, inters);
       index++;
     }
   light_coef = light_coef / screen->lights_count;
