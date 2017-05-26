@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Fri May 26 18:12:25 2017 schwarzy
+** Last update Fri May 26 18:46:18 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -36,29 +36,37 @@ t_vlight	get_vlight(t_inter inters, t_screen *screen,
 
   obj = inters.object;
   inters.point = obj->normal(inters.point, &obj->position, obj->value);
-  light.vl = get_light_vector(&screen->eyes, dir_vector, &screen->lights[index].coordinates, inters.inter);
+  light.vl = get_light_vector(&screen->eyes, dir_vector,
+			      &screen->lights[index].coordinates, inters.inter);
   light.vln = get_normal_vector(light.vl);
   light.cos = get_light_coef(&light.vln, &inters.point);
   change_color(&obj->color, light.cos);
-  obj->color = get_my_color(obj, screen, &inters.point, &(*dir_vector));
   return (light);
 }
 
 float		multilight_shadow(t_inter inters, t_screen *screen,
 				  sfVector3f *dir_vector)
 {
-  t_vlight	light;
-  float		cos;
   size_t	index;
+  t_vlight	light;
+  sfColor	pixel;
+  sfColor	diff;
+  t_object	*obj;
+  float		cos;
 
+  obj = inters.object;
   index = 0;
   cos = 0;
+  pixel = sfBlack;
   while (index < screen->lights_count)
     {
       light = get_vlight(inters, screen, dir_vector, index);
+      diff = diffuse_color(screen->lights[index].color, light.cos, obj->color);
+      pixel = sum_colors(pixel, diff, screen->lights_count);
       cos += shadow(light.vl, screen, inters);
       index++;
     }
+  obj->color = pixel;
   cos = cos / screen->lights_count;
   return (cos);
 }

@@ -5,43 +5,13 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Mon May 22 16:04:42 2017 schwarzy
+** Last update Fri May 26 18:44:45 2017 schwarzy
 */
 
 # include <SFML/Graphics/Color.h>
 #include "raytracer.h"
 
-sfColor		get_my_color(t_object *object, t_screen *screen,
-			     sfVector3f *inter_point, sfVector3f *dir_vector)
-{
-  sfColor	color;
-  sfColor	sumcolor;
-  size_t	x;
-  float		cos;
-  sfVector3f	light_vector;
-  float		inter;
-
-  x = 0;
-  inter = object->intersect(&(*dir_vector), &(screen->eyes),
-			    &object->position, object->value);
-  sumcolor = sfBlack;
-  while (x < screen->lights_count)
-    {
-      color = screen->lights[x].color;
-      light_vector = get_light_vector(&(screen->eyes), &(*dir_vector),
-				      &(screen->lights[x].coordinates), inter);
-      light_vector = get_normal_vector(light_vector);
-      cos = get_light_coef(&light_vector, &(*inter_point));
-      color = get_real_color(color, cos, object->color);
-      sumcolor.r = sumcolor.r + (int)(color.r / NBR_COLORS);
-      sumcolor.g = sumcolor.g + (int)(color.g / NBR_COLORS);
-      sumcolor.b = sumcolor.b + (int)(color.b / NBR_COLORS);
-      x++;
-    }
-  return (sumcolor);
-}
-
-sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
+sfColor	diffuse_color(sfColor color, float cos, sfColor obj_color)
 {
   if (color.r == 255 && color.g == 255 && color.b == 255)
     return (obj_color);
@@ -49,6 +19,23 @@ sfColor	get_real_color(sfColor color, float cos, sfColor obj_color)
   color.g = (color.g * cos) / 2 + (obj_color.g * cos) / 2;
   color.b = (color.b * cos) / 2 + (obj_color.b * cos) / 2;
   return (color);
+}
+
+sfColor		divide_color(sfColor color, int ratio)
+{
+  color.r /= ratio;
+  color.g /= ratio;
+  color.b /= ratio;
+  return (color);
+}
+
+sfColor		sum_colors(sfColor a, sfColor b, int ratio)
+{
+  b = divide_color(b, ratio);
+  a.r += b.r;
+  a.g += b.g;
+  a.b += b.b;
+  return (a);
 }
 
 sfColor		create_color(int r, int g, int b, int alpha)
