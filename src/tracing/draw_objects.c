@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Fri May 26 17:45:33 2017 schwarzy
+** Last update Fri May 26 18:12:25 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -28,45 +28,39 @@ static void		aliasing(t_screen *screen, sfVector2i *screen_pos,
     }
 }
 
-sfVector3f	change_object_color(t_inter inters, t_screen *screen,
-				    sfVector3f *dir_vector, int index)
+t_vlight	get_vlight(t_inter inters, t_screen *screen,
+			   sfVector3f *dir_vector, int index)
 {
-  sfVector3f	light_vector;
-  sfVector3f	light_v;
-  float		cos;
-  t_object	*object;
+  t_vlight	light;
+  t_object	*obj;
 
-  object = inters.object;
-  inters.point = object->normal(inters.point, &(object->position),
-			       object->value);
-  light_vector = get_light_vector(&screen->eyes, &(*dir_vector),
-				  &screen->lights[index].coordinates,
-				  inters.inter);
-  light_v = light_vector;
-  light_vector = get_normal_vector(light_vector);
-  cos = get_light_coef(&light_vector, &inters.point);
-  change_color(&(object->color), cos);
-  object->color = get_my_color(object, screen, &inters.point, &(*dir_vector));
-  return (light_v);
+  obj = inters.object;
+  inters.point = obj->normal(inters.point, &obj->position, obj->value);
+  light.vl = get_light_vector(&screen->eyes, dir_vector, &screen->lights[index].coordinates, inters.inter);
+  light.vln = get_normal_vector(light.vl);
+  light.cos = get_light_coef(&light.vln, &inters.point);
+  change_color(&obj->color, light.cos);
+  obj->color = get_my_color(obj, screen, &inters.point, &(*dir_vector));
+  return (light);
 }
 
 float		multilight_shadow(t_inter inters, t_screen *screen,
 				  sfVector3f *dir_vector)
 {
-  sfVector3f	light_vector;
-  float		light_coef;
+  t_vlight	light;
+  float		cos;
   size_t	index;
 
   index = 0;
-  light_coef = 0;
+  cos = 0;
   while (index < screen->lights_count)
     {
-      light_vector = change_object_color(inters, screen, dir_vector, index);
-      light_coef += shadow(light_vector, screen, inters);
+      light = get_vlight(inters, screen, dir_vector, index);
+      cos += shadow(light.vl, screen, inters);
       index++;
     }
-  light_coef = light_coef / screen->lights_count;
-  return (light_coef);
+  cos = cos / screen->lights_count;
+  return (cos);
 }
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,

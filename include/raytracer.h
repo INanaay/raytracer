@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri May 26 17:52:56 2017 schwarzy
+** Last update Fri May 26 18:11:40 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -99,6 +99,13 @@ typedef struct		s_inter
   sfVector3f		point;
   t_object		*object;
 }			t_inter;
+
+typedef struct		s_vlight
+{
+  sfVector3f		vl;
+  sfVector3f		vln;
+  float			cos;
+}			t_vlight;
 
 typedef struct		s_light
 {
