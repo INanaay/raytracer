@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Fri May 26 18:46:18 2017 schwarzy
+** Last update Fri May 26 19:14:12 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -40,7 +40,7 @@ t_vlight	get_vlight(t_inter inters, t_screen *screen,
 			      &screen->lights[index].coordinates, inters.inter);
   light.vln = get_normal_vector(light.vl);
   light.cos = get_light_coef(&light.vln, &inters.point);
-  change_color(&obj->color, light.cos);
+  //change_color(&obj->color, light.cos);
   return (light);
 }
 
@@ -61,7 +61,7 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
   while (index < screen->lights_count)
     {
       light = get_vlight(inters, screen, dir_vector, index);
-      diff = diffuse_color(screen->lights[index].color, light.cos, obj->color);
+      diff = diffuse_color(screen->lights[index].color, light.cos, obj->color, obj->spec);
       pixel = sum_colors(pixel, diff, screen->lights_count);
       cos += shadow(light.vl, screen, inters);
       index++;

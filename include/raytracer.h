@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Fri May 26 18:46:40 2017 schwarzy
+** Last update Fri May 26 19:07:39 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -56,6 +56,7 @@ typedef struct		s_object
   sfVector3f		rotation;
   sfColor		color;
   float			value;
+  float			spec;
   bool			is_damier;
   bool			is_transparent;
   bool			is_mirror;
@@ -143,7 +144,7 @@ typedef struct		s_screen
 
 sfColor			divide_color(sfColor, int);
 sfColor			sum_colors(sfColor, sfColor, int);
-sfColor			diffuse_color(sfColor color, float cos, sfColor obj_color);
+sfColor			diffuse_color(sfColor, float, sfColor, float);
 int			compare_current_obj_and_other(t_object *current_obj, t_object other);
 float			shadow(sfVector3f light_v, t_screen *screen, t_inter inters);
 float			get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
