@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Sat Apr 22 17:08:13 2017 flavian gontier
-** Last update Thu May 25 17:14:43 2017 NANAA
+** Last update Sat May 27 11:35:00 2017 NANAA
 */
 
 #include <fcntl.h>
@@ -20,8 +20,8 @@ static int	serialize_objects(int fd, t_listObject *objects)
 
   node = objects->begin;
   bytes = write(fd, &objects->count, sizeof(objects->count));
-  total = sizeof(size_t) + (sizeof(int) + sizeof(sfVector3f) * 2 +
-    sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * objects->count;
+  total = sizeof(size_t) + (sizeof(int) + sizeof(sfVector3f) * 2
+   + sizeof(sfColor) + sizeof(float) + sizeof(bool) * 3) * objects->count;
   while (node != NULL)
   {
     bytes += write(fd, &node->object.type, sizeof(int));
