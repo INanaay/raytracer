@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Sat May 27 11:03:29 2017 schwarzy
+** Last update Sat May 27 12:30:48 2017 NANAA
 */
 
 # include <SFML/Graphics/Color.h>
@@ -46,7 +46,8 @@ void		change_color(sfColor *color, float cos)
   color->b *= cos;
 }
 
-sfColor	diffuse_color(sfColor color, float cos, sfColor obj_color, float spec)
+sfColor	diffuse_color(sfColor color, float cos, sfColor obj_color,
+		      float spec)
 {
   if (color.r == 255 && color.g == 255 && color.b == 255)
     {
