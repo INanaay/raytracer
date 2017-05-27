@@ -5,24 +5,11 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Sat Apr 29 16:14:21 2017 NANAA
-** Last update Fri May 26 19:17:33 2017 schwarzy
+** Last update Sat May 27 11:03:29 2017 schwarzy
 */
 
 # include <SFML/Graphics/Color.h>
 #include "raytracer.h"
-
-sfColor	diffuse_color(sfColor color, float cos, sfColor obj_color, float spec)
-{
-  if (color.r == 255 && color.g == 255 && color.b == 255)
-    {
-      change_color(&obj_color, cos);
-      return (obj_color);
-    }
-  obj_color.r = color.r * cos * spec;
-  obj_color.g = color.g * cos * spec;
-  obj_color.b = color.b * cos * spec;
-  return (obj_color);
-}
 
 sfColor		divide_color(sfColor color, int ratio)
 {
@@ -57,4 +44,17 @@ void		change_color(sfColor *color, float cos)
   color->r *= cos;
   color->g *= cos;
   color->b *= cos;
+}
+
+sfColor	diffuse_color(sfColor color, float cos, sfColor obj_color, float spec)
+{
+  if (color.r == 255 && color.g == 255 && color.b == 255)
+    {
+      change_color(&obj_color, cos);
+      return (obj_color);
+    }
+  obj_color.r = color.r * cos * spec;
+  obj_color.g = color.g * cos * spec;
+  obj_color.b = color.b * cos * spec;
+  return (obj_color);
 }
