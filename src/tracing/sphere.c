@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Feb 10 15:55:52 2017 Nathan Lebon
-** Last update Sat May 27 12:25:53 2017 schwarzy
+** Last update Sat May 27 12:28:16 2017 schwarzy
 */
 
 #include <math.h>
@@ -25,8 +25,8 @@ float           intersect_sphere(sfVector3f *dir_vector, sfVector3f *eye_pos,
 	   + ((eye_pos->y - object->y) * dir_vector->y)
 	   + ((eye_pos->z - object->z) * dir_vector->z));
   c = powf(eye_pos->x - object->x, 2)
-	      + (powf(eye_pos->y - object->y, 2))
-              + powf(eye_pos->z - object->z, 2) - powf(radius, 2));
+    + (powf(eye_pos->y - object->y, 2))
+    + powf(eye_pos->z - object->z, 2) - powf(radius, 2);
   delt = powf(b, 2) - (4 * a * c);
   if (delt < 0.0f)
     return (-1.0f);
