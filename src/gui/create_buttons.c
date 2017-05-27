@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed May 10 11:36:56 2017 NANAA
-** Last update Fri May 26 15:04:03 2017 NANAA
+** Last update Sat May 27 11:29:50 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -42,8 +42,8 @@ int		init_buttons(t_button *buttons)
 static void	set_buttons_text(t_button *buttons)
 {
   buttons[0].text = "sphere";
-  buttons[1].text = "cylinder";
-  buttons[2].text = "cone";
+  buttons[1].text = "cone";
+  buttons[2].text = "cylinder";
   buttons[3].text = "R -";
   buttons[4].text = "R +";
   buttons[5].text = "damier";
