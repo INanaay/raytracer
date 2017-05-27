@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Sat May 27 18:16:54 2017 NANAA
+** Last update Sat May 27 18:29:43 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -58,7 +58,9 @@ int		button_action(t_screen *screen, int i)
     return (listObject_remove(&screen->objects, screen->last_object));
   else if (screen->buttons[i].id == 17)
     return (serialize(screen, "save.rt"));
-  return (modify_color(&(*screen), screen->buttons[i].id));
+  else if (screen->buttons[i].id >= 16 && screen->buttons[i].id <= 20)
+    return (modify_limit(screen, screen->buttons[i].id));
+  return (modify_color(screen, screen->buttons[i].id));
 }
 
 int		check_button_hit(t_screen *screen, sfVector2i mouse_position)

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat May 27 18:10:40 2017 NANAA
+** Last update Sat May 27 18:25:29 2017 NANAA
 */
 
 #ifndef RAY_H_
@@ -227,5 +227,6 @@ int			deserialize(t_screen *screen, const char *save_path);
 sfVector3f		apply_rotation(sfVector3f vector, sfVector3f rotation);
 int			serialize(t_screen *screen, const char *save_path);
 sfText			*create_text();
+int			modify_limit(t_screen *screen, int button_id);
 
 #endif
