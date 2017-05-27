@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sat May 27 12:21:30 2017 schwarzy
+** Last update Sat May 27 12:31:28 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -36,7 +36,8 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 
   inters.inter = object->intersect(&(*dir_vector), &(screen->eyes),
 			    &object->position, object->value);
-  inters.point = get_inter_point(&(screen->eyes), &(*dir_vector), inters.inter);
+  inters.point = get_inter_point(&(screen->eyes), &(*dir_vector),
+				 inters.inter);
   inters.object = object;
   if (object->is_damier == true)
     damier(&inters.point, &object->color);

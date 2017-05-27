@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Wed Apr 26 11:21:00 2017 NANAA
-** Last update Sat May 27 12:22:03 2017 schwarzy
+** Last update Sat May 27 12:32:21 2017 NANAA
 */
 
 #include <math.h>
@@ -15,8 +15,8 @@ sfVector3f	get_normal_vector(sfVector3f vector)
 {
   float		norm;
 
-  norm = sqrt(vector.x * vector.x + vector.y * vector.y +
-	      vector.z * vector.z);
+  norm = sqrt(vector.x * vector.x + vector.y * vector.y
+	     + vector.z * vector.z);
   vector.x = vector.x / norm;
   vector.y = vector.y / norm;
   vector.z = vector.z / norm;
