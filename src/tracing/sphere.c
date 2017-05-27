@@ -1,11 +1,11 @@
 /*
 ** intersect_sphere.c for  in /home/NANAA/projets/raytracer1/intersect
-** 
+**
 ** Made by Nathan Lebon
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Fri Feb 10 15:55:52 2017 Nathan Lebon
-** Last update Mon May  1 12:18:16 2017 NANAA
+** Last update Sat May 27 12:25:53 2017 schwarzy
 */
 
 #include <math.h>
@@ -20,22 +20,22 @@ float           intersect_sphere(sfVector3f *dir_vector, sfVector3f *eye_pos,
   float         c;
   float         delt;
 
-  a = (float)((pow(dir_vector->x, 2) + pow(dir_vector->y, 2))
-              + pow(dir_vector->z, 2));
+  a = powf(dir_vector->x, 2) + powf(dir_vector->y, 2) + powf(dir_vector->z, 2);
   b = 2 * (((eye_pos->x - object->x) * dir_vector->x)
 	   + ((eye_pos->y - object->y) * dir_vector->y)
 	   + ((eye_pos->z - object->z) * dir_vector->z));
-  c = (float)(pow(eye_pos->x - object->x, 2)
-	      + (pow(eye_pos->y - object->y, 2))
-              + pow(eye_pos->z - object->z, 2) - pow(radius, 2));
-  delt = pow(b, 2) - (4 * a * c);
-  if (delt < 0)
+  c = powf(eye_pos->x - object->x, 2)
+	      + (powf(eye_pos->y - object->y, 2))
+              + powf(eye_pos->z - object->z, 2) - powf(radius, 2));
+  delt = powf(b, 2) - (4 * a * c);
+  if (delt < 0.0f)
     return (-1.0f);
   else
     return (get_root(a, b, delt));
 }
 
-sfVector3f	get_normal_sphere(sfVector3f inter, sfVector3f *obj_pos, int value)
+sfVector3f	get_normal_sphere(sfVector3f inter, sfVector3f *obj_pos,
+				  int value)
 {
   value = value;
   inter.x -= obj_pos->x;

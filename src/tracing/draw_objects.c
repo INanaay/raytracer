@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sat May 27 11:21:49 2017 schwarzy
+** Last update Sat May 27 12:21:30 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -26,50 +26,6 @@ static void		aliasing(t_screen *screen, sfVector2i *screen_pos,
 	}
       to_reach.x--;
     }
-}
-
-t_vlight	get_vlight(t_inter inters, t_screen *screen,
-			   sfVector3f *dir_vector, int index)
-{
-  t_vlight	light;
-  t_object	*obj;
-
-  obj = inters.object;
-  inters.point = obj->normal(inters.point, &obj->position, obj->value);
-  light.vl = get_light_vector(&screen->eyes, dir_vector,
-			      &screen->lights[index].coordinates, inters.inter);
-  light.vln = get_normal_vector(light.vl);
-  light.cos = get_light_coef(&light.vln, &inters.point);
-  change_color(&obj->color, light.cos);
-  return (light);
-}
-
-float		multilight_shadow(t_inter inters, t_screen *screen,
-				  sfVector3f *dir_vector)
-{
-  size_t	index;
-  t_vlight	light;
-  sfColor	pixel;
-  sfColor	diff;
-  t_object	*obj;
-  float		cos;
-
-  obj = inters.object;
-  index = 0;
-  cos = 0;
-  pixel = sfBlack;
-  while (index < screen->lights_count)
-    {
-      light = get_vlight(inters, screen, dir_vector, index);
-      diff = diffuse_color(screen->lights[index].color, light.cos,
-			   obj->color, obj->spec);
-      pixel = sum_colors(pixel, diff, screen->lights_count);
-      cos += shadow(light.vl, screen, inters);
-      index++;
-    }
-  obj->color = pixel;
-  cos = cos / screen->lights_count;
-  return (cos);
 }
 
 void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
@@ -93,37 +49,28 @@ int		find_nearest_intersect(t_listObject *objects,
 				       sfVector3f *dir_vector, sfVector3f *eyes)
 {
   int		id;
-  float		min;
+  sfVector2f	vars;
   t_nodeObject	*node;
   size_t       	index;
-  float		temp;
-  sfVector3f	dir_vector_copy;
+  sfVector3f	dir_v_c;
 
-  min = 1000000;
-  id = -1;
-  if (objects->count == 0)
-    return (id);
+  vars.y = 10000.0f;
   node = objects->begin;
   id = 0;
-  index = 0;
-  while (index < objects->count)
+  index = -1;
+  while (++index < objects->count)
     {
-      dir_vector_copy = sfVector3f_cpy(*dir_vector);
-      if (node->object.rotation.x != 0)
-	dir_vector_copy = apply_rotation(dir_vector_copy, node->object.rotation);
-      temp = node->object.intersect(&(dir_vector_copy), &(*eyes), &node->object.position,
-				    node->object.value);
-      if (temp < min && temp > 0)
+      dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
+      vars.x = node->object.intersect(&(dir_v_c), eyes,
+				    &node->object.position, node->object.value);
+      if (vars.x < vars.y && vars.x > 0.0f)
 	{
 	  id = index;
-	  min = temp;
+	  vars.y = vars.x;
 	}
       node = node->next;
-      index++;
     }
-  if (min == 1000000)
-    return (- 1);
-  return (id);
+  return ((id = (vars.y == 10000.0f) ? -1 : id));
 }
 
 t_object	get_object_to_draw(t_listObject *objects, int id)
@@ -148,7 +95,7 @@ void		draw_objects(t_screen *screen)
   int		id;
   t_object	obj;
 
-  screen_pos = sfVector2i_create(0, 0);
+  screen_pos.y = 0;
   while (screen_pos.y < FRAMEBUFFER_DEFAULT_HEIGHT)
     {
       screen_pos.x = 0;
@@ -156,12 +103,13 @@ void		draw_objects(t_screen *screen)
 	{
 	  dir_vector = calc_dir_vector(screen_pos);
 	  dir_vector = apply_rotation(dir_vector, screen->rotate);
-	  id = find_nearest_intersect(&(screen->objects), &dir_vector, &(screen->eyes));
+	  id = find_nearest_intersect(&screen->objects,
+				      &dir_vector, &screen->eyes);
 	  if (id != -1)
 	    {
-	      obj = get_object_to_draw(&(screen->objects), id);
+	      obj = get_object_to_draw(&screen->objects, id);
 	      dir_vector = apply_rotation(dir_vector, obj.rotation);
-	      draw_pixel(&(*screen), &screen_pos, &dir_vector, &obj);
+	      draw_pixel(screen, &screen_pos, &dir_vector, &obj);
 	    }
 	  screen_pos.x = screen_pos.x + screen->aliasing;
 	}

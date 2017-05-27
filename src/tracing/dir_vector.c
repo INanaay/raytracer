@@ -1,11 +1,11 @@
 /*
 ** calc_dir_vector.c for  in /home/NANAA/projets/raytracer1
-** 
+**
 ** Made by Nathan Lebon
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Fri Feb 10 15:53:31 2017 Nathan Lebon
-** Last update Fri May 12 16:43:15 2017 NANAA
+** Last update Sat May 27 11:47:26 2017 schwarzy
 */
 
 #include "raytracer.h"

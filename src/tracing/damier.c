@@ -1,11 +1,11 @@
 /*
 ** damier.c for Project-Master in /home/NANAA/Projets/raytracer2/src/tracing
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Wed May 10 10:59:12 2017 NANAA
-** Last update Mon May 22 16:15:52 2017 NANAA
+** Last update Sat May 27 11:47:17 2017 schwarzy
 */
 
 #include "raytracer.h"

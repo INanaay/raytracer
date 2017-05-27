@@ -1,16 +1,17 @@
 /*
 ** intersect_cyl.c for  in /home/NANAA/projets/raytracer1
-** 
+**
 ** Made by Nathan Lebon
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Fri Feb 10 16:56:27 2017 Nathan Lebon
-** Last update Tue May 16 12:31:15 2017 anatole zeyen
+** Last update Sat May 27 11:45:03 2017 schwarzy
 */
 
 #include "raytracer.h"
 
-float		intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *obj, float radius)
+float		intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos,
+			      sfVector3f *obj, float radius)
 {
   float		a;
   float		b;
@@ -27,7 +28,8 @@ float		intersect_cyl(sfVector3f *dir_vector, sfVector3f *eye_pos, sfVector3f *ob
   return (get_root(a, b, delt));
 }
 
-sfVector3f	get_normal_cylinder(sfVector3f inter, sfVector3f *pos, int value)
+sfVector3f	get_normal_cylinder(sfVector3f inter,
+				    sfVector3f *pos, int value)
 {
   value = value;
   pos = pos;
