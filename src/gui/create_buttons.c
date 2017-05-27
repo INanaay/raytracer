@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed May 10 11:36:56 2017 NANAA
-** Last update Sat May 27 11:29:50 2017 NANAA
+** Last update Sat May 27 18:18:23 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -55,10 +55,13 @@ static void	set_buttons_text(t_button *buttons)
   buttons[11].text = "Temp";
   buttons[12].text = "aliasing -";
   buttons[13].text = "aliasing +";
-  buttons[14].text = "size +";
-  buttons[15].text = "delete";
-  buttons[16].text = "save";
-  buttons[17].text = "size -";
+  buttons[14].text = "delete";
+  buttons[15].text = "size -";
+  buttons[16].text = "size +";
+  buttons[17].text = "save";
+  buttons[18].text = "limited";
+  buttons[19].text = "limit -";
+  buttons[20].text = "limit +";
 }
 
 void		set_buttons(t_button *buttons, sfSprite *sprite)

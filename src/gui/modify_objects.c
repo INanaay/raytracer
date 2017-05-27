@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Sat May  6 11:46:56 2017 NANAA
-** Last update Mon May 22 15:56:18 2017 NANAA
+** Last update Sat May 27 18:16:25 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -39,9 +39,9 @@ int		modify_size(t_screen *screen, int button_id)
   temp = screen->objects.begin;
   while (index++ != screen->last_object)
     temp = temp->next;
-  if (button_id == 14)
+  if (button_id == 16)
     temp->object.value += 2;
-  if (button_id == 17)
+  if (button_id == 15)
     temp->object.value -= 2;
   return (EXIT_SUCCESS);
 }

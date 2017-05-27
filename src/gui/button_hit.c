@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Wed Apr 12 16:31:53 2017 NANAA
-** Last update Fri May 26 14:00:24 2017 NANAA
+** Last update Sat May 27 18:16:54 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -47,26 +47,18 @@ static int	modify_aliasing(t_screen *screen, int button_id)
 int		button_action(t_screen *screen, int i)
 {
   if (screen->buttons[i].id < 3)
-    {
-      return (add_object(&(screen->objects), screen->buttons[i].id));
-    }
+    return (add_object(&(screen->objects), screen->buttons[i].id));
   else if (screen->buttons[i].id == 5)
-    {
-      return (change_damier(&(*screen)));
-    }
+    return (change_damier(&(*screen)));
   else if (screen->buttons[i].id == 12 || screen->buttons[i].id == 13)
     return (modify_aliasing(&(*screen), screen->buttons[i].id));
-  else if (screen->buttons[i].id == 14 || screen->buttons[i].id == 17)
+  else if (screen->buttons[i].id == 15 || screen->buttons[i].id == 16)
     return (modify_size(&(*screen), screen->buttons[i].id));
-  else if (screen->buttons[i].id == 15 && screen->last_object >= 1)
+  else if (screen->buttons[i].id == 14 && screen->last_object >= 1)
     return (listObject_remove(&screen->objects, screen->last_object));
-  else if (screen->buttons[i].id == 16)
+  else if (screen->buttons[i].id == 17)
     return (serialize(screen, "save.rt"));
-  else
-    {
-      return (modify_color(&(*screen), screen->buttons[i].id));
-    }
-  return (EXIT_SUCCESS);
+  return (modify_color(&(*screen), screen->buttons[i].id));
 }
 
 int		check_button_hit(t_screen *screen, sfVector2i mouse_position)
