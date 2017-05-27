@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sat May 27 12:31:28 2017 NANAA
+** Last update Sat May 27 18:07:22 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -34,9 +34,9 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   t_inter	inters;
   float		light_coef;
 
-  inters.inter = object->intersect(&(*dir_vector), &(screen->eyes),
+  inters.inter = object->intersect(dir_vector, &screen->eyes,
 			    &object->position, object->value);
-  inters.point = get_inter_point(&(screen->eyes), &(*dir_vector),
+  inters.point = get_inter_point(&screen->eyes, dir_vector,
 				 inters.inter);
   inters.object = object;
   if (object->is_damier == true)
@@ -44,6 +44,20 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   light_coef = multilight_shadow(inters, screen, dir_vector);
   change_color(&object->color, light_coef);
   aliasing(screen, screen_pos, object);
+}
+
+int		check_lim(float inter, t_object *obj,
+			  sfVector3f *eyes, sfVector3f *dir_v)
+{
+  sfVector3f	point;
+
+  if (obj->limited)
+    {
+      point = get_inter_point(eyes, dir_v, inter);
+      if (point.z < -obj->lim || point.z > obj->lim)
+	return (EXIT_SUCCESS);
+    }
+  return (EXIT_ERROR);
 }
 
 int		find_nearest_intersect(t_listObject *objects,
@@ -62,9 +76,10 @@ int		find_nearest_intersect(t_listObject *objects,
   while (++index < objects->count)
     {
       dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
-      vars.x = node->object.intersect(&(dir_v_c), eyes,
+      vars.x = node->object.intersect(&dir_v_c, eyes,
 				    &node->object.position, node->object.value);
-      if (vars.x < vars.y && vars.x > 0.0f)
+      if (vars.x < vars.y && vars.x > 0.0f
+	  && check_lim(vars.x, &node->object, eyes, dir_vector))
 	{
 	  id = index;
 	  vars.y = vars.x;

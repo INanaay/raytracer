@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Tue Apr 25 11:15:33 2017 NANAA
-** Last update Sat May 27 12:31:11 2017 NANAA
+** Last update Sat May 27 17:44:49 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -44,21 +44,22 @@ t_object	init_object(int type)
   new_object.rotation = sfVector3f_create(0, 0, 0);
   new_object.color = sfRed;
   new_object.spec = 1.0f;
+  new_object.lim = 20.0;
+  new_object.limited = false;
+  new_object.is_damier = false;
   if (type == plane)
     {
       new_object.value = 0;
       new_object.position.z = 0;
+      new_object.is_damier = true;
     }
   else if (type == cyl)
-    new_object.value = 20;
+    {
+      new_object.limited = true;
+      new_object.value = 20;
+    }
   else
     new_object.value = 40;
-  new_object.is_transparent = false;
-  new_object.is_mirror = false;
-  if (type == plane)
-    new_object.is_damier = true;
-  else
-    new_object.is_damier = false;
   set_object(&new_object, type);
   return (new_object);
 }
