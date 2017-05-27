@@ -1,11 +1,11 @@
 /*
 ** utils.c for raytracer in /home/flavian.gontier/Tek1/C_Graphical/raytracer2/src/tracing
-** 
+**
 ** Made by flavian gontier
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
-** 
+**
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Thu May 25 17:16:47 2017 NANAA
+** Last update Sat May 27 11:35:54 2017 schwarzy
 */
 
 #include <math.h>

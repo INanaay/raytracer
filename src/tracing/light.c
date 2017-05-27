@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Wed Mar  1 13:26:15 2017 Nathan Lebon
-** Last update Mon May 22 17:59:32 2017 schwarzy
+** Last update Sat May 27 11:34:57 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -39,8 +39,9 @@ float		get_light_coef(sfVector3f *light_vector,
  {
   float		cosa;
 
-  cosa = normal_vector->x * light_vector->x + normal_vector->y * light_vector->y
-    + normal_vector->z * light_vector->z;
+  cosa = normal_vector->x * light_vector->x +
+    normal_vector->y * light_vector->y +
+    normal_vector->z * light_vector->z;
   if (cosa > 0.0f && cosa < 1.0f)
     return (cosa);
   return (0);

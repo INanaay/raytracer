@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sat May 27 11:03:55 2017 schwarzy
+** Last update Sat May 27 11:21:49 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -61,7 +61,8 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
   while (index < screen->lights_count)
     {
       light = get_vlight(inters, screen, dir_vector, index);
-      diff = diffuse_color(screen->lights[index].color, light.cos, obj->color, obj->spec);
+      diff = diffuse_color(screen->lights[index].color, light.cos,
+			   obj->color, obj->spec);
       pixel = sum_colors(pixel, diff, screen->lights_count);
       cos += shadow(light.vl, screen, inters);
       index++;
