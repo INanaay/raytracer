@@ -1,11 +1,11 @@
 /*
 ** my_show_window.c for wolf in /home/flavian.gontier/C_Graphical/wolf3d/src/graphic/window
-** 
+**
 ** Made by flavian gontier
 ** Login   <flavian.gontier@epitech.net>
-** 
+**
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Tue May 16 11:33:32 2017 NANAA
+** Last update Sat May 27 13:00:37 2017 schwarzy
 */
 
 #include <stdlib.h>
@@ -14,7 +14,8 @@
 void		print_scene(t_screen *screen, sfTexture *texture)
 {
   sfRenderWindow_clear(screen->window, sfBlack);
-  clear_buffer(&screen->framebuffer, FRAMEBUFFER_DEFAULT_WIDTH, FRAMEBUFFER_DEFAULT_HEIGHT);
+  clear_buffer(&screen->framebuffer, FRAMEBUFFER_DEFAULT_WIDTH,
+	       FRAMEBUFFER_DEFAULT_HEIGHT);
   print_gui(&(*screen));
   draw_objects(&(*screen));
   sfTexture_updateFromPixels(texture, screen->framebuffer.pixels,
@@ -28,11 +29,14 @@ void		show_window(t_screen *screen)
   sfTexture	*texture;
 
   sprite = sfSprite_create();
-  texture = sfTexture_create(screen->framebuffer.dimensions.x, screen->framebuffer.dimensions.y);
+  texture = sfTexture_create(screen->framebuffer.dimensions.x,
+			     screen->framebuffer.dimensions.y);
   sfSprite_setTexture(sprite, texture, sfTrue);
   sfRenderWindow_drawSprite(screen->window, sprite, NULL);
   draw_objects(&(*screen));
-  sfTexture_updateFromPixels(texture, screen->framebuffer.pixels, screen->framebuffer.dimensions.x,  screen->framebuffer.dimensions.y, 0, 0);
+  sfTexture_updateFromPixels(texture, screen->framebuffer.pixels,
+			     screen->framebuffer.dimensions.x,
+			     screen->framebuffer.dimensions.y, 0, 0);
   while (sfRenderWindow_isOpen(screen->window))
     {
     sfRenderWindow_drawSprite(screen->window, sprite, NULL);
@@ -46,5 +50,4 @@ void		show_window(t_screen *screen)
       print_scene(&(*screen), texture);
   }
   sfRenderWindow_destroy(screen->window);
-  //free(win);
 }
