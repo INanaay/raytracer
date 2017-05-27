@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue Apr 11 15:31:44 2017 NANAA
-** Last update Mon May 22 18:10:21 2017 NANAA
+** Last update Sat May 27 12:56:59 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -35,7 +35,7 @@ sfVector2f	sfVector2f_create(float x, float y)
 
   new.x = x;
   new.y = y;
-  return (new);  
+  return (new);
 }
 
 sfVector3f	sfVector3f_cpy(sfVector3f src)
