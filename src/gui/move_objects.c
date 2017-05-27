@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 ** 
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Fri May 26 15:06:49 2017 NANAA
+** Last update Sat May 27 12:53:46 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -39,6 +39,18 @@ static void		get_new_pos(sfVector3f *obj_pos, sfVector2i *pos, float x)
   obj_pos->x += x;
 }
 
+static int	get_object_id(sfVector2i *mouse_position, sfVector3f *dir_vector,
+			     t_screen *screen, sfVector2i *new_position)
+{
+  int		id;
+
+ *new_position = calc_new_pos(*mouse_position, *new_position);
+ *dir_vector = calc_dir_vector(*mouse_position);
+ *dir_vector = apply_rotation(*dir_vector, screen->rotate);
+ id = find_nearest_intersect(&screen->objects, dir_vector, &screen->eyes);
+  return (id);
+}
+
 int		move_objects(sfVector2i mouse_position, t_screen *screen)
 {
   int		id;
@@ -54,11 +66,7 @@ int		move_objects(sfVector2i mouse_position, t_screen *screen)
       new_position = sfMouse_getPositionRenderWindow(screen->window);
       x = move_x(x);
     }
-  new_position = calc_new_pos(mouse_position, new_position);
-  dir_vector = calc_dir_vector(mouse_position);
-  dir_vector = apply_rotation(dir_vector, screen->rotate);
-  id = find_nearest_intersect(&(screen->objects), &dir_vector,
-			      &(screen->eyes));
+  id = get_object_id(&mouse_position, &dir_vector, screen, &new_position);
   if (id == -1)
       return (EXIT_ERROR);
   temp = screen->objects.begin;
