@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 13:30:41 2017 schwarzy
+** Last update Sun May 28 14:12:07 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -33,13 +33,14 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 {
   t_inter	inters;
   float		light_coef;
+  sfVector3f	pos;
 
-
+  pos = inv_trans(object->position, object->position);
   inters.dir_v = apply_rotation(*dir_vector, object->rotation);
   inters.eyes = apply_rotation(translate(screen->eyes,
-				   object->position), object->rotation);
+				   pos), object->rotation);
   inters.inter = object->intersect(&inters.dir_v, &inters.eyes,
-			    &object->position, object->value);
+			    &pos, object->value);
   inters.point = get_inter_point(&inters.eyes, &inters.dir_v,
 				 inters.inter);
   inters.object = object;
@@ -74,6 +75,7 @@ int		find_nearest_intersect(t_listObject *objects,
   size_t       	index;
   sfVector3f	dir_v_c;
   sfVector3f	final;
+  sfVector3f	pos;
 
   vars.y = 10000.0f;
   node = objects->begin;
@@ -81,8 +83,9 @@ int		find_nearest_intersect(t_listObject *objects,
   index = -1;
   while (++index < objects->count)
     {
+      pos = inv_trans(node->object.position, node->object.position);
       dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
-      final = apply_rotation(translate(*eyes, node->object.position),
+      final = apply_rotation(translate(*eyes, pos),
 			     node->object.rotation);
       vars.x = node->object.intersect(&dir_v_c, &final,
 				    &node->object.position, node->object.value);
@@ -132,7 +135,6 @@ void		draw_objects(t_screen *screen)
 	  if (id != -1)
 	    {
 	      obj = get_object_to_draw(&screen->objects, id);
-	      dir_vector = apply_rotation(dir_vector, obj.rotation);
 	      draw_pixel(screen, &screen_pos, &dir_vector, &obj);
 	    }
 	  screen_pos.x = screen_pos.x + screen->aliasing;
