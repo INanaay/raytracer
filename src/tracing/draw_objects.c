@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 12:53:15 2017 schwarzy
+** Last update Sun May 28 13:30:41 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -33,16 +33,14 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 {
   t_inter	inters;
   float		light_coef;
-  sfVector3f	final;
-  sfVector3f	dir_v_c;
 
 
-  dir_v_c = apply_rotation(*dir_vector, object->rotation);
-  final = apply_rotation(inv_trans(screen->eyes,
+  inters.dir_v = apply_rotation(*dir_vector, object->rotation);
+  inters.eyes = apply_rotation(translate(screen->eyes,
 				   object->position), object->rotation);
-  inters.inter = object->intersect(&dir_v_c, &final,
+  inters.inter = object->intersect(&inters.dir_v, &inters.eyes,
 			    &object->position, object->value);
-  inters.point = get_inter_point(&screen->eyes, dir_vector,
+  inters.point = get_inter_point(&inters.eyes, &inters.dir_v,
 				 inters.inter);
   inters.object = object;
   if (object->is_damier == true)
@@ -84,7 +82,7 @@ int		find_nearest_intersect(t_listObject *objects,
   while (++index < objects->count)
     {
       dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
-      final = apply_rotation(inv_trans(*eyes, node->object.position),
+      final = apply_rotation(translate(*eyes, node->object.position),
 			     node->object.rotation);
       vars.x = node->object.intersect(&dir_v_c, &final,
 				    &node->object.position, node->object.value);

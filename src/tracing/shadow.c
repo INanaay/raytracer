@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Sat May 27 12:23:06 2017 schwarzy
+** Last update Sun May 28 13:26:18 2017 schwarzy
 */
 
 #include "raytracer.h"

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sat May 27 18:25:29 2017 NANAA
+** Last update Sun May 28 13:27:26 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -101,6 +101,8 @@ typedef struct		s_inter
 {
   float			inter;
   sfVector3f		point;
+  sfVector3f		dir_v;
+  sfVector3f		eyes;
   t_object		*object;
 }			t_inter;
 
