@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sun May 28 13:27:26 2017 schwarzy
+** Last update Sun May 28 15:46:22 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -101,8 +101,8 @@ typedef struct		s_inter
 {
   float			inter;
   sfVector3f		point;
-  sfVector3f		dir_v;
   sfVector3f		eyes;
+  sfVector3f		dir_v;
   t_object		*object;
 }			t_inter;
 
@@ -147,11 +147,14 @@ typedef struct		s_screen
   int			aliasing;
 }			t_screen;
 
+void			set_for_rotation(sfVector3f *, sfVector3f *,
+					 t_object *);
 sfColor			divide_color(sfColor, int);
 sfColor			sum_colors(sfColor, sfColor, int);
 sfColor			diffuse_color(sfColor, float, sfColor, float);
 float			multilight_shadow(t_inter, t_screen *, sfVector3f *);
-float			get_real_intersect(sfVector3f obj_pos, sfVector3f dir_vector,
+float			get_real_intersect(sfVector3f obj_pos,
+					   sfVector3f dir_vector,
 					   float radius, int type);
 /*
 ** Prototypes

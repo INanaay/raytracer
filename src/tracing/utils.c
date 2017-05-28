@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 **
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Sat May 27 11:35:54 2017 schwarzy
+** Last update Sun May 28 15:43:25 2017 schwarzy
 */
 
 #include <math.h>
@@ -48,4 +48,14 @@ sfVector3f	apply_rotation(sfVector3f vector, sfVector3f rotation)
   if (rotation.x != 0 || rotation.y != 0 || rotation.z != 0)
     vector = rotate_xyz(vector, rotation);
   return (vector);
+}
+
+void		set_for_rotation(sfVector3f *dir_v, sfVector3f *eyes,
+				 t_object *object)
+{
+  sfVector3f	pos;
+
+  pos = inv_trans(object->position, object->position);
+  *dir_v = apply_rotation(*dir_v, object->rotation);
+  *eyes = apply_rotation(translate(*eyes, pos), object->rotation);
 }

@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 14:12:07 2017 schwarzy
+** Last update Sun May 28 15:46:02 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -33,14 +33,12 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 {
   t_inter	inters;
   float		light_coef;
-  sfVector3f	pos;
 
-  pos = inv_trans(object->position, object->position);
-  inters.dir_v = apply_rotation(*dir_vector, object->rotation);
-  inters.eyes = apply_rotation(translate(screen->eyes,
-				   pos), object->rotation);
+  inters.eyes = screen->eyes;
+  inters.dir_v = *dir_vector;
+  set_for_rotation(&inters.dir_v, &inters.eyes, object);
   inters.inter = object->intersect(&inters.dir_v, &inters.eyes,
-			    &pos, object->value);
+			    &object->position, object->value);
   inters.point = get_inter_point(&inters.eyes, &inters.dir_v,
 				 inters.inter);
   inters.object = object;
@@ -75,7 +73,6 @@ int		find_nearest_intersect(t_listObject *objects,
   size_t       	index;
   sfVector3f	dir_v_c;
   sfVector3f	final;
-  sfVector3f	pos;
 
   vars.y = 10000.0f;
   node = objects->begin;
@@ -83,10 +80,9 @@ int		find_nearest_intersect(t_listObject *objects,
   index = -1;
   while (++index < objects->count)
     {
-      pos = inv_trans(node->object.position, node->object.position);
-      dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
-      final = apply_rotation(translate(*eyes, pos),
-			     node->object.rotation);
+      dir_v_c = *dir_vector;
+      final = *eyes;
+      set_for_rotation(&dir_v_c, &final, &node->object);
       vars.x = node->object.intersect(&dir_v_c, &final,
 				    &node->object.position, node->object.value);
       if (vars.x < vars.y && vars.x > 0.0f
