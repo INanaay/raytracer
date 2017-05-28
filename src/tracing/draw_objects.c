@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 15:46:02 2017 schwarzy
+** Last update Sun May 28 16:09:05 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -86,7 +86,7 @@ int		find_nearest_intersect(t_listObject *objects,
       vars.x = node->object.intersect(&dir_v_c, &final,
 				    &node->object.position, node->object.value);
       if (vars.x < vars.y && vars.x > 0.0f
-	  && check_lim(vars.x, &node->object, eyes, dir_vector))
+	  && check_lim(vars.x, &node->object, &final, &dir_v_c))
 	{
 	  id = index;
 	  vars.y = vars.x;
