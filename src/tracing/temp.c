@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 12:25:57 2017 NANAA
+** Last update Sun May 28 12:19:08 2017 NANAA
 */
 
 #include "raytracer.h"
@@ -35,8 +35,7 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   float		light_coef;
   sfVector3f	final;
   sfVector3f	dir_v_c;
-
-
+  
   dir_v_c = apply_rotation(*dir_vector, object->rotation);
   final = apply_rotation(translate(screen->eyes, object->position), object->rotation);
   inters.inter = object->intersect(&dir_v_c, &final,
@@ -59,8 +58,7 @@ int		check_lim(float inter, t_object *obj,
   if (obj->limited)
     {
       point = get_inter_point(eyes, dir_v, inter);
-      if (point.z < obj->position.z - obj->lim
-	  || point.z > obj->position.z + obj->lim)
+      if (point.z < -obj->lim || point.z > obj->lim)
 	return (EXIT_SUCCESS);
     }
   return (EXIT_ERROR);
@@ -84,8 +82,7 @@ int		find_nearest_intersect(t_listObject *objects,
     {
       dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
       final = apply_rotation(translate(*eyes, node->object.position), node->object.rotation);
-      vars.x = node->object.intersect(&dir_v_c, &final,
-				    &node->object.position, node->object.value);
+      vars.x = node->object.intersect(&dir_v_c, &final , &node->object.position, node->object.value);
       if (vars.x < vars.y && vars.x > 0.0f
 	  && check_lim(vars.x, &node->object, eyes, dir_vector))
 	{
@@ -132,8 +129,7 @@ void		draw_objects(t_screen *screen)
 	  if (id != -1)
 	    {
 	      obj = get_object_to_draw(&screen->objects, id);
-	      dir_vector = apply_rotation(dir_vector, obj.rotation);
-	      draw_pixel(screen, &screen_pos, &dir_vector, &obj);
+	      	      draw_pixel(screen, &screen_pos, &dir_vector, &obj);
 	    }
 	  screen_pos.x = screen_pos.x + screen->aliasing;
 	}
