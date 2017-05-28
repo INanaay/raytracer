@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 **
 ** Started on  Fri Jan 20 20:32:15 2017 flavian gontier
-** Last update Mon Apr 24 15:58:40 2017 flavian gontier
+** Last update Sun May 28 17:31:49 2017 NANAA
 */
 
 #ifndef LIBMY_H_
@@ -66,8 +66,6 @@ void			my_putchar(char c);
 void                    my_puterr(char *str);
 void                    my_putstr(char *str);
 void			my_putnbr(int nb);
-
-
 /*
 ** list
 */

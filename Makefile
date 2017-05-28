@@ -32,8 +32,9 @@ SRCS		=		src/main.c							\
 				src/gui/create_buttons.c			\
 				src/gui/choose_light.c				\
 				src/tracing/rotate_object.c			\
-				src/serialization/serialize.c		\
-				src/serialization/deserialize.c		\
+				src/serialization/serialize.c			\
+				src/serialization/deserialize.c			\
+				src/window/screenshot.c
 
 OBJS		= 	$(SRCS:.c=.o)
 
