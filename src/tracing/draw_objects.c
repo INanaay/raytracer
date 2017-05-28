@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 18:48:47 2017 schwarzy
+** Last update Sun May 28 20:03:42 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -49,29 +49,28 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   aliasing(screen, screen_pos, object);
 }
 
-int		find_nearest_intersect(t_listObject *objects,
-				       sfVector3f *dir_vector, sfVector3f *eyes)
+int			find_nearest_intersect(t_listObject *objects,
+				       sfVector3f *dir_vector,
+				       sfVector3f *eyes)
 {
-  int		id;
+  static int	id = 0;
   sfVector2f	vars;
   t_nodeObject	*node;
-  size_t       	index;
-  sfVector3f	dir_v_c;
-  sfVector3f	final;
+  size_t	index;
+  sfVector3f	finals[2];
 
+  finals[0] = *dir_vector;
+  finals[1] = *eyes;
   vars.y = 10000.0f;
   node = objects->begin;
-  id = 0;
   index = -1;
   while (++index < objects->count)
     {
-      dir_v_c = *dir_vector;
-      final = *eyes;
-      set_for_rotation(&dir_v_c, &final, &node->object);
-      vars.x = node->object.intersect(&dir_v_c, &final,
+      set_for_rotation(&finals[0], &finals[1], &node->object);
+      vars.x = node->object.intersect(&finals[0], &finals[1],
 				    &node->object.position, node->object.value);
       if (vars.x < vars.y && vars.x > 0.0f
-	  && check_lim(vars.x, &node->object, &final, &dir_v_c))
+	  && check_lim(vars.x, &node->object, &finals[1], &finals[0]))
 	{
 	  id = index;
 	  vars.y = vars.x;
