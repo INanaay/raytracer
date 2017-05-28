@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Mon Apr 10 14:47:35 2017 NANAA
-** Last update Sun May 28 17:31:20 2017 NANAA
+** Last update Sun May 28 19:02:52 2017 schwarzy
 */
 
 #ifndef RAY_H_
@@ -146,66 +146,106 @@ typedef struct		s_screen
   int			aliasing;
 }			t_screen;
 
-void			set_for_rotation(sfVector3f *, sfVector3f *,
-					 t_object *);
-sfColor			divide_color(sfColor, int);
-sfColor			sum_colors(sfColor, sfColor, int);
-sfColor			diffuse_color(sfColor, float, sfColor, float);
-float			multilight_shadow(t_inter, t_screen *,
-					  sfVector3f *);
-float			get_real_intersect(sfVector3f obj_pos,
-					   sfVector3f dir_vector,
-					   float radius, int type);
 /*
 ** Prototypes
 */
-int			init_screen(t_screen *screen);
-int			load_screen(t_screen *screen, char *filepath);
-int			init_framebuffer(t_framebuffer *framebuffer);
-sfVector3f	        sfVector3f_create(float x, float y, float z);
-sfVector2i	        sfVector2i_create(int x, int y);
-sfRenderWindow          *my_create_window(char *name, int width, int height);
+
+t_object	        get_object_to_draw(t_listObject *objects, int id);
+t_object		init_object(int type);
+t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
+void			set_for_rotation(sfVector3f *, sfVector3f *,
+					 t_object *);
+void		        draw_objects(t_screen *);
 void			show_window(t_screen *);
 void		        print_gui(t_screen *screen);
 void			my_put_pixel(t_framebuffer *buffer, sfVector2i coords,
 				     sfColor color);
-sfVector2f		sfVector2f_create(float, float);
+void		        listObject_reset_index(t_nodeObject *node);
+void			fill_black(t_my_framebuffer *buffer);
+void			screenshot(t_my_framebuffer *buffer);
+void			set_object(t_object *object, int type);
+void		        change_color(sfColor *color, float cos);
+void			draw_pixel(t_screen *screen, sfVector2i *screen_pos,
+				   sfVector3f *dir_vector, t_object *object);
+void		        init_lights(t_light *lights);
+
+void			clear_buffer(t_my_framebuffer *buffer,
+				     int width, int height);
+void			change_light(t_screen *screen);
+void		        print_scene(t_screen *screen, sfTexture *texture);
+void		        set_buttons(t_button *buttons, sfSprite *sprite);
+void			damier(sfVector3f *inter, sfColor *color);
+bool			check_lim(float, t_object *,
+				  sfVector3f *, sfVector3f *);
 int			check_button_hit(t_screen *, sfVector2i mouse);
 int	                find_nearest_intersect(t_listObject *objects,
 					       sfVector3f *dir_vector,
 					       sfVector3f *eyes);
 int			handle_poll_events(t_screen *screen);
-void		        draw_objects(t_screen *);
-t_object		init_object(int type);
 int			add_object(t_listObject *objects, int type);
 int			listObject_add(t_listObject *list, t_object object);
-t_nodeObject            *listObject_getNode(t_listObject *list, int64_t id);
+int			listObject_init(t_listObject *list);
+int		        move_objects(sfVector2i mouse_position,
+				     t_screen *screen);
+int			init_screen(t_screen *screen);
+int			load_screen(t_screen *screen, char *filepath);
+int			init_framebuffer(t_framebuffer *framebuffer);
+int		        modify_color(t_screen *screen, int);
+int		        is_cursor_on_button(sfVector2i mouse_position,
+					    t_screen *screen, int i);
+int		        button_action(t_screen *screen, int i);
+int		        move_eye(sfVector3f *eyes);
+int		        handle_movements(t_screen *screen);
+int		        move_rotate(sfVector3f *rotate);
+int			init_buttons(t_button *buttons);
+int			move_light(t_screen *screen);
+int			handle_movements(t_screen *screen);
+int			change_damier(t_screen *screen);
+int			modify_size(t_screen *screen, int button_id);
+int			rotate_object(t_listObject *objects,
+				      int last_object_id);
+int			deserialize(t_screen *screen,
+				    const char *save_path);
+int			serialize(t_screen *screen,
+				  const char *save_path);
+int			modify_limit(t_screen *screen,
+				     int button_id);
 int		        listObject_remove(t_listObject *list, int64_t);
-void		        listObject_reset_index(t_nodeObject *node);
+float			multilight_shadow(t_inter, t_screen *);
+float			get_real_intersect(sfVector3f obj_pos,
+					   sfVector3f dir_vector,
+					   float radius, int type);
 float			intersect_sphere(sfVector3f *, sfVector3f *,
 					 sfVector3f *, float);
-sfVector3f	        calc_dir_vector(sfVector2i screen_pos);
-sfVector3f	        get_normal_vector(sfVector3f vector);
 float		        get_root(float a, float b, float delt);
 float		        intersect_plane(sfVector3f *dir_vector,
-					sfVector3f *eye_pos, sfVector3f *, float);
+					sfVector3f *eye_pos,
+					sfVector3f *, float);
 float			intersect_cone(sfVector3f *dir_vector,
 				       sfVector3f *eye_pos,
 				       sfVector3f *object, float radius);
 float                   intersect_cyl(sfVector3f *dir_vector,
 				      sfVector3f *eye_pos,
 				      sfVector3f *object, float radius);
-int			listObject_init(t_listObject *list);
-t_object	        get_object_to_draw(t_listObject *objects, int id);
 float		        get_light_coef(sfVector3f *light_vector,
 				       sfVector3f *normal_vector);
+sfColor			divide_color(sfColor, int);
+sfColor			sum_colors(sfColor, sfColor, int);
+sfColor			diffuse_color(sfColor, float, sfColor, float);
+sfColor		        create_color(int r, int g, int b, int alpha);
+sfVector2i	        calc_new_pos(sfVector2i mouse_position,
+				     sfVector2i new_position);
+sfVector2i	        sfVector2i_create(int x, int y);
+sfVector2f		sfVector2f_create(float, float);
+sfVector3f	        sfVector3f_create(float x, float y, float z);
+sfVector3f	        calc_dir_vector(sfVector2i screen_pos);
+sfVector3f	        get_normal_vector(sfVector3f vector);
 sfVector3f		get_light_vector(sfVector3f *eye_pos,
 					 sfVector3f *dir_vector,
 					 sfVector3f *light_pos,
 					 float dist);
 sfVector3f	        get_inter_point(sfVector3f *eye_pos,
 					sfVector3f *dir_vector, float dist);
-void			set_object(t_object *object, int type);
 sfVector3f	        get_normal_sphere(sfVector3f inter,
 					  sfVector3f *obj_pos, int);
 sfVector3f	        get_normal_plane(sfVector3f inter,
@@ -214,51 +254,15 @@ sfVector3f		get_normal_cylinder(sfVector3f inter,
 					    sfVector3f *pos, int);
 sfVector3f	        get_normal_cone(sfVector3f intersection_point,
 					sfVector3f *obj, int);
-sfColor		        create_color(int r, int g, int b, int alpha);
-void		        change_color(sfColor *color, float cos);
-void			draw_pixel(t_screen *screen, sfVector2i *screen_pos,
-				   sfVector3f *dir_vector, t_object *object);
-void		        init_lights(t_light *lights);
-int		        move_objects(sfVector2i mouse_position,
-				     t_screen *screen);
-void			clear_buffer(t_my_framebuffer *buffer,
-				     int width, int height);
-sfVector2i	        calc_new_pos(sfVector2i mouse_position,
-				     sfVector2i new_position);
-int		        modify_color(t_screen *screen, int);
-int		        is_cursor_on_button(sfVector2i mouse_position,
-					    t_screen *screen, int i);
-void		        print_scene(t_screen *screen, sfTexture *texture);
-int		        button_action(t_screen *screen, int i);
 sfVector3f	        rotate_xyz(sfVector3f to_rotate, sfVector3f angles);
 sfVector3f		rotate_zyx(sfVector3f to_rotate, sfVector3f angles);
 sfVector3f		translate(sfVector3f to_translate,
 				  sfVector3f translations);
 sfVector3f		inv_trans(sfVector3f, sfVector3f);
-int		        move_eye(sfVector3f *eyes);
-int		        handle_movements(t_screen *screen);
-int		        move_rotate(sfVector3f *rotate);
-void		        set_buttons(t_button *buttons, sfSprite *sprite);
-int			init_buttons(t_button *buttons);
-int			move_light(t_screen *screen);
-void			damier(sfVector3f *inter, sfColor *color);
 sfVector3f		c_dir_vector(sfVector2i screen);
-int			handle_movements(t_screen *screen);
-int			change_damier(t_screen *screen);
-void			change_light(t_screen *screen);
-int			modify_size(t_screen *screen, int button_id);
 sfVector3f		sfVector3f_cpy(sfVector3f src);
-int			rotate_object(t_listObject *objects,
-				      int last_object_id);
-int			deserialize(t_screen *screen,
-				    const char *save_path);
 sfVector3f		apply_rotation(sfVector3f vector, sfVector3f rotation);
-int			serialize(t_screen *screen,
-				  const char *save_path);
+sfRenderWindow          *my_create_window(char *name, int width, int height);
 sfText			*create_text();
-int			modify_limit(t_screen *screen,
-				     int button_id);
-void			fill_black(t_my_framebuffer *buffer);
-void			screenshot(t_my_framebuffer *buffer);
 
 #endif

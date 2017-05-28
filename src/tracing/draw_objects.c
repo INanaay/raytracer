@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 16:09:05 2017 schwarzy
+** Last update Sun May 28 18:48:47 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -44,24 +44,9 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
   inters.object = object;
   if (object->is_damier == true)
     damier(&inters.point, &object->color);
-  light_coef = multilight_shadow(inters, screen, dir_vector);
+  light_coef = multilight_shadow(inters, screen);
   change_color(&object->color, light_coef);
   aliasing(screen, screen_pos, object);
-}
-
-int		check_lim(float inter, t_object *obj,
-			  sfVector3f *eyes, sfVector3f *dir_v)
-{
-  sfVector3f	point;
-
-  if (obj->limited)
-    {
-      point = get_inter_point(eyes, dir_v, inter);
-      if (point.z < obj->position.z - obj->lim
-	  || point.z > obj->position.z + obj->lim)
-	return (EXIT_SUCCESS);
-    }
-  return (EXIT_ERROR);
 }
 
 int		find_nearest_intersect(t_listObject *objects,

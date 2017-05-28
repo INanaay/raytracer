@@ -5,50 +5,62 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Sun May 28 15:55:36 2017 schwarzy
+** Last update Sun May 28 19:02:17 2017 schwarzy
 */
 
 #include "raytracer.h"
 
-static int	is_same(t_object *current_obj, t_object other)
+static bool	is_same(t_object *current_obj, t_object other)
 {
   if (current_obj->position.x == other.position.x
       && current_obj->position.y == other.position.y
       && current_obj->position.z == other.position.z
       && current_obj->value == other.value
       && current_obj->type == other.type)
-    return (0);
-  return (1);
+    return (true);
+  return (false);
+}
+
+static float	get_shadow_inter(t_object *curr, t_object *obj,
+				 sfVector3f *light_v, sfVector3f *pos)
+{
+  float		k;
+
+  k = 0;
+  if (curr->limited)
+    pos->z -= (curr->lim);
+  k = curr->intersect(light_v, pos, &obj->position, curr->value);
+  return (k);
 }
 
 static float			shadow(sfVector3f light_v,
 				       t_screen *screen, t_inter inters)
 {
-  float			closest;
-  t_nodeObject		*tmp;
+  float			k;
+  t_nodeObject		*node;
   t_object		*obj;
+  t_object		tmp;
   sfVector3f		tmp_pos;
 
   obj = inters.object;
-  tmp = screen->objects.begin;
+  node = screen->objects.begin;
   light_v.x = -light_v.x;
   light_v.y = -light_v.y;
   light_v.z = -light_v.z;
-  while (tmp != NULL)
+  while (node != NULL)
     {
-      tmp_pos = inv_trans(tmp->object.position, inters.point);
-      set_for_rotation(&light_v, &inters.eyes, &tmp->object);
-      closest = tmp->object.intersect(&light_v, &tmp_pos,
-				       &obj->position, tmp->object.value);
-      if (is_same(obj, tmp->object) && closest > 0.0f && closest < 1.0f)
-	return (closest);
-      tmp = tmp->next;
+      tmp = node->object;
+      tmp_pos = inv_trans(tmp.position, inters.point);
+      set_for_rotation(&light_v, &inters.eyes, &tmp);
+      k = get_shadow_inter(&tmp, obj, &light_v, &tmp_pos);
+      if (!is_same(obj, tmp) && k > 0.0f && k < 1.0f)
+	return (k);
+      node = node->next;
     }
   return (1.0);
 }
 
-static t_vlight	get_vlight(t_inter inters, t_screen *screen,
-			   sfVector3f *dir_vector, int index)
+static t_vlight	get_vlight(t_inter inters, t_screen *screen, int index)
 {
   t_vlight	light;
   t_object	*obj;
@@ -64,8 +76,7 @@ static t_vlight	get_vlight(t_inter inters, t_screen *screen,
   return (light);
 }
 
-float		multilight_shadow(t_inter inters, t_screen *screen,
-				  sfVector3f *dir_vector)
+float		multilight_shadow(t_inter inters, t_screen *screen)
 {
   size_t	index;
   t_vlight	light;
@@ -80,7 +91,7 @@ float		multilight_shadow(t_inter inters, t_screen *screen,
   pixel = sfBlack;
   while (index < screen->lights_count)
     {
-      light = get_vlight(inters, screen, dir_vector, index);
+      light = get_vlight(inters, screen, index);
       diff = diffuse_color(screen->lights[index].color, light.cos,
 			   obj->color, obj->spec);
       pixel = sum_colors(pixel, diff, screen->lights_count);

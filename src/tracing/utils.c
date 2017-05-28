@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 **
 ** Started on  Tue Apr 11 11:58:46 2017 flavian gontier
-** Last update Sun May 28 15:43:25 2017 schwarzy
+** Last update Sun May 28 17:49:59 2017 schwarzy
 */
 
 #include <math.h>
@@ -24,6 +24,21 @@ void	my_put_pixel(t_framebuffer *buffer, sfVector2i coords, sfColor color)
   buffer->pixels[index + 1] = color.g;
   buffer->pixels[index + 2] = color.b;
   buffer->pixels[index + 3] = color.a;
+}
+
+bool		check_lim(float inter, t_object *obj,
+			  sfVector3f *eyes, sfVector3f *dir_v)
+{
+  sfVector3f	point;
+
+  if (obj->limited)
+    {
+      point = get_inter_point(eyes, dir_v, inter);
+      if (point.z < obj->position.z - obj->lim
+	  || point.z > obj->position.z + obj->lim)
+	return (false);
+    }
+  return (true);
 }
 
 float	get_root(float a, float b, float delt)

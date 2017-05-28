@@ -1,11 +1,11 @@
 /*
 ** main.c for Project-Master in /home/NANAA/Projets/raytracer2
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Mon Apr 10 15:03:39 2017 NANAA
-** Last update Thu May 25 17:15:31 2017 NANAA
+** Last update Sun May 28 18:59:19 2017 schwarzy
 */
 
 #include "raytracer.h"
