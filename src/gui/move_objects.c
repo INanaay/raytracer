@@ -1,11 +1,11 @@
 /*
 ** move_objects.c for Project-Master in /home/NANAA/Projets/raytracer2/src/gui
-** 
+**
 ** Made by NANAA
 ** Login   <nathan.lebon@epitech.eu>
-** 
+**
 ** Started on  Tue May  2 14:00:37 2017 NANAA
-** Last update Sat May 27 12:53:46 2017 NANAA
+** Last update Sun May 28 12:49:39 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -32,14 +32,16 @@ static float		move_x(float x)
   return (x);
 }
 
-static void		get_new_pos(sfVector3f *obj_pos, sfVector2i *pos, float x)
+static void		get_new_pos(sfVector3f *obj_pos,
+				    sfVector2i *pos, float x)
 {
   obj_pos->y += (float)pos->x;
   obj_pos->z += (float)pos->y;
   obj_pos->x += x;
 }
 
-static int	get_object_id(sfVector2i *mouse_position, sfVector3f *dir_vector,
+static int	get_object_id(sfVector2i *mouse_position,
+			      sfVector3f *dir_vector,
 			     t_screen *screen, sfVector2i *new_position)
 {
   int		id;

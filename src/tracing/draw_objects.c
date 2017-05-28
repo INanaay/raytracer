@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sun May 28 12:25:57 2017 NANAA
+** Last update Sun May 28 12:53:15 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -38,7 +38,8 @@ void		draw_pixel(t_screen *screen, sfVector2i *screen_pos,
 
 
   dir_v_c = apply_rotation(*dir_vector, object->rotation);
-  final = apply_rotation(translate(screen->eyes, object->position), object->rotation);
+  final = apply_rotation(inv_trans(screen->eyes,
+				   object->position), object->rotation);
   inters.inter = object->intersect(&dir_v_c, &final,
 			    &object->position, object->value);
   inters.point = get_inter_point(&screen->eyes, dir_vector,
@@ -83,7 +84,8 @@ int		find_nearest_intersect(t_listObject *objects,
   while (++index < objects->count)
     {
       dir_v_c = apply_rotation(*dir_vector, node->object.rotation);
-      final = apply_rotation(translate(*eyes, node->object.position), node->object.rotation);
+      final = apply_rotation(inv_trans(*eyes, node->object.position),
+			     node->object.rotation);
       vars.x = node->object.intersect(&dir_v_c, &final,
 				    &node->object.position, node->object.value);
       if (vars.x < vars.y && vars.x > 0.0f

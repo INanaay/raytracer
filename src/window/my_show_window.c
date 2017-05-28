@@ -5,7 +5,7 @@
 ** Login   <flavian.gontier@epitech.net>
 **
 ** Started on  Mon Jan  2 15:22:10 2017 flavian gontier
-** Last update Sun May 28 11:55:20 2017 NANAA
+** Last update Sun May 28 12:31:17 2017 schwarzy
 */
 
 #include <stdlib.h>
@@ -37,7 +37,6 @@ void		show_window(t_screen *screen)
   sfTexture_updateFromPixels(texture, screen->framebuffer.pixels,
 			     screen->framebuffer.dimensions.x,
 			     screen->framebuffer.dimensions.y, 0, 0);
-  
   while (sfRenderWindow_isOpen(screen->window))
     {
     sfRenderWindow_drawSprite(screen->window, sprite, NULL);
