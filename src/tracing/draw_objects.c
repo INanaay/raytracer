@@ -5,7 +5,7 @@
 ** Login   <nathan.lebon@epitech.eu>
 **
 ** Started on  Fri Apr 14 15:51:23 2017 NANAA
-** Last update Sat May 27 18:07:22 2017 schwarzy
+** Last update Sun May 28 12:12:28 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -54,7 +54,8 @@ int		check_lim(float inter, t_object *obj,
   if (obj->limited)
     {
       point = get_inter_point(eyes, dir_v, inter);
-      if (point.z < -obj->lim || point.z > obj->lim)
+      if (point.z < obj->position.z - obj->lim
+	  || point.z > obj->position.z + obj->lim)
 	return (EXIT_SUCCESS);
     }
   return (EXIT_ERROR);
