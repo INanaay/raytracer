@@ -5,7 +5,7 @@
 ** Login   <anatole.zeyen@epitech.net>
 **
 ** Started on  Tue May 16 11:39:16 2017 anatole zeyen
-** Last update Sun May 28 13:26:18 2017 schwarzy
+** Last update Sun May 28 15:55:36 2017 schwarzy
 */
 
 #include "raytracer.h"
@@ -37,6 +37,7 @@ static float			shadow(sfVector3f light_v,
   while (tmp != NULL)
     {
       tmp_pos = inv_trans(tmp->object.position, inters.point);
+      set_for_rotation(&light_v, &inters.eyes, &tmp->object);
       closest = tmp->object.intersect(&light_v, &tmp_pos,
 				       &obj->position, tmp->object.value);
       if (is_same(obj, tmp->object) && closest > 0.0f && closest < 1.0f)
@@ -54,7 +55,7 @@ static t_vlight	get_vlight(t_inter inters, t_screen *screen,
 
   obj = inters.object;
   inters.point = obj->normal(inters.point, &obj->position, obj->value);
-  light.vl = get_light_vector(&screen->eyes, dir_vector,
+  light.vl = get_light_vector(&inters.eyes, &inters.dir_v,
 			      &screen->lights[index].coordinates,
 			      inters.inter);
   light.vln = get_normal_vector(light.vl);
