@@ -5,7 +5,6 @@
 ** Login   <flavian.gontier@epitech.eu@epitech.net>
 ** 
 ** Started on  Wed May 24 17:18:13 2017 flavian gontier
-** Last update Wed May 24 17:22:53 2017 flavian gontier
 */
 
 #include <unistd.h>
